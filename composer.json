@@ -1,0 +1,22 @@
+{
+    "name": "excelwebzone/form-builder-bundle",
+    "description": "This bundle provides tools to generate dynamic forms",
+    "keywords": ["form"],
+    "homepage": "https://github.com/excelwebzone/EWZFormBuilderBundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael H. Arieli",
+            "email": "excelwebzone@gmail.com",
+            "homepage": "http://excelwebzone.com/"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "2.*"
+    },
+    "autoload": {
+        "psr-0": { "EWZ\\Bundle\\FormBuilderBundle": "" }
+    },
+    "target-dir": "EWZ/Bundle/FormBuilderBundle"
+}

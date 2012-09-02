@@ -1,0 +1,24 @@
+<div class="form-toolbar">
+    <div class="loading"><img src="{{ asset('/bundles/ewzformbuilder/images/loading.gif') }}" /> {{ 'loading'|trans }}</div>
+
+    <div class="actions">
+        <a href="{{ path('ewz_form_builder_save_form') }}" class="form-action-save">{{ 'button.save'|trans }}</a> | 
+        <a href="#" class="form-action-info">{{ 'button.info'|trans }}</a> | 
+        <a href="#" class="form-action-type" data-type="head">{{ 'form_type.head'|trans }}</a> | 
+        <a href="#" class="form-action-type" data-type="text">{{ 'form_type.text'|trans }}</a> | 
+        <a href="#" class="form-action-type" data-type="textbox">{{ 'form_type.textbox'|trans }}</a> | 
+        <a href="#" class="form-action-type" data-type="textarea">{{ 'form_type.textarea'|trans }}</a> | 
+        <a href="#" class="form-action-type" data-type="dropdown">{{ 'form_type.dropdown'|trans }}</a> | 
+        <a href="#" class="form-action-type" data-type="radio">{{ 'form_type.radio'|trans }}</a> | 
+        <a href="#" class="form-action-type" data-type="checkbox">{{ 'form_type.checkbox'|trans }}</a>
+        {% if fields|length %} 
+            | <select class="form-select-type">
+                <option value="">{{ 'embed_saved_field'|trans }}</option>
+                {% for field in fields %}
+                    {% set option = field.getAttribute('text')|default(field.__toString()) %}
+                    <option value="{{ field.getName() }}" data-type="{{ field.getType() }}" data-prop="{{ field.getAttributes()|json_encode() }}">{{ '{' ~ field.getType() ~ '}' }} {{ field.getType() == 'text' ? option|slice(0, 30) : option }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    </div>
+</div>

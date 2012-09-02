@@ -1,0 +1,26 @@
+tool.required: Required
+tool.shrink: Shrink
+tool.expand: Expand
+tool.new_live: 'Move to a new line'
+tool.merge_back: 'Merge to above line'
+tool.properties: Properties
+tool.delete: Delete
+
+dialog.properties: __dialog.properties
+
+form.default_name: 'New Form'
+
+loading: Saving...
+
+button.save: Save Form
+button.info: Form Settings
+
+form_type.head: Head
+form_type.text: 'Free Text (HTML)'
+form_type.textbox: Text Box
+form_type.textarea: Text Area
+form_type.dropdown: Dropdown
+form_type.radio: Radio Button
+form_type.checkbox: Checkbox
+
+embed_saved_field: 'Embed Saved Field'

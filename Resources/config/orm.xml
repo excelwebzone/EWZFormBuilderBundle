@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="ewz_form_builder.model.form.class">EWZ\Bundle\FormBuilderBundle\Entity\Form</parameter>
+        <parameter key="ewz_form_builder.model.field.class">EWZ\Bundle\FormBuilderBundle\Entity\Field</parameter>
+        <parameter key="ewz_form_builder.model.asset.class">EWZ\Bundle\FormBuilderBundle\Entity\Asset</parameter>
+
+        <parameter key="ewz_form_builder.manager.form.default.class">EWZ\Bundle\FormBuilderBundle\Entity\FormManager</parameter>
+        <parameter key="ewz_form_builder.manager.field.default.class">EWZ\Bundle\FormBuilderBundle\Entity\FieldManager</parameter>
+        <parameter key="ewz_form_builder.manager.asset.default.class">EWZ\Bundle\FormBuilderBundle\Entity\AssetManager</parameter>
+    </parameters>
+
+    <services>
+        <service id="ewz_form_builder.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="false">
+            <argument>%ewz_form_builder.model_manager_name%</argument>
+        </service>
+
+        <service id="ewz_form_builder.manager.form.default" class="%ewz_form_builder.manager.form.default.class%">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="ewz_form_builder.entity_manager" />
+            <argument>%ewz_form_builder.model.form.class%</argument>
+        </service>
+        <service id="ewz_form_builder.manager.field.default" class="%ewz_form_builder.manager.field.default.class%">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="ewz_form_builder.entity_manager" />
+            <argument>%ewz_form_builder.model.field.class%</argument>
+        </service>
+        <service id="ewz_form_builder.manager.asset.default" class="%ewz_form_builder.manager.asset.default.class%">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="ewz_form_builder.entity_manager" />
+            <argument>%ewz_form_builder.model.asset.class%</argument>
+        </service>
+    </services>
+</container>

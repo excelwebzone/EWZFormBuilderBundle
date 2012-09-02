@@ -1,0 +1,100 @@
+<script id="formLineTmpl" type="text/html">
+    <li id="<@=id@>" data-type="<@=type@>" class="form-line <@=style@>">
+        <div class="form-line-inner">
+            <@ if (label) { @><@=label@><@ } @>
+            <div class="question-input">
+                <@=html@>
+                <@ if (error) { @>
+                    <div class="form-error-message">
+                        <@=error@>
+                        <div class="form-error-arrow">
+                            <div class="form-error-arrow-inner"></div>
+                        </div>
+                    </div>
+                <@ } @>
+                <@ if (description) { @>
+                    <div class="form-description">
+                        <div class="form-description-arrow"></div>
+                        <div class="form-description-arrow-small"></div>
+                        <div class="form-description-content"><@=description@></div>
+                    </div>
+                <@ } @>
+            </div>
+        </div>
+        {% if preview is not defined or not preview %}
+            <div class="button-container">
+                <@ if (tools) { @>
+                    <@ if (!reserve) { @>
+                        <i class="tool-item required" title="{{ 'tool.required'|trans }}"></i>
+                    <@ } @>
+                    <i class="tool-item shrink" title="{{ 'tool.shrink'|trans }}"></i>
+                    <i class="tool-item expand" title="{{ 'tool.expand'|trans }}"></i>
+                    <i class="tool-item new-line" title="{{ 'tool.new_live'|trans }}"></i>
+                    <i class="tool-item merge-line" title="{{ 'tool.merge_back'|trans }}"></i>
+                <@ } @>
+                <i class="tool-item gear" title="{{ 'tool.properties'|trans }}"></i>
+                <@ if (!reserve) { @>
+                    <i class="tool-item cross " title="{{ 'tool.delete'|trans }}"></i>
+                <@ } @>
+            </div>
+        {% endif %}
+    </li>
+</script>
+
+{% if preview is not defined or not preview %}
+    <div id="props-dialog-form" title="{{ 'dialog.properties'|trans }}"><form></form></div>
+{% endif %}
+
+<div id="form-{{ preview is defined and preview ? 'preview' : 'editor' }}">
+    <ul class="form-list form-section clearfix"></ul>
+</div>
+
+<script type="text/javascript">
+    var FormBuilder = function () {
+        function run() {
+            for (pageLoaded = true; scripts.length;) scripts.shift()();
+            scripts = null
+        }
+        var pageLoaded, scripts = [];
+        if (window.attachEvent) attachEvent("unload", run);
+        else window.addEventListener && addEventListener("load", run, true);
+        return {
+            onPageLoad: function (script) {
+                pageLoaded ? script() : scripts.push(script)
+            }
+        }
+    }();
+
+    FormBuilder.onPageLoad(function () {
+        builder.init({
+            {% if form %}
+                form: {
+                    id: {{ form.getId() }},
+                    text: '{{ form.getName()|default('form.default_name'|trans) }}',
+                    width: {{ form.getAttribute('width')|default(691) }},
+                    labelWidth: {{ form.getAttribute('labelWidth')|default(150) }},
+                    isDefault: '{{ form.isDefault() ? 'Yes' : 'No' }}'
+                },
+                fields: {
+                    {% for field in fields %}
+                        '{{ preview is defined and preview ? formView.getName() ~ '[' ~ field.getName() ~ ']' : field.getName() }}': {{ field.getAttributes()|merge(form.fields[field.getId()])|json_encode()|raw }},
+                    {% endfor %}
+                }
+            {% endif %}
+        });
+
+        {% if preview is not defined or not preview %}
+            {% for field in fields %}
+                $('.form-select-type').find('option[value={{ field.getName() }}]').attr('disabled', true);
+            {% endfor %}
+
+            resetListRules();
+        {% endif %}
+
+        {# use this function to load additional settigns #}
+        if (typeof _builderInit == 'function') _builderInit(builder);
+
+        if ($('#form-editor').length) handleEditor();
+        else handlePreview();
+    });
+</script>

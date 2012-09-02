@@ -1,0 +1,10 @@
+<link href="{{ asset('/bundles/ewzformbuilder/css/doc.css') }}" rel="stylesheet" type="text/css" />
+
+{% javascripts '@EWZFormBuilderBundle/Resources/src-js/builder.js'
+               '@EWZFormBuilderBundle/Resources/src-js/*.js'
+               '@EWZFormBuilderBundle/Resources/src-js/types/*.js'
+               filter='?yui_js'
+               output='/bundles/ewzformbuilder/js/builder.js'
+%}
+    <script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
