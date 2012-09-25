@@ -131,6 +131,10 @@ FormBuilder.prototype.getFormData = function (onlyValue) {
                 name: value.getFieldName()
             };
             $.each (value.getProperties(), function (k, v) {
+                if (v.ajax) {
+                    tmp[key][k + '.ajax'] = v.ajax;
+                }
+
                 tmp[key][k] = v.value;
             });
         }

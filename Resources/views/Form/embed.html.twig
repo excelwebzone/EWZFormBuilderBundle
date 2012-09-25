@@ -94,7 +94,10 @@
         {# use this function to load additional settigns #}
         if (typeof _builderInit == 'function') _builderInit(builder);
 
-        if ($('#form-editor').length) handleEditor();
-        else handlePreview();
+        {% if preview is defined and preview %}
+            handlePreview();
+        {% else %}
+            handleEditor();
+        {% endif %}
     });
 </script>

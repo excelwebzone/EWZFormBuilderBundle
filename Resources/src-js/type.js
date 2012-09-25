@@ -221,9 +221,11 @@ FormBuilder.Type.prototype.render = function(data) {
 
 /**
  * Returns the rendered form type.
+ *
+ * @param {stinrg} html An html string
  */
-FormBuilder.Type.prototype.reRender = function() {
-    $('#' + this.getFieldName(true)).replaceWith(this.render());
+FormBuilder.Type.prototype.reRender = function(html) {
+    $('#' + this.getFieldName(true)).replaceWith(html || this.render());
 };
 
 /**
