@@ -45,7 +45,7 @@ class FormController extends Controller
     /**
      * Previews a given form.
      *
-     * @param FormInterface $form     A FormInterface instance (required)
+     * @param FormInterface $form     A FormInterface instance (optional)
      * @param array         $assets   List of assets (field => value) (optional)
      * @param FormView      $formView A FormView instance (optional)
      *
@@ -53,11 +53,14 @@ class FormController extends Controller
      *
      * @Template("EWZFormBuilderBundle:Form:embed.html.twig")
      */
-    public function previewAction(FormInterface $form, array $assets = array(), FormView $formView = null)
+    public function previewAction(FormInterface $form = null, array $assets = array(), FormView $formView = null)
     {
         $fieldManager = $this->get('ewz_form_builder.manager.field');
 
-        $fields = $fieldManager->findFieldsBy(array('id' => $form->getFieldIds()));
+        $fields = $form
+            ? $fieldManager->findFieldsBy(array('id' => $form->getFieldIds()))
+            : array()
+        ;
 
         // remove all errors
         foreach ($fields as $key => $field) {
