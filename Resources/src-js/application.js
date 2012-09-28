@@ -35,6 +35,10 @@ function handlePreview() {
  */
 function handleEditor() {
 
+    $('#accordion-actions').accordion({
+        header: '.panel-bar'
+    });
+
     $('#form-editor').bind('click', function() {
         $('.form-line').removeClass('question-selected').removeClass('question-over');
     });

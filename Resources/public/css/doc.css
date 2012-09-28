@@ -15,30 +15,16 @@
 .form-toolbar .loading {
     display:none;
 }
-.form-toolbar .actions {
-    position:fixed;
-    top:100px;
-    right:20px;
+.form-toolbar #accordion-actions {
+    float:absolute;
+    top:20px;
+    left:20px;
     width:200px;
     z-index:6000000;
     border:1px solid #999;
     -webkit-border-radius:6px;
     -moz-border-radius:6px;
     border-radius:6px;
-}
-.panel {
-    display:inline;
-    float:left;
-    width:100%;
-    background:#ddd;
-}
-.panel:first-child {
-    -webkit-border-top-left-radius:6px;
-    -webkit-border-top-right-radius:6px;
-    -moz-border-radius-topleft:6px;
-    -moz-border-radius-topright:6px;
-    border-top-left-radius:6px;
-    border-top-right-radius:6px;
 }
 .panel-bar {
     padding:8px;
@@ -57,18 +43,10 @@
 }
 .panel-content {
     position:relative;
+    padding:0 !important;
 }
 .panel-content-inner {
     padding:5px;
-    background:#f5f5f5;
-}
-.panel:last-child .panel-content-inner:last-child {
-    -webkit-border-bottom-right-radius:6px;
-    -webkit-border-bottom-left-radius:6px;
-    -moz-border-radius-bottomright6px;
-    -moz-border-radius-bottomleft:6px;
-    border-bottom-right-radius:6px;
-    border-bottom-left-radius:6px;
 }
 .panel-content-inner>div {
     font-size:11px;
@@ -141,7 +119,7 @@
 .controls-checkbox {
     background-position:-442px 0px !important;
 }
-.controls-power_tools {
+.controls-saved_tools {
     background-position:-1443px 0px !important;
 }
 
