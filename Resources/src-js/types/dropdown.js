@@ -54,9 +54,9 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                     ['None', 'None']
                 ],
                 ajax: {
-	                url: '',
-	                type: 'POST',
-	                data: {}
+                    url: '',
+                    type: 'POST',
+                    data: {}
                 },
                 reserved: true
             },
@@ -115,7 +115,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
 
         // override to prevent recursive load
         if (!options && this.processAjaxCall_) {
-	        options = $('#field_' + this.getFieldName()).html();
+            options = $('#field_' + this.getFieldName()).html();
         }
 
         if (!options) {

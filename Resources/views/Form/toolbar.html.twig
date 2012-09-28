@@ -1,24 +1,50 @@
 <div class="form-toolbar">
-    <div class="loading"><img src="{{ asset('/bundles/ewzformbuilder/images/loading.gif') }}" /> {{ 'loading'|trans }}</div>
+    <div class="loading">
+        <img src="{{ asset('/bundles/ewzformbuilder/images/loading.gif') }}" /> {{ 'loading'|trans }}
+    </div>
 
     <div class="actions">
-        <a href="{{ path('ewz_form_builder_save_form') }}" class="form-action-save">{{ 'button.save'|trans }}</a> | 
-        <a href="#" class="form-action-info">{{ 'button.info'|trans }}</a> | 
-        <a href="#" class="form-action-type" data-type="head">{{ 'form_type.head'|trans }}</a> | 
-        <a href="#" class="form-action-type" data-type="text">{{ 'form_type.text'|trans }}</a> | 
-        <a href="#" class="form-action-type" data-type="textbox">{{ 'form_type.textbox'|trans }}</a> | 
-        <a href="#" class="form-action-type" data-type="textarea">{{ 'form_type.textarea'|trans }}</a> | 
-        <a href="#" class="form-action-type" data-type="dropdown">{{ 'form_type.dropdown'|trans }}</a> | 
-        <a href="#" class="form-action-type" data-type="radio">{{ 'form_type.radio'|trans }}</a> | 
-        <a href="#" class="form-action-type" data-type="checkbox">{{ 'form_type.checkbox'|trans }}</a>
-        {% if fields|length %} 
-            | <select class="form-select-type">
-                <option value="">{{ 'embed_saved_field'|trans }}</option>
-                {% for field in fields %}
-                    {% set option = field.getAttribute('text')|default(field.__toString()) %}
-                    <option value="{{ field.getName() }}" data-type="{{ field.getType() }}" data-prop="{{ field.getAttributes()|json_encode() }}">{{ '{' ~ field.getType() ~ '}' }} {{ field.getType() == 'text' ? option|slice(0, 30) : option }}</option>
-                {% endfor %}
-            </select>
-        {% endif %}
+	    <div class="panel">
+	        <div class="panel-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-properties" /><span>Properties</span></div>
+	        <div class="panel-content">
+	            <div class="panel-content-inner">
+	                <ul id="toolbox" class="tools">
+	                    <li class="form-action-save" href="{{ path('ewz_form_builder_save_form') }}"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-save" /><span>{{ 'button.save'|trans }}</span></li>
+	                    <li class="form-action-info"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-info" /><span>{{ 'button.info'|trans }}</span></li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="panel">
+	        <div class="panel-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-tool_box" /><span>Form Tools</span></div>
+	        <div class="panel-content">
+	            <div class="panel-content-inner">
+	                <ul id="toolbox" class="tools">
+	                    <li class="form-action-type" data-type="head"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-header" /><span>{{ 'form_type.head'|trans }}</span></li>
+	                    <li class="form-action-type" data-type="text"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-text" /><span>{{ 'form_type.text'|trans }}</span></li>
+	                    <li class="form-action-type" data-type="textbox"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-textbox" /><span>{{ 'form_type.textbox'|trans }}</span></li>
+	                    <li class="form-action-type" data-type="textarea"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-textarea" /><span>{{ 'form_type.textbox'|trans }}</span></li>
+	                    <li class="form-action-type" data-type="dropdown"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-dropdown" /><span>{{ 'form_type.dropdown'|trans }}</span></li>
+	                    <li class="form-action-type" data-type="radio"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-radio" /><span>{{ 'form_type.radio'|trans }}</span></li>
+	                    <li class="form-action-type" data-type="checkbox"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-checkbox" /><span>{{ 'form_type.checkbox'|trans }}</span></li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="panel">
+	        <div class="panel-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-power_tools" /><span>Power Tools</span></div>
+	        <div class="panel-content">
+	            <div class="panel-content-inner">
+	                <ul id="toolbox" class="tools">
+	                    {% if fields|length %} 
+	                        {% for field in fields %}
+	                            {% set option = field.getAttribute('text')|default(field.__toString()) %}
+	                            <li class="form-saved-type" data-name="{{ field.getName() }}" data-type="{{ field.getType() }}" data-prop="{{ field.getAttributes()|json_encode() }}"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-{{ field.getType() }}" /><span>{{ '{' ~ field.getType() ~ '}' }} {{ field.getType() == 'text' ? option|slice(0, 30) : option }}</span></li>
+	                        {% endfor %}
+	                    {% endif %}
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
     </div>
 </div>

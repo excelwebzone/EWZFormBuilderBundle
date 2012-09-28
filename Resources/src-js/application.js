@@ -67,7 +67,6 @@ function handleEditor() {
         var $this = $(this);
 
         // disable sorting and toolbar actions
-        $('.form-select-type').val('').find('eq(0)').attr('selected', true);
         $('.form-list').sortable('disable');
         $('.form-toolbar .actions').hide();
         $('.form-toolbar .loading').show();
@@ -99,20 +98,20 @@ function handleEditor() {
                                 value.text = value.text.substring(0, 30);
                             }
 
-                            var tmpl = Utils.tmpl('<option value="<@=value@>" data-type="<@=type@>" data-prop="<@=prop@>" disabled="disabled"><@=text@></option>', {
+                            var tmpl = Utils.tmpl('<li class="form-saved-type" data-name="<@=value@>" data-type="<@=type@>" data-prop="<@=prop@>"><img src="/bundles/ewzformbuilder/images/blank.gif" class="controls-{{ field.getType() }}" /><span><@=text@></span></li>', {
                                 value : value.name,
                                 type  : value.type,
                                 prop  : value,
                                 text  : '{' + value.type + '} ' + value.text
                             });
 
-                            var option = $('.form-select-type').find('option[value=' + value.name + ']');
-                            if (option.length) {
-                                option.data('prop', value);
-                                option.text('{' + value.type + '} ' + value.text);
-                                option.attr('disabled', true);
+                            var saved = $('.form-saved-type[data-name=' + value.name + ']');
+                            if (saved.length) {
+                                saved.data('prop', value);
+                                saved.text('{' + value.type + '} ' + value.text);
+                                saved.hide;
                             }
-                            else $('.form-select-type').append($(tmpl));
+                            else $('.form-saved-type').append($(tmpl));
                         });
 
                         // enable sorting and toolbar actions
@@ -159,23 +158,17 @@ function handleEditor() {
         focusItem(elem);
     });
 
-    $('.form-select-type').bind('change', function () {
+    $('.form-save-type').bind('click', function () {
         // ignore on saving
         if (saving) return;
 
-        // ignore on empty value
-        if (!$(this).val()) return;
-
-        var selected = $(this).find('option:selected');
-        selected.attr('disabled', true);
-
         // ignore if already been added to form
-        if (builder.getType(selected.val())) return;
+        if (builder.getType($(this).data('name'))) return;
 
-        var type = selected.data('type');
+        var type = $(this).data('type');
         var elem = eval('new FormBuilder.' + type.charAt(0).toUpperCase() + type.slice(1) + 'Type()');
-        elem.load(selected.data('prop') || {});
-        elem.setFieldName(selected.val());
+        elem.load($(this).data('prop') || {});
+        elem.setFieldName($(this).data('name'));
 
         // add new type
         builder.addType(elem);
@@ -317,7 +310,7 @@ function resetListRules() {
         builder.removeType(row.attr('id'));
 
         // re-activate in saved fields list
-        $('.form-select-type').find('option[value=' + row.attr('id') + ']').attr('disabled', false);
+        $('.form-save-type[data-name=' + row.attr('id') + ']').show();
 
         Utils.poof($(this));
         row.fadeOut(function () {
