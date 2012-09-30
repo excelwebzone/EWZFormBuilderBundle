@@ -112,7 +112,7 @@ function handleEditor() {
                             var saved = $('.form-saved-type[data-name="' + value.name + '"]');
                             if (saved.length) {
                                 saved.data('prop', value);
-                                saved.text('{' + value.type + '} ' + value.text);
+                                saved.text(value.text);
                                 saved.hide();
                             }
                             else $('.form-saved-type').append($(tmpl));

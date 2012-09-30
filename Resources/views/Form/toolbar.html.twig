@@ -37,7 +37,7 @@
                     {% if fields|length %} 
                         {% for field in fields %}
                             {% set option = field.getAttribute('text')|default(field.__toString()) %}
-                            <li class="form-saved-type" data-name="{{ field.getName() }}" data-type="{{ field.getType() }}" data-prop="{{ field.getAttributes()|json_encode() }}"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-{{ field.getType() }}" /><span>{{ '{' ~ field.getType() ~ '}' }} {{ field.getType() == 'text' ? option|slice(0, 30) : option }}</span></li>
+                            <li class="form-saved-type" data-name="{{ field.getName() }}" data-type="{{ field.getType() }}" data-prop="{{ field.getAttributes()|json_encode() }}"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-{{ field.getType() }}" /><span>{{ field.getType() == 'text' ? option|slice(0, 30) : option }}</span></li>
                         {% endfor %}
                     {% endif %}
                 </ul>
