@@ -109,11 +109,11 @@ function handleEditor() {
                                 text  : '{' + value.type + '} ' + value.text
                             });
 
-                            var saved = $('.form-saved-type[data-name=' + value.name + ']');
+                            var saved = $('.form-saved-type[data-name="' + value.name + '"]');
                             if (saved.length) {
                                 saved.data('prop', value);
                                 saved.text('{' + value.type + '} ' + value.text);
-                                saved.hide;
+                                saved.hide();
                             }
                             else $('.form-saved-type').append($(tmpl));
                         });
@@ -162,7 +162,7 @@ function handleEditor() {
         focusItem(elem);
     });
 
-    $('.form-save-type').bind('click', function () {
+    $('.form-saved-type').bind('click', function () {
         // ignore on saving
         if (saving) return;
 
@@ -186,6 +186,9 @@ function handleEditor() {
 
         // focus
         focusItem(elem);
+
+        // hide from save fields
+        $(this).hide();
     });
 
     $('#props-dialog-form').dialog({
@@ -314,7 +317,7 @@ function resetListRules() {
         builder.removeType(row.attr('id'));
 
         // re-activate in saved fields list
-        $('.form-save-type[data-name=' + row.attr('id') + ']').show();
+        $('.form-saved-type[data-name="' + row.attr('id') + '"]').show();
 
         Utils.poof($(this));
         row.fadeOut(function () {

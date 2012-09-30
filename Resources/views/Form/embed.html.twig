@@ -85,7 +85,7 @@
 
         {% if preview is not defined or not preview %}
             {% for field in fields %}
-                $('.form-select-type[data-name={{ field.getName() }}]').hide();
+                $('.form-saved-type[data-name="{{ field.getName() }}"]').hide();
             {% endfor %}
 
             resetListRules();
