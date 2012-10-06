@@ -232,7 +232,7 @@ class FormController extends Controller
             // add cell to form
             $cell = $cellManager->createCell($form, $field);
             $cell->setAttributes((array)$customAttributes);
-            $cellManager->save($cell);
+            $cellManager->saveCell($cell);
 
             $form->getRecord()->add($cell);
         }
