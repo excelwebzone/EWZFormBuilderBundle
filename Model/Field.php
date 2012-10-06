@@ -114,7 +114,7 @@ abstract class Field implements FieldInterface
      */
     public function getAttribute($key, $default = null)
     {
-        return $this->attributes->containsKey($key) ? $this->attributes->get($key) : $default;
+        return $this->getAttributes()->containsKey($key) ? $this->getAttributes()->get($key) : $default;
     }
 
     /**
@@ -123,7 +123,7 @@ abstract class Field implements FieldInterface
      */
     public function setAttribute($key, $value)
     {
-        $this->attributes->set($key, $value);
+        $this->getAttributes()->set($key, $value);
     }
 
     /**
@@ -131,7 +131,7 @@ abstract class Field implements FieldInterface
      */
     public function removeAttribute($key)
     {
-        $this->attributes->remove($key);
+        $this->getAttributes()->remove($key);
     }
 
     /**
@@ -147,10 +147,10 @@ abstract class Field implements FieldInterface
      */
     public function setAttributes(array $attributes = array())
     {
-        $this->attributes->clear();
+        $this->getAttributes()->clear();
 
         foreach ($attributes as $key => $value) {
-            $this->attributes->set($key, $value);
+            $this->getAttributes()->set($key, $value);
         }
     }
 
