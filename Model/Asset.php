@@ -17,7 +17,7 @@ abstract class Asset implements AssetInterface
     protected $id;
 
     /**
-     * Asset name
+     * Asset field
      *
      * @var FieldInterface
      */
@@ -60,7 +60,7 @@ abstract class Asset implements AssetInterface
     }
 
     /**
-     * @return string
+     * @return FieldInterface
      */
     public function getField()
     {

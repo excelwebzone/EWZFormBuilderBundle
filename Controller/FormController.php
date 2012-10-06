@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormView;
 
 use EWZ\Bundle\FormBuilderBundle\Model\FormInterface;
 use EWZ\Bundle\FormBuilderBundle\Model\FieldInterface;
+use EWZ\Bundle\FormBuilderBundle\Model\CellInterface;
 use EWZ\Bundle\FormBuilderBundle\Model\Field;
 
 class FormController extends Controller
@@ -29,16 +30,8 @@ class FormController extends Controller
      */
     public function embedAction(FormInterface $form = null)
     {
-        $fieldManager = $this->get('ewz_form_builder.manager.field');
-
-        $fields = $form && count($form->getFieldIds())
-            ? $fieldManager->findFieldsBy(array('id' => $form->getFieldIds()))
-            : array()
-        ;
-
         return array(
-            'form'   => $form,
-            'fields' => $fields,
+            'form' => $form,
         );
     }
 
@@ -55,15 +48,9 @@ class FormController extends Controller
      */
     public function previewAction(FormInterface $form = null, array $assets = array(), FormView $formView = null)
     {
-        $fieldManager = $this->get('ewz_form_builder.manager.field');
-
-        $fields = $form
-            ? $fieldManager->findFieldsBy(array('id' => $form->getFieldIds()))
-            : array()
-        ;
-
-        // remove all errors
+        $fields = $form->getFields();
         foreach ($fields as $key => $field) {
+            // remove error
             $fields[$key]->removeAttribute('error');
         }
 
@@ -138,6 +125,7 @@ class FormController extends Controller
     {
         $formManager  = $this->get('ewz_form_builder.manager.form');
         $fieldManager = $this->get('ewz_form_builder.manager.field');
+        $cellManager = $this->get('ewz_form_builder.manager.cell');
 
         // get form properties
         $properties = (object)$this->get('request')->request->get('properties');
@@ -171,7 +159,7 @@ class FormController extends Controller
         $form->setDefault($formProperties->isDefault == 'Yes');
 
         // clear all fields
-        $form->resetFields();
+        $form->getRecord()->clear();
 
         // save form
         $formManager->saveForm($form);
@@ -241,8 +229,12 @@ class FormController extends Controller
             // save form
             $fieldManager->saveField($field);
 
-            // add field to form
-            $form->addField($field->getId(), $customAttributes);
+            // add cell to form
+            $cell = $cellManager->createCell($form, $field);
+            $cell->setAttributes((array)$customAttributes);
+            $cellManager->save($cell);
+
+            $form->getRecord()->add($cell);
         }
 
         // re-save form (after all fields have been saved)

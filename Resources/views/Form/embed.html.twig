@@ -77,7 +77,7 @@
                 },
                 fields: {
                     {% for field in fields %}
-                        '{{ preview is defined and preview ? formView.getName() ~ '[' ~ field.getName() ~ ']' : field.getName() }}': {{ field.getAttributes()|merge(form.fields[field.getId()])|json_encode()|raw }},
+                        '{{ preview is defined and preview ? formView.getName() ~ '[' ~ field.getName() ~ ']' : field.getName() }}': {{ field.getAttributes()|json_encode()|raw }},
                     {% endfor %}
                 }
             {% endif %}

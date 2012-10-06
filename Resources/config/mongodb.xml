@@ -7,10 +7,12 @@
     <parameters>
         <parameter key="ewz_form_builder.model.form.class">EWZ\Bundle\FormBuilderBundle\Document\Form</parameter>
         <parameter key="ewz_form_builder.model.field.class">EWZ\Bundle\FormBuilderBundle\Document\Field</parameter>
+        <parameter key="ewz_form_builder.model.cell.class">EWZ\Bundle\FormBuilderBundle\Document\Cell</parameter>
         <parameter key="ewz_form_builder.model.asset.class">EWZ\Bundle\FormBuilderBundle\Document\Asset</parameter>
 
         <parameter key="ewz_form_builder.manager.form.default.class">EWZ\Bundle\FormBuilderBundle\Document\FormManager</parameter>
         <parameter key="ewz_form_builder.manager.field.default.class">EWZ\Bundle\FormBuilderBundle\Document\FieldManager</parameter>
+        <parameter key="ewz_form_builder.manager.cell.default.class">EWZ\Bundle\FormBuilderBundle\Document\CellManager</parameter>
         <parameter key="ewz_form_builder.manager.asset.default.class">EWZ\Bundle\FormBuilderBundle\Document\AssetManager</parameter>
     </parameters>
 
@@ -24,6 +26,11 @@
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="ewz_form_builder.document_manager" />
             <argument>%ewz_form_builder.model.field.class%</argument>
+        </service>
+        <service id="ewz_form_builder.manager.cell.default" class="%ewz_form_builder.manager.cell.default.class%">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="ewz_form_builder.document_manager" />
+            <argument>%ewz_form_builder.model.cell.class%</argument>
         </service>
         <service id="ewz_form_builder.manager.asset.default" class="%ewz_form_builder.manager.asset.default.class%">
             <argument type="service" id="event_dispatcher" />

@@ -4,12 +4,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Form" collection="ewz_form_builder_from" customId="true">
+    <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Cell" collection="ewz_form_builder_cell" customId="true">
         <field name="id" type="string" id="true" strategy="NONE" />
-        <field name="name" fieldName="name" type="string" />
         <field name="attributes" fieldName="attributes" type="collection" />
-        <field name="is_default" fieldName="is_default" type="boolean" />
         <field name="date_created" fieldName="date_created" type="date" />
-        <field name="last_modified" fieldName="last_modified" type="date" />
     </mapped-superclass>
-</doctrine-mapping>
+</doctrine-mongo-mapping>

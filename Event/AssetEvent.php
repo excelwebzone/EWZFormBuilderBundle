@@ -28,7 +28,7 @@ class AssetEvent extends Event
      *
      * @return AssetInterface
      */
-    public function getField()
+    public function getAsset()
     {
         return $this->asset;
     }

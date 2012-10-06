@@ -31,11 +31,11 @@ abstract class Form implements FormInterface
     protected $attributes = array();
 
     /**
-     * List of fields
+     * List of cells
      *
      * @var array
      */
-    protected $fields = array();
+    protected $record = array();
 
     /**
      * Whether or not the form is set as default
@@ -91,12 +91,13 @@ abstract class Form implements FormInterface
 
     /**
      * @param string $key
+     * @param string $default
      *
      * @return mix
      */
-    public function getAttribute($key)
+    public function getAttribute($key, $default = null)
     {
-        return isset($this->attributes[$key]) ? $this->attributes[$key] : null;
+        return $this->attributes->containsKey($key) ? $this->attributes->get($key) : null;
     }
 
     /**
@@ -104,7 +105,7 @@ abstract class Form implements FormInterface
      */
     public function getAttributes()
     {
-        return $this->attributes ?: $this->attributes = array();
+        return $this->attributes ?: $this->attributes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -112,72 +113,43 @@ abstract class Form implements FormInterface
      */
     public function setAttributes(array $attributes = array())
     {
-        $this->attributes = $attributes;
+        $this->attributes->clear();
+
+        foreach ($attributes as $key => $value) {
+            $this->attributes->set($key, $value);
+        }
     }
 
     /**
-     * Gets the fields belongs to the form.
+     * Gets the form record (list of cells).
+     *
+     * @return array
+     */
+    public function getRecord()
+    {
+        return $this->record ?: $this->record = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Gets the form fields (merge field attributers with cell's).
      *
      * @return array
      */
     public function getFields()
     {
-        return $this->fields ?: $this->fields = array();
-    }
+        $fields = array();
 
-    /**
-     * Gets the id of the fields which belong to the form.
-     *
-     * @return array
-     */
-    public function getFieldIds()
-    {
-        return array_keys($this->getFields());
-    }
+        foreach ($this->getRecord() as $key => $cell) {
+            $field = $cell->getField();
 
-    /**
-     * Indicates whether the form contains a specified field or not.
-     *
-     * @param integer $id Id of the field
-     *
-     * @return Boolean
-     */
-    public function hasField($id)
-    {
-        return in_array($id, $this->getFieldIds());
-    }
+            foreach ($cell->getAttributes() as $key => $value) {
+                $field->setAttribute($key, $value);
+            }
 
-    /**
-     * Add a field to the form fields.
-     *
-     * @param integer $id
-     * @param array   $values
-     */
-    public function addField($id, array $values = array())
-    {
-        if (!$this->hasField($id)) {
-            $this->fields[$id] = $values;
+            $fields[$key] = $field;
         }
-    }
 
-    /**
-     * Remove a field from the form fields.
-     *
-     * @param integer $id
-     */
-    public function removeField($id)
-    {
-        if (!$this->hasField($id)) {
-            unset($this->fields[$id]);
-        }
-    }
-
-    /**
-     * Rest fields list.
-     */
-    public function resetFields()
-    {
-        $this->fields = array();
+        return $fields;
     }
 
     /**

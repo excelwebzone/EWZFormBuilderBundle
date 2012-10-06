@@ -3,7 +3,7 @@
 namespace EWZ\Bundle\FormBuilderBundle\Model;
 
 /**
- * Any asset to be used by EWZ\Bundle\FormBuilderBundle must implement this interface.
+ * Any Asset model must implement this interface.
  */
 interface AssetInterface
 {

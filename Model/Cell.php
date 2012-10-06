@@ -5,18 +5,10 @@ namespace EWZ\Bundle\FormBuilderBundle\Model;
 use DateTime;
 
 /**
- * Storage agnostic field object.
+ * Storage agnostic cell object.
  */
-abstract class Field implements FieldInterface
+abstract class Cell implements CellInterface
 {
-    const TYPE_HEAD     = 'head';
-    const TYPE_TEXT     = 'text';
-    const TYPE_TEXTBOX  = 'textbox';
-    const TYPE_TEXTAREA = 'textarea';
-    const TYPE_DROPDOWN = 'dropdown';
-    const TYPE_RADIO    = 'radio';
-    const TYPE_CHECKBOX = 'checkbox';
-
     /**
      * Field id
      *
@@ -25,21 +17,21 @@ abstract class Field implements FieldInterface
     protected $id;
 
     /**
-     * Field name
+     * Form
      *
-     * @var string
+     * @var FormInterface
      */
-    protected $name;
+    protected $form;
 
     /**
-     * Field type
+     * Field
      *
-     * @var string
+     * @var FieldInterface
      */
-    protected $type;
+    protected $field;
 
     /**
-     * Field attributes
+     * Custom / additional field attributes
      *
      * @var array
      */
@@ -50,20 +42,9 @@ abstract class Field implements FieldInterface
      */
     protected $date_created;
 
-    /**
-     * @var DateTime
-     */
-    protected $last_modified;
-
     public function __construct()
     {
         $this->date_created  = new DateTime();
-        $this->last_modified = new DateTime();
-    }
-
-    public function __toString()
-    {
-        return $this->getName();
     }
 
     /**
@@ -75,35 +56,35 @@ abstract class Field implements FieldInterface
     }
 
     /**
-     * @return string
+     * @return FormInterface
      */
-    public function getName()
+    public function getForm()
     {
-        return $this->name;
+        return $this->form;
     }
 
     /**
-     * @param string $name
+     * @param FormInterface $form
      */
-    public function setName($name)
+    public function setForm(FormInterface $form)
     {
-        $this->name = $name;
+        $this->form = $field;
     }
 
     /**
-     * @return string
+     * @return FieldInterface
      */
-    public function getType()
+    public function getField()
     {
-        return $this->type;
+        return $this->field;
     }
 
     /**
-     * @param string $type
+     * @param FieldInterface $field
      */
-    public function setType($type)
+    public function setField(FieldInterface $field)
     {
-        $this->type = $type;
+        $this->field = $field;
     }
 
     /**
@@ -168,21 +149,5 @@ abstract class Field implements FieldInterface
     public function setDateCreated(DateTime $dateCreated)
     {
         $this->date_created = $dateCreated;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getLastModified()
-    {
-        return $this->last_modified;
-    }
-
-    /**
-     * @param DateTime $lastModified
-     */
-    public function setLastModified(DateTime $lastModified)
-    {
-        $this->last_modified = $lastModified;
     }
 }

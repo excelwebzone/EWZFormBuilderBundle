@@ -44,12 +44,14 @@ class EWZFormBuilderExtension extends Extension
 
         $container->setParameter('ewz_form_builder.model.form.class', $config['class']['model']['form']);
         $container->setParameter('ewz_form_builder.model.field.class', $config['class']['model']['field']);
+        $container->setParameter('ewz_form_builder.model.cell.class', $config['class']['model']['cell']);
         $container->setParameter('ewz_form_builder.model.asset.class', $config['class']['model']['asset']);
 
         $container->setParameter('ewz_form_builder.form.form_type.class', $config['class']['form']['form_type']);
 
         $container->setAlias('ewz_form_builder.manager.form', $config['service']['manager']['form']);
         $container->setAlias('ewz_form_builder.manager.field', $config['service']['manager']['field']);
+        $container->setAlias('ewz_form_builder.manager.cell', $config['service']['manager']['cell']);
         $container->setAlias('ewz_form_builder.manager.asset', $config['service']['manager']['asset']);
     }
 }

@@ -3,19 +3,19 @@
 namespace EWZ\Bundle\FormBuilderBundle\Model;
 
 /**
- * Any Field model must implement this interface.
+ * Any Cell model must implement this interface.
  */
-interface FieldInterface
+interface CellInterface
 {
     public function getId();
 
-    public function getName();
+    public function getForm();
 
-    public function setName($name);
+    public function setForm(FormInterface $form);
 
-    public function getType();
+    public function getField();
 
-    public function setType($type);
+    public function setField(FieldInterface $field);
 
     public function getAttribute($key, $default = null);
 
@@ -28,6 +28,4 @@ interface FieldInterface
     public function setAttributes(array $attributes = array());
 
     public function getDateCreated();
-
-    public function getLastModified();
 }

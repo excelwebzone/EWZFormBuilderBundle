@@ -3,7 +3,7 @@
 namespace EWZ\Bundle\FormBuilderBundle\Model;
 
 /**
- * Binds a fields to form, using a unique, arbitrary id.
+ * Any Form model must implement this interface.
  */
 interface FormInterface
 {
@@ -13,11 +13,13 @@ interface FormInterface
 
     public function setName($name);
 
-    public function getAttribute($key);
+    public function getAttribute($key, $default = null);
 
     public function getAttributes();
 
     public function setAttributes(array $attributes = array());
+
+    public function getRecord();
 
     public function getFields();
 
