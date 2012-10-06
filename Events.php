@@ -14,7 +14,7 @@ final class Events
      *
      * @var string
      */
-    const FORM_PRE_PERSIST = 'ewz_form_builder.asset.pre_persist';
+    const FORM_PRE_PERSIST = 'ewz_form_builder.form.pre_persist';
 
     /**
      * The POST_PERSIST event occurs after the persistence backend
@@ -27,7 +27,7 @@ final class Events
      *
      * @var string
      */
-    const FORM_POST_PERSIST = 'ewz_form_builder.asset.post_persist';
+    const FORM_POST_PERSIST = 'ewz_form_builder.form.post_persist';
 
     /**
      * The CREATE event occurs when the manager is asked to create
@@ -38,7 +38,7 @@ final class Events
      *
      * @var string
      */
-    const FORM_CREATE = 'ewz_form_builder.asset.create';
+    const FORM_CREATE = 'ewz_form_builder.form.create';
 
     /**
      * The PRE_PERSIST event occurs prior to the persistence backend
@@ -50,7 +50,7 @@ final class Events
      *
      * @var string
      */
-    const FIELD_PRE_PERSIST = 'ewz_form_builder.asset.pre_persist';
+    const FIELD_PRE_PERSIST = 'ewz_form_builder.field.pre_persist';
 
     /**
      * The POST_PERSIST event occurs after the persistence backend
@@ -63,7 +63,7 @@ final class Events
      *
      * @var string
      */
-    const FIELD_POST_PERSIST = 'ewz_form_builder.asset.post_persist';
+    const FIELD_POST_PERSIST = 'ewz_form_builder.field.post_persist';
 
     /**
      * The CREATE event occurs when the manager is asked to create
@@ -74,7 +74,7 @@ final class Events
      *
      * @var string
      */
-    const FIELD_CREATE = 'ewz_form_builder.asset.create';
+    const FIELD_CREATE = 'ewz_form_builder.field.create';
 
     /**
      * The PRE_PERSIST event occurs prior to the persistence backend
@@ -86,7 +86,7 @@ final class Events
      *
      * @var string
      */
-    const CELL_PRE_PERSIST = 'ewz_form_builder.asset.pre_persist';
+    const CELL_PRE_PERSIST = 'ewz_form_builder.cell.pre_persist';
 
     /**
      * The POST_PERSIST event occurs after the persistence backend
@@ -99,7 +99,7 @@ final class Events
      *
      * @var string
      */
-    const CELL_POST_PERSIST = 'ewz_form_builder.asset.post_persist';
+    const CELL_POST_PERSIST = 'ewz_form_builder.cell.post_persist';
 
     /**
      * The CREATE event occurs when the manager is asked to create
@@ -110,7 +110,7 @@ final class Events
      *
      * @var string
      */
-    const CELL_CREATE = 'ewz_form_builder.asset.create';
+    const CELL_CREATE = 'ewz_form_builder.cell.create';
 
     /**
      * The PRE_PERSIST event occurs prior to the persistence backend
