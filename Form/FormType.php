@@ -59,57 +59,55 @@ class FormType extends AbstractType
             'data' => $this->form->getId(),
         ));
 
-        foreach ($this->form->getFields() as $fieldId => $attributes) {
-            if ($field = $this->container->get('ewz_form_builder.manager.field')->findFieldById($fieldId)) {
-                $multiple = $expanded = false;
+        foreach ($this->form->getFields() as $field) {
+            $multiple = $expanded = false;
 
-                $required = strtolower($field->getAttribute('required')) == 'yes';
+            $required = strtolower($field->getAttribute('required')) == 'yes';
 
-                switch ($field->getType()) {
-                    case Field::TYPE_HEAD:
-                    case Field::TYPE_TEXT:
-                        // do nothing
-                        break;
+            switch ($field->getType()) {
+                case Field::TYPE_HEAD:
+                case Field::TYPE_TEXT:
+                    // do nothing
+                    break;
 
-                    case Field::TYPE_TEXTBOX:
-                        $builder->add($field->getName(), null, array(
-                            'label'    => $field->getAttribute('text'),
-                            'required' => $required,
-                        ));
+                case Field::TYPE_TEXTBOX:
+                    $builder->add($field->getName(), null, array(
+                        'label'    => $field->getAttribute('text'),
+                        'required' => $required,
+                    ));
 
-                        break;
+                    break;
 
-                    case Field::TYPE_TEXTAREA:
-                        $builder->add($field->getName(), 'textarea', array(
-                            'label'    => $field->getAttribute('text'),
-                            'required' => $required,
-                        ));
+                case Field::TYPE_TEXTAREA:
+                    $builder->add($field->getName(), 'textarea', array(
+                        'label'    => $field->getAttribute('text'),
+                        'required' => $required,
+                    ));
 
-                        break;
+                    break;
 
-                    case Field::TYPE_CHECKBOX:
-                        $multiple = true;
+                case Field::TYPE_CHECKBOX:
+                    $multiple = true;
 
-                    case Field::TYPE_RADIO:
-                        $expanded = true;
+                case Field::TYPE_RADIO:
+                    $expanded = true;
 
-                    case Field::TYPE_DROPDOWN:
-                        $options = array();
-                        foreach (explode('|', $field->getAttribute('options')) as $option) {
-                            $options[$option] = $option;
-                        }
+                case Field::TYPE_DROPDOWN:
+                    $options = array();
+                    foreach (explode('|', $field->getAttribute('options')) as $option) {
+                        $options[$option] = $option;
+                    }
 
-                        $builder->add($field->getName(), 'choice', array(
-                            'label'    => $field->getAttribute('text'),
-                            'data'     => array($field->getAttribute('selected')),
-                            'choices'  => $options,
-                            'multiple' => $multiple ?: false,
-                            'expanded' => $expanded ?: false,
-                            'required' => $required,
-                        ));
+                    $builder->add($field->getName(), 'choice', array(
+                        'label'    => $field->getAttribute('text'),
+                        'data'     => array($field->getAttribute('selected')),
+                        'choices'  => $options,
+                        'multiple' => $multiple ?: false,
+                        'expanded' => $expanded ?: false,
+                        'required' => $required,
+                    ));
 
-                        break;
-                }
+                    break;
             }
         }
     }
@@ -120,26 +118,24 @@ class FormType extends AbstractType
             'form_id' => null,
         );
 
-        foreach ($this->form->getFields() as $fieldId => $attributes) {
-            if ($field = $this->container->get('ewz_form_builder.manager.field')->findFieldById($fieldId)) {
-                switch ($field->getType()) {
-                    case Field::TYPE_HEAD:
-                    case Field::TYPE_TEXT:
-                        break;
+        foreach ($this->form->getFields() as $field) {
+            switch ($field->getType()) {
+                case Field::TYPE_HEAD:
+                case Field::TYPE_TEXT:
+                    break;
 
-                    case Field::TYPE_TEXTBOX:
-                    case Field::TYPE_TEXTAREA:
-                    case Field::TYPE_CHECKBOX:
-                    case Field::TYPE_RADIO:
-                    case Field::TYPE_DROPDOWN:
-                    default:
-                        $options[$field->getName()] = null;
+                case Field::TYPE_TEXTBOX:
+                case Field::TYPE_TEXTAREA:
+                case Field::TYPE_CHECKBOX:
+                case Field::TYPE_RADIO:
+                case Field::TYPE_DROPDOWN:
+                default:
+                    $options[$field->getName()] = null;
 
-                        // right now we only support required validation
-                        if (strtolower($field->getAttribute('required')) == 'yes') {
-                            $options[$field->getName()] = new Assert\NotBlank();
-                        }
-                }
+                    // right now we only support required validation
+                    if (strtolower($field->getAttribute('required')) == 'yes') {
+                        $options[$field->getName()] = new Assert\NotBlank();
+                    }
             }
         }
 
