@@ -76,7 +76,7 @@
                     isDefault: '{{ form.isDefault() ? 'Yes' : 'No' }}'
                 },
                 fields: {
-                    {% for field in fields %}
+                    {% for field in form.getFields() %}
                         '{{ preview is defined and preview ? formView.getName() ~ '[' ~ field.getName() ~ ']' : field.getName() }}': {{ field.getAttributes()|json_encode()|raw }},
                     {% endfor %}
                 }
@@ -84,9 +84,11 @@
         });
 
         {% if preview is not defined or not preview %}
-            {% for field in fields %}
-                $('.form-saved-type[data-name="{{ field.getName() }}"]').hide();
-            {% endfor %}
+            {% if form %}
+                {% for field in form.getFields() %}
+                    $('.form-saved-type[data-name="{{ field.getName() }}"]').hide();
+                {% endfor %}
+            {% endif %}
 
             resetListRules();
         {% endif %}
