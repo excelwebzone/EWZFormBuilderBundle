@@ -32,7 +32,7 @@ abstract class CellManager implements CellManagerInterface
         $cell->setField($field);
 
         $event = new CellEvent($cell);
-        $this->dispatcher->dispatch(Events::ASSET_CREATE, $event);
+        $this->dispatcher->dispatch(Events::CELL_CREATE, $event);
 
         return $cell;
     }
@@ -43,12 +43,12 @@ abstract class CellManager implements CellManagerInterface
     public function saveCell(CellInterface $cell)
     {
         $event = new CellEvent($cell);
-        $this->dispatcher->dispatch(Events::ASSET_PRE_PERSIST, $event);
+        $this->dispatcher->dispatch(Events::CELL_PRE_PERSIST, $event);
 
         $this->doSaveCell($cell);
 
         $event = new CellEvent($cell);
-        $this->dispatcher->dispatch(Events::ASSET_POST_PERSIST, $event);
+        $this->dispatcher->dispatch(Events::CELL_POST_PERSIST, $event);
     }
 
     /**
