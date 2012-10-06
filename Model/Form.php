@@ -139,14 +139,14 @@ abstract class Form implements FormInterface
     {
         $fields = array();
 
-        foreach ($this->getRecord() as $key => $cell) {
+        foreach ($this->getRecord() as $cell) {
             $field = $cell->getField();
 
             foreach ($cell->getAttributes() as $key => $value) {
                 $field->setAttribute($key, $value);
             }
 
-            $fields[$key] = $field;
+            $fields[] = $field;
         }
 
         return $fields;
