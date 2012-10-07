@@ -65,7 +65,7 @@ class CellManager extends BaseCellManager
     /**
      * {@inheritDoc}
      */
-    protected function deleteCell(CellInterface $cell)
+    public function deleteCell(CellInterface $cell)
     {
         $this->dm->remove($cell);
         $this->dm->flush();
