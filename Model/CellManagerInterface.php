@@ -46,6 +46,13 @@ interface CellManagerInterface
     public function saveCell(CellInterface $cell);
 
     /**
+     * Deletes a cell.
+     *
+     * @param CellInterface $cell
+     */
+    public function deleteCell(CellInterface $cell);
+
+    /**
      * Checks if the cell was already persisted before, or if it's a new one.
      *
      * @param CellInterface $cell

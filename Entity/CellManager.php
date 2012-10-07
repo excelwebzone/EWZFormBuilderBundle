@@ -65,6 +65,15 @@ class CellManager extends BaseCellManager
     /**
      * {@inheritDoc}
      */
+    protected function deleteCell(CellInterface $cell)
+    {
+        $this->em->remove($cell);
+        $this->em->flush();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function isNewCell(CellInterface $cell)
     {
         return !$this->em->getUnitOfWork()->isInIdentityMap($cell);
