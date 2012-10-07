@@ -97,7 +97,7 @@ abstract class Form implements FormInterface
      */
     public function getAttribute($key, $default = null)
     {
-        return $this->getAttributes()->containsKey($key) ? $this->getAttributes()->get($key) : null;
+        return isset($this->attributes[$key]) ? $this->attributes[$key] : $default;
     }
 
     /**
@@ -105,7 +105,7 @@ abstract class Form implements FormInterface
      */
     public function getAttributes()
     {
-        return $this->attributes ?: $this->attributes = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->attributes ?: $this->attributes = array();
     }
 
     /**
@@ -113,11 +113,7 @@ abstract class Form implements FormInterface
      */
     public function setAttributes(array $attributes = array())
     {
-        $this->getAttributes()->clear();
-
-        foreach ($attributes as $key => $value) {
-            $this->getAttributes()->set($key, $value);
-        }
+        $this->attributes = $attributes;
     }
 
     /**

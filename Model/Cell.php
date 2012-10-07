@@ -95,7 +95,7 @@ abstract class Cell implements CellInterface
      */
     public function getAttribute($key, $default = null)
     {
-        return $this->getAttributes()->containsKey($key) ? $this->getAttributes()->get($key) : $default;
+        return isset($this->attributes[$key]) ? $this->attributes[$key] : $default;
     }
 
     /**
@@ -104,7 +104,7 @@ abstract class Cell implements CellInterface
      */
     public function setAttribute($key, $value)
     {
-        $this->getAttributes()->set($key, $value);
+        $this->attributes[$key] = $value;
     }
 
     /**
@@ -112,7 +112,9 @@ abstract class Cell implements CellInterface
      */
     public function removeAttribute($key)
     {
-        $this->getAttributes()->remove($key);
+        if (isset($this->attributes[$key])) {
+            unset($this->attributes[$key]);
+        }
     }
 
     /**
@@ -120,7 +122,7 @@ abstract class Cell implements CellInterface
      */
     public function getAttributes()
     {
-        return $this->attributes ?: $this->attributes = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->attributes ?: $this->attributes = array();
     }
 
     /**
@@ -128,11 +130,7 @@ abstract class Cell implements CellInterface
      */
     public function setAttributes(array $attributes = array())
     {
-        $this->getAttributes()->clear();
-
-        foreach ($attributes as $key => $value) {
-            $this->getAttributes()->set($key, $value);
-        }
+        $this->attributes = $attributes;
     }
 
     /**
