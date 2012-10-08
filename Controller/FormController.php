@@ -48,7 +48,7 @@ class FormController extends Controller
      */
     public function previewAction(FormInterface $form = null, array $assets = array(), FormView $formView = null)
     {
-        $fields = $form->getFields();
+        $fields = $form ? $form->getFields() : array();
         foreach ($fields as $key => $field) {
             // remove error
             $fields[$key]->removeAttribute('error');
