@@ -56,7 +56,8 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                 ajax: {
                     url: '',
                     type: 'POST',
-                    data: {}
+                    data: {},
+                    params: []
                 },
                 reserved: true
             },
@@ -130,11 +131,20 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
 
                 $this.processAjaxCall_ = true;
 
+                var data = $.extend(true, {}, $this.getProperty('special').ajax.data);
+
+                // replace parameters with values
+                $.each($this.getProperty('special').ajax.params || [], function (index, param) {
+                    $.each(data, function (key, value) {
+                        eval('data[key] = data[key].replace("{' + param + '}", eval(param));');
+                    });
+                });
+
                 $.ajax({
                     url: this.getProperty('special').ajax.url,
                     type: this.getProperty('special').ajax.type || 'GET',
                     dataType: 'json',
-                    data: this.getProperty('special').ajax.data || {},
+                    data: data,
                     complete: function (xhr, status) {
                         var json;
 
