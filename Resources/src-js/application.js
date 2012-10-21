@@ -1,6 +1,8 @@
 
 // declare the form builder
-var builder = new FormBuilder();
+if (!window.FormBuilder) {
+    var builder = new FormBuilder();
+}
 
 var saving = false;
 

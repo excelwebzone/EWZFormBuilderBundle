@@ -4,6 +4,7 @@
  * @implements {FormBuilder.Type}
  */
 FormBuilder.DropdownType = FormBuilder.Type.extend({
+
     /**
      * @var {Boolean}
      * @public
