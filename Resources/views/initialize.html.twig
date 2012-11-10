@@ -8,3 +8,46 @@
 %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}
+
+<script id="formLineTmpl" type="text/html">
+    <li id="<@=id@>" data-type="<@=type@>" class="form-line <@=style@>">
+        <div class="form-line-inner">
+            <@ if (label) { @><@=label@><@ } @>
+            <div class="question-input">
+                <@=html@>
+                <@ if (error) { @>
+                    <div class="form-error-message">
+                        <@=error@>
+                        <div class="form-error-arrow">
+                            <div class="form-error-arrow-inner"></div>
+                        </div>
+                    </div>
+                <@ } @>
+                <@ if (description) { @>
+                    <div class="form-description">
+                        <div class="form-description-arrow"></div>
+                        <div class="form-description-arrow-small"></div>
+                        <div class="form-description-content"><@=description@></div>
+                    </div>
+                <@ } @>
+            </div>
+        </div>
+        {% if preview is not defined or not preview %}
+            <div class="button-container">
+                <@ if (tools) { @>
+                    <@ if (!reserve) { @>
+                        <i class="tool-item required" title="{{ 'tool.required'|trans }}"></i>
+                    <@ } @>
+                    <i class="tool-item shrink" title="{{ 'tool.shrink'|trans }}"></i>
+                    <i class="tool-item expand" title="{{ 'tool.expand'|trans }}"></i>
+                    <i class="tool-item new-line" title="{{ 'tool.new_live'|trans }}"></i>
+                    <i class="tool-item merge-line" title="{{ 'tool.merge_back'|trans }}"></i>
+                <@ } @>
+                <i class="tool-item gear" title="{{ 'tool.properties'|trans }}"></i>
+                <@ if (!reserve) { @>
+                    <i class="tool-item cross " title="{{ 'tool.delete'|trans }}"></i>
+                <@ } @>
+            </div>
+        {% endif %}
+    </li>
+</script>

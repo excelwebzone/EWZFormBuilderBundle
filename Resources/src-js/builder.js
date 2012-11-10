@@ -5,7 +5,14 @@ if (!window.FormBuilder) {
 /**
  * @constructor
  */
-FormBuilder = function () {
+FormBuilder = function (id) {
+
+    /**
+     * @var {string}
+     * @protected
+     */
+    this.id_ = id;
+
     /**
      * Holds list of form types.
      *
@@ -13,7 +20,17 @@ FormBuilder = function () {
      * @protected
      */
     this.types_ = [];
+
 }
+
+/**
+ * Returns a form id.
+ *
+ * @return {string} The form id
+ */
+FormBuilder.prototype.getId = function () {
+    return this.id_;
+};
 
 /**
  * Initialize form types and properties.
@@ -21,6 +38,8 @@ FormBuilder = function () {
  * @param {Object} prop An array of properties (type => key => value)
  */
 FormBuilder.prototype.init = function (prop) {
+    var $this = this;
+
     // create (default) form type
     var elem = new FormBuilder.FormType();
 
@@ -28,10 +47,10 @@ FormBuilder.prototype.init = function (prop) {
     if (prop.form) elem.load(prop.form);
 
     // add new type
-    builder.addType(elem);
+    $this.addType(elem);
 
     // add new field to list (place first)
-    $('.form-list').prepend(elem.render());
+    $('#' + $this.id_ + ' .form-list').prepend(elem.render());
 
     // add fields
     if (prop.fields) {
@@ -41,10 +60,10 @@ FormBuilder.prototype.init = function (prop) {
             elem.setFieldName(key);
 
             // add new type
-            builder.addType(elem);
+            $this.addType(elem);
 
             // add new field to list (place last)
-            $('.form-list').append(elem.render());
+            $('#' + $this.id_ + ' .form-list').append(elem.render());
         });
     }
 };
@@ -206,7 +225,7 @@ FormBuilder.prototype.sort = function (types) {
  * @return {string} The html table
  */
 FormBuilder.prototype.makeProperties = function (type) {
-    var 
+    var
         tmp, rows = '',
         properties = type.getProperties()
     ;

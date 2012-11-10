@@ -2,6 +2,7 @@
  * @constructor
  */
 FormBuilder.Type = FormBuilder.Class.extand({
+
     /**
      * @var {string}
      * @public
@@ -53,6 +54,7 @@ FormBuilder.Type = FormBuilder.Class.extand({
         this.prop_     = $.extend(true, prop,this.prop_);
         this.TEMPLATE_ = template;
     }
+
 });
 
 /**

@@ -1,10 +1,5 @@
-
-// declare the form builder
-if (!window.FormBuilder) {
-    var builder = new FormBuilder();
-}
-
 var saving = false;
+var currentBuilder = null;
 
 /**
  * Handle form preview.
@@ -12,7 +7,7 @@ var saving = false;
 function handlePreview() {
 
     $('.form-description').each(function () {
-        var 
+        var
             right = $(this).hasClass('right'),
             cont = $(this).closest('.form-line'),
             arrow = $(this).children('.form-description-arrow'),
@@ -33,6 +28,12 @@ function handlePreview() {
 }
 
 /**
+ * The following function are used when creating or editing a form
+ *
+ * Note: design for one form builder only!
+ */
+
+/**
  * Handle form editor.
  */
 function handleEditor() {
@@ -49,7 +50,7 @@ function handleEditor() {
         placeholder: 'ui-sortable-placeholder',
         forcePlaceholderSize: true,
         update: function(event, ui) {
-            builder.sort($('.form-list').sortable('toArray'));
+            currentBuilder.sort($('.form-list').sortable('toArray'));
         }
     });
     $('.form-list').disableSelection();
@@ -59,14 +60,14 @@ function handleEditor() {
         if (saving) return;
 
         // get form type
-        var elem = builder.getType('form');
+        var elem = currentBuilder.getType('form');
 
         // open dialog
         $('#props-dialog-form')
             .dialog('option', 'height', 'auto')
             .dialog('open')
             .children('form')
-                .html(builder.makeProperties(elem));
+                .html(currentBuilder.makeProperties(elem));
     });
 
     $('.form-action-save').bind('click', function () {
@@ -83,7 +84,7 @@ function handleEditor() {
             type: 'POST',
             dataType: 'json',
             data: {
-                properties: builder.getFormData()
+                properties: currentBuilder.getFormData()
             },
             complete: function (xhr, status) {
                 var json;
@@ -151,7 +152,7 @@ function handleEditor() {
         elem.load($(this).data('prop') || {});
 
         // add new type
-        builder.addType(elem);
+        currentBuilder.addType(elem);
 
         // add new field to list (after selected element or last)
         if ($('.form-line.question-selected').length) $('.form-line.question-selected:eq(0)').after(elem.render());
@@ -169,7 +170,7 @@ function handleEditor() {
         if (saving) return;
 
         // ignore if already been added to form
-        if (builder.getType($(this).data('name'))) return;
+        if (currentBuilder.getType($(this).data('name'))) return;
 
         var type = $(this).data('type');
         var elem = eval('new FormBuilder.' + type.charAt(0).toUpperCase() + type.slice(1) + 'Type()');
@@ -177,7 +178,7 @@ function handleEditor() {
         elem.setFieldName($(this).data('name'));
 
         // add new type
-        builder.addType(elem);
+        currentBuilder.addType(elem);
 
         // add new field to list (after selected element or last)
         if ($('.form-line.question-selected').length) $('.form-line.question-selected:eq(0)').after(elem.render());
@@ -202,9 +203,9 @@ function handleEditor() {
         resizable: false,
         buttons: {
             'OK': function () {
-                var 
+                var
                     form   = $(this).children('form'),
-                    elem   = builder.getType(form.find('input[name=elem_id]').val()),
+                    elem   = currentBuilder.getType(form.find('input[name=elem_id]').val()),
                     values = form.serializeArray()
                 ;
                 // re-assign values
@@ -265,7 +266,7 @@ function resetListRules() {
 
     $('.tool-item.required').bind('click', function () {
         var row = $(this).closest('.form-line');
-        var elem = builder.getType(row.attr('id'));
+        var elem = currentBuilder.getType(row.attr('id'));
         // toggle property
         elem.setPropertyValue('required', elem.getProperty('required').value == 'Yes' ? 'No' : 'Yes');
         // re-render
@@ -274,7 +275,7 @@ function resetListRules() {
 
     $('.tool-item.shrink, .tool-item.expand').bind('click', function () {
         var row = $(this).closest('.form-line');
-        var elem = builder.getType(row.attr('id'));
+        var elem = currentBuilder.getType(row.attr('id'));
         row.toggleClass('form-line-column');
         // set property
         if ($(this).hasClass('shrink')) {
@@ -291,7 +292,7 @@ function resetListRules() {
 
     $('.tool-item.new-line, .tool-item.merge-line').bind('click', function () {
         var row = $(this).closest('.form-line');
-        var elem = builder.getType(row.attr('id'));
+        var elem = currentBuilder.getType(row.attr('id'));
         row.toggleClass('form-line-column-clear');
         // set property
         if ($(this).hasClass('new-line')) {
@@ -305,18 +306,18 @@ function resetListRules() {
 
     $('.tool-item.gear').bind('click', function () {
         var row = $(this).closest('.form-line');
-        var elem = builder.getType(row.attr('id'));
+        var elem = currentBuilder.getType(row.attr('id'));
         // open dialog
         $('#props-dialog-form')
             .dialog('option', 'height', 'auto')
             .dialog('open')
             .children('form')
-                .html(builder.makeProperties(elem));
+                .html(currentBuilder.makeProperties(elem));
     });
 
     $('.tool-item.cross').bind('click', function () {
         var row = $(this).closest('.form-line');
-        builder.removeType(row.attr('id'));
+        currentBuilder.removeType(row.attr('id'));
 
         // re-activate in saved fields list
         $('.form-saved-type[data-name="' + row.attr('id') + '"]').show();
@@ -348,5 +349,5 @@ function reRenderItem(elem) {
  * @param {FormBuilder.Type} elem A form type instance
  */
 function focusItem(elem) {
-    $('#' + elem.getFieldName()).trigger('click');
+    $('#' + currentBuilder.getId() + ' #' + elem.getFieldName()).trigger('click');
 }
