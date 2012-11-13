@@ -5,7 +5,13 @@ FormBuilder.Type = FormBuilder.Class.extand({
 
     /**
      * @var {string}
-     * @public
+     * @protected
+     */
+    builderId_: null,
+
+    /**
+     * @var {string}
+     * @protected
      */
     type_: null,
 
@@ -82,6 +88,24 @@ FormBuilder.Type.prototype.load = function (prop) {
  */
 FormBuilder.Type.prototype.getType = function () {
     return this.type_;
+};
+
+/**
+ * Sets the form buider id.
+ *
+ * @param {string} Form builder id
+ */
+FormBuilder.Type.prototype.setBuilderId = function (id) {
+    this.builderId_ = id;
+};
+
+/**
+ * Sets the form buider id.
+ *
+ * @return {string} Form builder id
+ */
+FormBuilder.Type.prototype.getBuilderId = function () {
+    return this.builderId_;
 };
 
 /**
@@ -227,7 +251,7 @@ FormBuilder.Type.prototype.render = function(data) {
  * @param {stinrg} html An html string
  */
 FormBuilder.Type.prototype.reRender = function(html) {
-    $('#' + this.getFieldName(true)).replaceWith(html || this.render());
+    $('#' + this.getBuilderId() + ' #' + this.getFieldName(true)).replaceWith(html || this.render());
 };
 
 /**

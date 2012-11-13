@@ -149,6 +149,11 @@ function handleEditor() {
 
         var type = $(this).data('type');
         var elem = eval('new FormBuilder.' + type.charAt(0).toUpperCase() + type.slice(1) + 'Type()');
+
+        // set the builder id, need when reRender()
+        elem.setBuilderId(currentBuilder.getId());
+
+        // load form properties
         elem.load($(this).data('prop') || {});
 
         // add new type
@@ -174,7 +179,14 @@ function handleEditor() {
 
         var type = $(this).data('type');
         var elem = eval('new FormBuilder.' + type.charAt(0).toUpperCase() + type.slice(1) + 'Type()');
+
+        // set the builder id, need when reRender()
+        elem.setBuilderId(currentBuilder.getId());
+
+        // load form properties
         elem.load($(this).data('prop') || {});
+
+        // update field name
         elem.setFieldName($(this).data('name'));
 
         // add new type

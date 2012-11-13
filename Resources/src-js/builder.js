@@ -43,6 +43,9 @@ FormBuilder.prototype.init = function (prop) {
     // create (default) form type
     var elem = new FormBuilder.FormType();
 
+    // set the builder id, need when reRender()
+    elem.setBuilderId(this.id_);
+
     // load form properties
     if (prop.form) elem.load(prop.form);
 
