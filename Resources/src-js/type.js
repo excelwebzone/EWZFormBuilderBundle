@@ -34,6 +34,14 @@ FormBuilder.Type = FormBuilder.Class.extand({
                 ['Yes', 'Yes']
             ]
         },
+        allowDelete: {
+            hidden: true,
+            value: 'Yes',
+            dropdown: [
+                ['No', 'No'],
+                ['Yes', 'Yes']
+            ]
+        },
         column: {
             hidden: true,
             value: 'No'
@@ -214,6 +222,9 @@ FormBuilder.Type.prototype.render = function(data) {
     if (typeof data.tools == 'undefined') {
         data.tools = true;
     }
+    if (typeof data.allowDelete == 'undefined') {
+        data.allowDelete = this.getProperty('allowDelete').value == 'Yes';
+    }
     if (typeof data.reserve == 'undefined') {
         data.reserve = this.getProperty('reserve').value == 'Yes';
     }
@@ -241,7 +252,8 @@ FormBuilder.Type.prototype.render = function(data) {
         error       : data.error       || null,
         description : data.description || null,
         tools       : data.tools       || null,
-        reserve     : data.reserve     || null
+        reserve     : data.reserve     || null,
+        allowDelete : data.allowDelete || null
     });
 };
 
@@ -259,4 +271,33 @@ FormBuilder.Type.prototype.reRender = function(html) {
  */
 FormBuilder.Type.prototype.val = function () {
     return false;
+};
+
+/**
+ * Returns a form type (property) key => value.
+ *
+ * @param {Boolean} asString Whether or not to return as string format
+ *
+ * @return {array} List of types with values
+ */
+FormBuilder.Type.prototype.getFormData = function (asString) {
+    tmp = {
+        type: this.getType(),
+        name: this.getFieldName()
+    };
+
+    $.each(this.getProperties(), function (key, value) {
+        if (key == 'special') {
+            if (value.ajax && value.ajax.url) {
+                tmp[key + '.ajax'] = value.ajax;
+            }
+            if (value.dropdown) {
+                tmp[key + '.dropdown'] = value.dropdown;
+            }
+        }
+
+        tmp[key] = value.value;
+    });
+
+    return asString ? Utils.stringify(tmp) : tmp;
 };

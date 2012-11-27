@@ -36,6 +36,52 @@ var Utils = {
     },
 
     /**
+     * Converted stringify() to jQuery plugin.
+     * Serializes a simple object to a JSON formatted string.
+     *
+     * Note: stringify() is different from jQuery.serialize() which URLEncodes form elements
+     *
+     * USAGE:
+     * jQuery.ajax({
+     *     data : {serialized_object : Utils.stringify (JSON_Object)},
+     *     success : function (data) {
+     *     }
+     * });
+     */
+    stringify: function (obj) {
+        if ('JSON' in window) {
+            return JSON.stringify(obj);
+        }
+
+        var t = typeof (obj);
+        if (t != 'object' || obj === null) {
+            // simple data type
+            if (t == 'string') obj = '"' + obj + '"';
+
+            return String(obj);
+        } else {
+            // recurse array or object
+            var n, v, json = [], arr = (obj && obj.constructor == Array);
+
+            for (n in obj) {
+                v = obj[n];
+                t = typeof(v);
+                if (obj.hasOwnProperty(n)) {
+                    if (t == 'string') {
+                        v = '"' + v + '"';
+                    } else if (t == 'object' && v !== null){
+                        v = Utils.stringify(v);
+                    }
+
+                    json.push((arr ? '' : '"' + n + '":') + String(v));
+                }
+            }
+
+            return (arr ? '[' : '{') + String(json) + (arr ? ']' : '}');
+        }
+    },
+
+    /**
      * Generates a unique ID.
      *
      * example 1: uniqid();

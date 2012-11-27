@@ -44,7 +44,7 @@
                     <i class="tool-item merge-line" title="{{ 'tool.merge_back'|trans }}"></i>
                 <@ } @>
                 <i class="tool-item gear" title="{{ 'tool.properties'|trans }}"></i>
-                <@ if (!reserve) { @>
+                <@ if (allowDelete) { @>
                     <i class="tool-item cross " title="{{ 'tool.delete'|trans }}"></i>
                 <@ } @>
             </div>
