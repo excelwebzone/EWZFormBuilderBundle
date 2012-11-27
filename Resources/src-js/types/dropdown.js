@@ -128,7 +128,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
             ;
             $.each(this.getProperty('options').value.split(this.getProperty('options').splitter), function (key, value) {
                 options += '<option value="' + value + '" ' + (selected == value ? 'selected="selected"' : '') + '>' + value + '</option>';
-                optionValues.push(key);
+                optionValues.push(value);
             });
             if (selected && $.inArray(selected, optionValues) === -1) {
                 options += '<option value="' + selected + '" selected="selected">' + selected + '</option>';
@@ -165,7 +165,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                                 options = '<option value=""></option>';
                                 $.each(json.data.entries, function (key, value) {
                                     options += '<option value="' + value.id + '" ' + (selected == value.id ? 'selected="selected"' : '') + '>' + value.name + '</option>';
-                                    optionValues.push(key);
+                                    optionValues.push(value.id);
                                 });
                                 if (selected && $.inArray(selected, optionValues) === -1) {
                                     options += '<option value="' + selected + '" selected="selected">' + selected + '</option>';

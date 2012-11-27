@@ -97,7 +97,7 @@ FormBuilder.RadioType = FormBuilder.Type.extend({
                 selected : selected == value,
                 newline  : key % spreadCols === 0
             });
-            optionValues.push(key);
+            optionValues.push(value);
         });
         if (selected && $.inArray(selected, optionValues) === -1) {
             options += Utils.tmpl('<span class="form-radio-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="radio" name="<@=name@>" id="field_<@=name@><@=key@>"  value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-radio" /><label for="field_<@=name@><@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
