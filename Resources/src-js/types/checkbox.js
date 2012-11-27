@@ -87,10 +87,11 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
             required    : this.getProperty('required').value == 'Yes'
         });
 
-        var options    = '',
-            selected   = this.getProperty('selected').value,
-            spreadCols = this.getProperty('spreadCols').value,
-            fieldName  = this.getFieldName()
+        var options      = '',
+            optionValues = [],
+            selected     = this.getProperty('selected').value,
+            spreadCols   = this.getProperty('spreadCols').value,
+            fieldName    = this.getFieldName()
         ;
         $.each(this.getProperty('options').value.split(this.getProperty('options').splitter), function (key, value) {
             options += Utils.tmpl('<span class="form-checkbox-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="checkbox" name="<@=name@>[]" id="field_<@=name@><@=key@>"  value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-checkbox" /><label for="field_<@=name@><@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
@@ -100,7 +101,17 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
                 selected : 'object' == typeof selected ? $.inArray(value, selected) >= 0 : selected == value,
                 newline  : key % spreadCols === 0
             });
+            optionValues.push(key);
         });
+        if (selected && $.inArray(selected, optionValues) === -1) {
+            options += Utils.tmpl('<span class="form-checkbox-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="checkbox" name="<@=name@>[]" id="field_<@=name@><@=key@>"  value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-checkbox" /><label for="field_<@=name@><@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
+                name     : fieldName,
+                key      : selected,
+                value    : selected,
+                selected : true,
+                newline  : spreadCols === 0
+            });
+        }
 
         return this._super({
             id    : this.getFieldName(true),

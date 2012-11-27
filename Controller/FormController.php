@@ -83,18 +83,17 @@ class FormController extends Controller
                             $fields[$key]->setAttribute('error', current(current($child->get('errors'))));
                         }
 
+                        // update special dropdown values
                         switch ($field->getType()) {
-                            case Field::TYPE_CHECKBOX:
-                            case Field::TYPE_RADIO:
                             case Field::TYPE_DROPDOWN:
                                 $choices = array();
 
                                 foreach ($child->get('choices') as $choice) {
-                                    $choices[] = sprintf("['%s', '%s']", $choice->value, $choice->label);
+                                    $choices[] = sprintf('["%s", "%s"]', $choice->value, $choice->label);
                                 }
 
                                 $fields[$key]->setAttribute('special', '');
-                                $fields[$key]->setAttribute('special.dropdown', sprintf('[%s]', implode(', ', $choices)));                                
+                                $fields[$key]->setAttribute('special.dropdown', sprintf('[%s]', implode(', ', $choices)));
 
                                 break;
                         }

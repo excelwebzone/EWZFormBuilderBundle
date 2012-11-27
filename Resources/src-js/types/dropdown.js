@@ -112,7 +112,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
-            required    : this.getProperty('required').value == 'Yes'
+            required    : this.getProperty('required').value == 'Yes',
         });
 
         // override to prevent recursive load
@@ -121,10 +121,18 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
         }
 
         if (!options) {
-            var options = '', selected = this.getProperty('selected').value;
+            var
+                options      = '',
+                optionValues = [],
+                selected     = this.getProperty('selected').value
+            ;
             $.each(this.getProperty('options').value.split(this.getProperty('options').splitter), function (key, value) {
                 options += '<option value="' + value + '" ' + (selected == value ? 'selected="selected"' : '') + '>' + value + '</option>';
+                optionValues.push(key);
             });
+            if (selected && $.inArray(selected, optionValues) === -1) {
+                options += '<option value="' + selected + '" selected="selected">' + selected + '</option>';
+            }
 
             // replace options with special options
             if (this.getProperty('special').ajax.url) {
@@ -153,10 +161,15 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                         try {
                             json = $.parseJSON(xhr.responseText);
                             if (null !== json) {
+                                optionValues = [];
                                 options = '<option value=""></option>';
                                 $.each(json.data.entries, function (key, value) {
                                     options += '<option value="' + value.id + '" ' + (selected == value.id ? 'selected="selected"' : '') + '>' + value.name + '</option>';
+                                    optionValues.push(key);
                                 });
+                                if (selected && $.inArray(selected, optionValues) === -1) {
+                                    options += '<option value="' + selected + '" selected="selected">' + selected + '</option>';
+                                }
 
                                 // re-render
                                 $this.reRender($this.render({}, options));
@@ -167,10 +180,15 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                 });
             }
             else if (this.getProperty('special').value != 'None') {
+                var optionValues = [];
                 options = '<option value=""></option>';
                 $.each(this.getProperty('special').dropdown, function (key, value) {
                     options += '<option value="' + value[0] + '" ' + (selected == value[0] ? 'selected="selected"' : '') + '>' + value[1] + '</option>';
+                    optionValues.push(key);
                 });
+                if (selected && $.inArray(selected, optionValues) === -1) {
+                    options += '<option value="' + selected + '" selected="selected">' + selected + '</option>';
+                }
             }
         }
 
