@@ -86,6 +86,8 @@ class FormController extends Controller
                         // update special dropdown values
                         switch ($field->getType()) {
                             case Field::TYPE_DROPDOWN:
+                                if ($fields[$key]->getAttribute('special.dropdown')) break;
+
                                 $choices = array();
 
                                 foreach ($child->get('choices') as $choice) {
