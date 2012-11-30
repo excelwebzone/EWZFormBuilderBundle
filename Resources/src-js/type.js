@@ -1,7 +1,7 @@
 /**
  * @constructor
  */
-FormBuilder.Type = FormBuilder.Class.extand({
+FormBuilder.Type = FormBuilder.Class.extend({
 
     /**
      * @var {string}

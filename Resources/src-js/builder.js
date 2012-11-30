@@ -79,7 +79,7 @@ FormBuilder.prototype.init = function (prop) {
 FormBuilder.Class = function () {}
 
 // create a new Class that inherits from this class
-FormBuilder.Class.extand = function (prop) {
+FormBuilder.Class.extend = function (prop) {
     var fnTest = /xyz/.test(function() { xyz; }) ? /\b_super\b/ : /.*/;
 
     var _super = this.prototype;
