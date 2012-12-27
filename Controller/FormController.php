@@ -6,114 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Form\FormView;
 
-use EWZ\Bundle\FormBuilderBundle\Model\FormInterface;
-use EWZ\Bundle\FormBuilderBundle\Model\FieldInterface;
-use EWZ\Bundle\FormBuilderBundle\Model\CellInterface;
 use EWZ\Bundle\FormBuilderBundle\Model\Field;
 
 class FormController extends Controller
 {
-    /**
-     * Embeds the form builder GUI.
-     *
-     * @param FormInterface $form The embeded Form (optional)
-     *
-     * @return Response A Response instance
-     *
-     * @Template()
-     */
-    public function embedAction(FormInterface $form = null)
-    {
-        return array(
-            'form' => $form,
-        );
-    }
-
-    /**
-     * Previews a given form.
-     *
-     * @param FormInterface $form     A FormInterface instance (optional)
-     * @param array         $assets   List of assets (field => value) (optional)
-     * @param FormView      $formView A FormView instance (optional)
-     *
-     * @return Response A Response instance
-     *
-     * @Template("EWZFormBuilderBundle:Form:embed.html.twig")
-     */
-    public function previewAction(FormInterface $form = null, array $assets = array(), FormView $formView = null)
-    {
-        $fields = $form ? $form->getFields() : array();
-        foreach ($fields as $key => $field) {
-            // remove error
-            $fields[$key]->removeAttribute('error');
-        }
-
-        // assign assets values
-        foreach ($assets as $name => $value) {
-            foreach ($fields as $key => $field) {
-                if ($field->getName() == $name) {
-                    switch ($field->getType()) {
-                        case Field::TYPE_TEXTBOX:
-                        case Field::TYPE_TEXTAREA:
-                            $fields[$key]->setAttribute('defaultValue', $value);
-                            break;
-
-                        case Field::TYPE_CHECKBOX:
-                        case Field::TYPE_RADIO:
-                        case Field::TYPE_DROPDOWN:
-                            $fields[$key]->setAttribute('selected', $value);
-                            break;
-                    }
-                }
-            }
-        }
-
-        // mark all fields (in form) as rendered
-        if ($formView) {
-            foreach ($formView->getChildren() as $child) {
-                foreach ($fields as $key => $field) {
-                    if ($child->get('name') == $field->getName()) {
-                        if ($child->get('errors')) {
-                            $fields[$key]->setAttribute('error', current(current($child->get('errors'))));
-                        }
-
-                        // update special dropdown values
-                        switch ($field->getType()) {
-                            case Field::TYPE_DROPDOWN:
-                                if ($fields[$key]->getAttribute('special.dropdown')) break;
-
-                                $choices = array();
-
-                                foreach ($child->get('choices') as $choice) {
-                                    $choices[] = sprintf('["%s", "%s"]', $choice->value, $choice->label);
-                                }
-
-                                $fields[$key]->setAttribute('special', '');
-                                $fields[$key]->setAttribute('special.dropdown', sprintf('[%s]', implode(', ', $choices)));
-
-                                break;
-                        }
-
-                        $child = $child->setRendered();
-                    }
-                }
-            }
-        }
-
-        return array(
-            'formView' => $formView,
-            'form'     => $form,
-            'fields'   => $fields,
-            'preview'  => true,
-        );
-    }
-
     /**
      * Saves a (new or exists) Form from the submitted data.
      *
