@@ -43,7 +43,7 @@
                 },
                 fields: {
                     {% for field in form.getFields() %}
-                        '{{ preview is defined and preview ? formView.getName() ~ '[' ~ field.getName() ~ ']' : field.getName() }}': {{ field.getAttributes()|json_encode()|raw }},
+                        '{{ preview is defined and preview ? formView.vars.name ~ '[' ~ field.getName() ~ ']' : field.getName() }}': {{ field.getAttributes()|json_encode()|raw }},
                     {% endfor %}
                 }
             {% endif %}
