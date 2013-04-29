@@ -133,7 +133,6 @@ class FormBuilderExtension extends \Twig_Extension
                 }
             }
         }
-        }
 
         return $this->render('EWZFormBuilderBundle:Form:embed.html.twig', array(
             'formView' => $formView,
