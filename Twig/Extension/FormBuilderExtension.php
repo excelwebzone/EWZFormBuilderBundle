@@ -104,11 +104,11 @@ class FormBuilderExtension extends \Twig_Extension
 
         // mark all fields (in form) as rendered
         if ($formView) {
-            foreach ($formView->getChildren() as $child) {
+            foreach ($formView->children as $child) {
                 foreach ($fields as $key => $field) {
-                    if ($child->get('name') == $field->getName()) {
-                        if ($child->get('errors')) {
-                            $fields[$key]->setAttribute('error', current(current($child->get('errors'))));
+                    if ($child->vars['name'] == $field->getName()) {
+                        if ($child->vars['errors']) {
+                            $fields[$key]->setAttribute('error', current(current($child->vars['errors'])));
                         }
 
                         // update special dropdown values
@@ -118,7 +118,7 @@ class FormBuilderExtension extends \Twig_Extension
 
                                 $choices = array();
 
-                                foreach ($child->get('choices') as $choice) {
+                                foreach ($child->vars['choices'] as $choice) {
                                     $choices[] = sprintf('["%s", "%s"]', $choice->value, $choice->label);
                                 }
 
@@ -132,6 +132,7 @@ class FormBuilderExtension extends \Twig_Extension
                     }
                 }
             }
+        }
         }
 
         return $this->render('EWZFormBuilderBundle:Form:embed.html.twig', array(
