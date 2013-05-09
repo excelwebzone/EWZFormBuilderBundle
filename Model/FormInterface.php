@@ -19,7 +19,7 @@ interface FormInterface
 
     public function setAttributes(array $attributes = array());
 
-    public function getRecord();
+    public function getCells();
 
     public function getFields();
 

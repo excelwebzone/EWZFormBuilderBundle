@@ -6,7 +6,5 @@
 
     <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Asset">
         <field name="value" column="value" type="string" />
-        <field name="date_created" column="date_created" type="datetime" nullable="true" />
-        <field name="last_modified" column="last_modified" type="datetime" nullable="true" />
     </mapped-superclass>
 </doctrine-mapping>

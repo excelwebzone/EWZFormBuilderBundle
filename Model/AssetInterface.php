@@ -16,8 +16,4 @@ interface AssetInterface
     public function getValue();
 
     public function setValue($value);
-
-    public function getDateCreated();
-
-    public function getLastModified();
 }

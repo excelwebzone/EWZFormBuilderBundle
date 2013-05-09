@@ -35,7 +35,7 @@ abstract class Form implements FormInterface
      *
      * @var array
      */
-    protected $record = array();
+    protected $cells = array();
 
     /**
      * Whether or not the form is set as default
@@ -117,13 +117,13 @@ abstract class Form implements FormInterface
     }
 
     /**
-     * Gets the form record (list of cells).
+     * Gets the form cells.
      *
      * @return array
      */
-    public function getRecord()
+    public function getCells()
     {
-        return $this->record ?: $this->record = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->cells ?: $this->cells = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -135,7 +135,7 @@ abstract class Form implements FormInterface
     {
         $fields = array();
 
-        foreach ($this->getRecord() as $cell) {
+        foreach ($this->getCells() as $cell) {
             $field = $cell->getField();
 
             foreach ($cell->getAttributes() as $key => $value) {

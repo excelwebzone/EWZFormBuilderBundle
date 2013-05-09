@@ -122,20 +122,4 @@ abstract class Cell implements CellInterface
     {
         $this->attributes = $attributes;
     }
-
-    /**
-     * @return DateTime
-     */
-    public function getDateCreated()
-    {
-        return $this->date_created;
-    }
-
-    /**
-     * @param DateTime $dateCreated
-     */
-    public function setDateCreated(DateTime $dateCreated)
-    {
-        $this->date_created = $dateCreated;
-    }
 }

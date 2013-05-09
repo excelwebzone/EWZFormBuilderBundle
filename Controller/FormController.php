@@ -59,8 +59,8 @@ class FormController extends Controller
         $form->setDefault($formProperties->isDefault == 'Yes');
 
         // clear all fields
-        foreach ($form->getRecord() as $cell) $cellManager->deleteCell($cell);;
-        $form->getRecord()->clear();
+        foreach ($form->getCells() as $cell) $cellManager->deleteCell($cell);;
+        $form->getCells()->clear();
 
         // save form
         $formManager->saveForm($form);
@@ -135,7 +135,7 @@ class FormController extends Controller
             $cell->setAttributes((array)$customAttributes);
             $cellManager->saveCell($cell);
 
-            $form->getRecord()->add($cell);
+            $form->getCells()->add($cell);
         }
 
         // re-save form (after all fields have been saved)

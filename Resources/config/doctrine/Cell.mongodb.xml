@@ -4,9 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Cell" collection="ewz_form_builder_cell" customId="true">
-        <field name="id" type="string" id="true" strategy="NONE" />
+    <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Document\Cell">
         <field name="attributes" fieldName="attributes" type="collection" />
-        <field name="date_created" fieldName="date_created" type="date" />
     </mapped-superclass>
 </doctrine-mongo-mapping>

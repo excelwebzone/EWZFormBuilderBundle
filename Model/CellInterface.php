@@ -26,6 +26,4 @@ interface CellInterface
     public function getAttributes();
 
     public function setAttributes(array $attributes = array());
-
-    public function getDateCreated();
 }

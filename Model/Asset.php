@@ -75,35 +75,4 @@ abstract class Asset implements AssetInterface
         $this->value = $value;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getDateCreated()
-    {
-        return $this->date_created;
-    }
-
-    /**
-     * @param DateTime $dateCreated
-     */
-    public function setDateCreated(DateTime $dateCreated)
-    {
-        $this->date_created = $dateCreated;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getLastModified()
-    {
-        return $this->last_modified;
-    }
-
-    /**
-     * @param DateTime $lastModified
-     */
-    public function setLastModified(DateTime $lastModified)
-    {
-        $this->last_modified = $lastModified;
-    }
 }

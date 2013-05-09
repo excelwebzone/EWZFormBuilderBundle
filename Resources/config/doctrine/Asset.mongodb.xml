@@ -4,10 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Asset" collection="ewz_form_builder_asset" customId="true">
-        <field name="id" type="string" id="true" strategy="NONE" />
+    <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Document\Asset">
         <field name="value" fieldName="value" type="string" />
-        <field name="date_created" fieldName="date_created" type="date" />
-        <field name="last_modified" fieldName="last_modified" type="date" />
     </mapped-superclass>
 </doctrine-mongo-mapping>
