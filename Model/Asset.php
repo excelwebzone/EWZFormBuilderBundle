@@ -30,22 +30,6 @@ abstract class Asset implements AssetInterface
      */
     protected $value;
 
-    /**
-     * @var DateTime
-     */
-    protected $date_created;
-
-    /**
-     * @var DateTime
-     */
-    protected $last_modified;
-
-    public function __construct()
-    {
-        $this->date_created  = new DateTime();
-        $this->last_modified = new DateTime();
-    }
-
     public function __toString()
     {
         return $this->getValue();

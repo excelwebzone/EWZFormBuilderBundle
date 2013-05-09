@@ -38,16 +38,6 @@ abstract class Cell implements CellInterface
     protected $attributes = array();
 
     /**
-     * @var DateTime
-     */
-    protected $date_created;
-
-    public function __construct()
-    {
-        $this->date_created  = new DateTime();
-    }
-
-    /**
      * @return integer
      */
     public function getId()
