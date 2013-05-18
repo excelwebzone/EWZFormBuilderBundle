@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Form">
+        <field name="name" column="name" type="string" />
+        <field name="attributes" column="attributes" type="array" nullable="true" />
+        <field name="is_default" column="is_default" type="boolean" />
+        <field name="date_created" column="date_created" type="datetime" nullable="true" />
+        <field name="last_modified" column="last_modified" type="datetime" nullable="true" />
+    </mapped-superclass>
+</doctrine-mapping>

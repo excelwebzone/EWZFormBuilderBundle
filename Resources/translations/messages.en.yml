@@ -1,0 +1,28 @@
+loading: Saving...
+
+form.default_name: New Form
+
+dialog.properties: Properties
+
+tool.required: Required
+tool.shrink: Shrink
+tool.expand: Expand
+tool.new_live: Move to a new line
+tool.merge_back: Merge to above line
+tool.properties: Properties
+tool.delete: Delete
+
+button.save: Save Form
+button.info: Form Settings
+
+form_title.properties: Properties
+form_title.form_tools: Form Tools
+form_title.saves_tools: Saved Tools
+
+form_type.head: Head
+form_type.text: Free Text (HTML)
+form_type.textbox: Text Box
+form_type.textarea: Text Area
+form_type.dropdown: Dropdown
+form_type.radio: Radio Button
+form_type.checkbox: Checkbox

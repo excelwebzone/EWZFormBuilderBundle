@@ -1,0 +1,73 @@
+{% set builderId = 'builder_' ~ random() %}
+
+<div id="{{ builderId }}">
+    {% if preview is not defined or not preview %}
+        <div id="props-dialog-form" title="{{ 'dialog.properties'|trans }}"><form></form></div>
+    {% endif %}
+
+    <div id="form-{{ preview is defined and preview ? 'preview' : 'editor' }}">
+        <ul class="form-list form-section clearfix"></ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    if (!window.FormBuilder) {
+        var FormBuilder = function () {
+            function run() {
+                for (pageLoaded = true; scripts.length;) scripts.shift()();
+                scripts = null
+            }
+            var pageLoaded, scripts = [];
+            if (window.attachEvent) attachEvent("unload", run);
+            else window.addEventListener && addEventListener("load", run, true);
+            return {
+                onPageLoad: function (script) {
+                    pageLoaded ? script() : scripts.push(script)
+                }
+            }
+        }();
+    }
+
+    FormBuilder.onPageLoad(function () {
+        // declare the form builder
+        var {{ builderId }} = new FormBuilder('{{ builderId }}');
+
+        {{ builderId }}.init({
+            {% if form %}
+                form: {
+                    id: {{ form.getId() }},
+                    text: '{{ form.getName()|default('form.default_name'|trans) }}',
+                    width: {{ form.getAttribute('width')|default(691) }},
+                    labelWidth: {{ form.getAttribute('labelWidth')|default(150) }},
+                    isDefault: '{{ form.isDefault() ? 'Yes' : 'No' }}'
+                },
+                fields: {
+                    {% for field in form.getFields() %}
+                        '{{ preview is defined and preview ? formView.vars.name ~ '[' ~ field.getName() ~ ']' : field.getName() }}': {{ field.getAttributes()|json_encode()|raw }},
+                    {% endfor %}
+                }
+            {% endif %}
+        });
+
+        currentBuilder = {{ builderId }};
+
+        {% if preview is not defined or not preview %}
+            {% if form %}
+                {% for field in form.getFields() %}
+                    $('.form-saved-type[data-name="{{ field.getName() }}"]').hide();
+                {% endfor %}
+            {% endif %}
+
+            resetListRules();
+        {% endif %}
+
+        {# use this function to load additional settigns #}
+        if (typeof _builderInit == 'function') _builderInit(currentBuilder);
+
+        {% if preview is defined and preview %}
+            handlePreview();
+        {% else %}
+            handleEditor();
+        {% endif %}
+    });
+</script>
