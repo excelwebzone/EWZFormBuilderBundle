@@ -58,7 +58,7 @@ abstract class Cell implements CellInterface
      */
     public function setForm(FormInterface $form)
     {
-        $this->form = $field;
+        $this->form = $form;
     }
 
     /**
