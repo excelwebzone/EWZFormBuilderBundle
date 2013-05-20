@@ -74,7 +74,7 @@ class CellManager extends BaseCellManager
     /**
      * {@inheritDoc}
      */
-    public function isNewAsset(CellInterface $cell)
+    public function isNewCell(CellInterface $cell)
     {
         return !$this->dm->getUnitOfWork()->isInIdentityMap($cell);
     }
@@ -82,7 +82,7 @@ class CellManager extends BaseCellManager
     /**
      * {@inheritDoc}
      */
-    protected function doSaveAsset(CellInterface $cell)
+    protected function doSaveCell(CellInterface $cell)
     {
         $this->dm->persist($cell->getForm());
         $this->dm->persist($cell->getField());
