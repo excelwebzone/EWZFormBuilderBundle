@@ -3,7 +3,7 @@
 namespace EWZ\Bundle\FormBuilderBundle\Document;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ODM\MongoDB\DocumentManager;
 
 use EWZ\Bundle\FormBuilderBundle\Model\CellInterface;
 use EWZ\Bundle\FormBuilderBundle\Model\CellManager as BaseCellManager;
