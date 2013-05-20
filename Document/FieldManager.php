@@ -75,7 +75,6 @@ class FieldManager extends BaseFieldManager
      */
     protected function doSaveField(FieldInterface $field)
     {
-        $this->dm->persist($field->getForm());
         $this->dm->persist($field);
         $this->dm->flush();
     }
