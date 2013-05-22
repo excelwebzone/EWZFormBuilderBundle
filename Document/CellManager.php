@@ -68,7 +68,6 @@ class CellManager extends BaseCellManager
     public function deleteCell(CellInterface $cell)
     {
         $this->dm->remove($cell);
-        $this->dm->flush();
     }
 
     /**

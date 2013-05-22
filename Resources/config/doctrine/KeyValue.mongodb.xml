@@ -4,6 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Document\Cell">
-    </mapped-superclass>
+    <embedded-document name="EWZ\Bundle\FormBuilderBundle\Document\KeyValue">
+        <field name="key" fieldName="key" type="string" />
+        <field name="value" fieldName="value" type="string" />
+    </embedded-document>
 </doctrine-mongo-mapping>

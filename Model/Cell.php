@@ -89,6 +89,22 @@ abstract class Cell implements CellInterface
     }
 
     /**
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attributes ?: $this->attributes = array();
+    }
+
+    /**
+     * @param array $attributes
+     */
+    public function setAttributes(array $attributes = array())
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
      * @param string $key
      * @param string $value
      */
@@ -105,21 +121,5 @@ abstract class Cell implements CellInterface
         if (isset($this->attributes[$key])) {
             unset($this->attributes[$key]);
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function getAttributes()
-    {
-        return $this->attributes ?: $this->attributes = array();
-    }
-
-    /**
-     * @param array $attributes
-     */
-    public function setAttributes(array $attributes = array())
-    {
-        $this->attributes = $attributes;
     }
 }

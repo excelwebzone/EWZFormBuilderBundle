@@ -43,7 +43,7 @@ abstract class Field implements FieldInterface
      *
      * @var array
      */
-    protected $attributes = array();
+    protected $attributes;
 
     /**
      * @var DateTime
@@ -118,6 +118,22 @@ abstract class Field implements FieldInterface
     }
 
     /**
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attributes ?: $this->attributes = array();
+    }
+
+    /**
+     * @param array $attributes
+     */
+    public function setAttributes(array $attributes = array())
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
      * @param string $key
      * @param string $value
      */
@@ -134,22 +150,6 @@ abstract class Field implements FieldInterface
         if (isset($this->attributes[$key])) {
             unset($this->attributes[$key]);
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function getAttributes()
-    {
-        return $this->attributes ?: $this->attributes = array();
-    }
-
-    /**
-     * @param array $attributes
-     */
-    public function setAttributes(array $attributes = array())
-    {
-        $this->attributes = $attributes;
     }
 
     /**

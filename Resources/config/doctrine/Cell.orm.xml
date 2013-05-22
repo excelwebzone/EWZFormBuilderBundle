@@ -5,6 +5,5 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Cell">
-        <field name="attributes" column="attributes" type="array" nullable="true" />
     </mapped-superclass>
 </doctrine-mapping>

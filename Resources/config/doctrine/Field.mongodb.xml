@@ -7,7 +7,6 @@
     <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Document\Field">
         <field name="name" fieldName="name" type="string" />
         <field name="type" fieldName="type" type="string" />
-        <field name="attributes" fieldName="attributes" type="collection" />
         <field name="date_created" fieldName="date_created" type="date" />
         <field name="last_modified" fieldName="last_modified" type="date" />
     </mapped-superclass>

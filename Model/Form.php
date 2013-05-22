@@ -117,6 +117,25 @@ abstract class Form implements FormInterface
     }
 
     /**
+     * @param string $key
+     * @param string $value
+     */
+    public function setAttribute($key, $value)
+    {
+        $this->attributes[$key] = $value;
+    }
+
+    /**
+     * @param string $key
+     */
+    public function removeAttribute($key)
+    {
+        if (isset($this->attributes[$key])) {
+            unset($this->attributes[$key]);
+        }
+    }
+
+    /**
      * Gets the form cells.
      *
      * @return array
@@ -161,7 +180,7 @@ abstract class Form implements FormInterface
      */
     public function setDefault($isDefault)
     {
-        $this->is_default = (bool) $isDefault;
+        $this->is_default = (Boolean) $isDefault;
     }
 
     /**
