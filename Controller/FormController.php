@@ -144,6 +144,7 @@ class FormController extends Controller
         return new Response(json_encode(array(
             'event' => 'form_builder:success',
             'data' => array(
+                'id' => $form->getId(),
                 'form'   => $form->__toString(),
                 'fields' => $fieldsProperties,
             ),

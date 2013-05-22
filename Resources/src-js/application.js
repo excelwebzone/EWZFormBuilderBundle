@@ -99,6 +99,9 @@ function handleEditor() {
                             throw json.data.message;
                         }
 
+                        // assign form id
+                        currentBuilder.getType('form').setPropertyValue('id', json.data.id);
+
                         // reload saved fields
                         $.each(json.data.fields, function (key, value) {
                             if (value.type == 'text') {
