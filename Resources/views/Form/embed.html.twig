@@ -35,7 +35,7 @@
         {{ builderId }}.init({
             {% if form %}
                 form: {
-                    id: {{ form.getId() }},
+                    id: '{{ form.getId() }}',
                     text: '{{ form.getName()|default('form.default_name'|trans) }}',
                     width: {{ form.getAttribute('width')|default(691) }},
                     labelWidth: {{ form.getAttribute('labelWidth')|default(150) }},
