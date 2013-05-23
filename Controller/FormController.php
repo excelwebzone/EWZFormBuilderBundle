@@ -59,7 +59,7 @@ class FormController extends Controller
         $form->setDefault($formProperties->isDefault == 'Yes');
 
         // clear all fields
-        foreach ($form->getCells() as $cell) $cellManager->deleteCell($cell);;
+        foreach ($form->getCells() as $cell) $cellManager->deleteCell($cell);
         $form->getCells()->clear();
 
         // save form
