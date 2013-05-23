@@ -16,8 +16,8 @@ class KeyValue
 
     public function __construct($key = null, $value = null)
     {
-        $this->key = $key;
-        $this->value = $value;
+        $this->setKey($key);
+        $this->setValue($value);
     }
 
     /**
@@ -53,7 +53,7 @@ class KeyValue
      */
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = is_array($value) ? serialize($value) : $value;
 
         return $this;
     }
@@ -65,7 +65,12 @@ class KeyValue
      */
     public function getValue()
     {
-        return $this->value;
+        try {
+            return $this->value ? unserialize($this->value) : null;
+        }
+        catch (\Exception $e) {
+            return $this->value;
+        }
     }
 
     /**
