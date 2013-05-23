@@ -44,7 +44,7 @@ FormBuilder.prototype.init = function (prop) {
     var elem = new FormBuilder.FormType();
 
     // set the builder id, need when reRender()
-    elem.setBuilderId(this.id_);
+    elem.setBuilderId($this.id_);
 
     // load form properties
     if (prop.form) elem.load(prop.form);
@@ -61,6 +61,9 @@ FormBuilder.prototype.init = function (prop) {
             elem = eval('new FormBuilder.' + value.type.charAt(0).toUpperCase() + value.type.slice(1) + 'Type()');
             elem.load(value);
             elem.setFieldName(key);
+            
+            // set the builder id, need when reRender()
+            elem.setBuilderId($this.id_);
 
             // add new type
             $this.addType(elem);
