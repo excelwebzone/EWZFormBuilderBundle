@@ -16,9 +16,7 @@
     display:none;
 }
 .form-toolbar #accordion-actions {
-    float:absolute;
-    top:20px;
-    left:20px;
+    float:left;
     width:200px;
     z-index:6000000;
     border:1px solid #999;
@@ -126,12 +124,13 @@
 /* Frame
 -------------------------------------------------- */
 #form-editor {
+    float:left;
     border:none;
     background:#fff;
-    width:100%;
     height:100%;
     position:relative;
     padding:10px;
+    margin-left:20px;
 }
 .form-list {
     list-style:none;
