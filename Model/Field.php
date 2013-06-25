@@ -48,17 +48,17 @@ abstract class Field implements FieldInterface
     /**
      * @var DateTime
      */
-    protected $date_created;
+    protected $dateCreated;
 
     /**
      * @var DateTime
      */
-    protected $last_modified;
+    protected $lastModified;
 
     public function __construct()
     {
-        $this->date_created  = new DateTime();
-        $this->last_modified = new DateTime();
+        $this->dateCreated  = new DateTime();
+        $this->lastModified = new DateTime();
     }
 
     public function __toString()
@@ -157,7 +157,7 @@ abstract class Field implements FieldInterface
      */
     public function getDateCreated()
     {
-        return $this->date_created;
+        return $this->dateCreated;
     }
 
     /**
@@ -165,7 +165,7 @@ abstract class Field implements FieldInterface
      */
     public function setDateCreated(DateTime $dateCreated)
     {
-        $this->date_created = $dateCreated;
+        $this->dateCreated = $dateCreated;
     }
 
     /**
@@ -173,7 +173,7 @@ abstract class Field implements FieldInterface
      */
     public function getLastModified()
     {
-        return $this->last_modified;
+        return $this->lastModified;
     }
 
     /**
@@ -181,6 +181,6 @@ abstract class Field implements FieldInterface
      */
     public function setLastModified(DateTime $lastModified)
     {
-        $this->last_modified = $lastModified;
+        $this->lastModified = $lastModified;
     }
 }

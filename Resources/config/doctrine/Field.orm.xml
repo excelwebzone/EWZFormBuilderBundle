@@ -7,7 +7,7 @@
     <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Field">
         <field name="name" column="name" type="string" />
         <field name="type" column="type" type="string" />
-        <field name="date_created" column="date_created" type="datetime" nullable="true" />
-        <field name="last_modified" column="last_modified" type="datetime" nullable="true" />
+        <field name="dateCreated" column="date_created" type="datetime" nullable="true" />
+        <field name="lastModified" column="last_modified" type="datetime" nullable="true" />
     </mapped-superclass>
 </doctrine-mapping>

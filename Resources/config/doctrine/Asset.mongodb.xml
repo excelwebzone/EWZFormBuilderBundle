@@ -5,6 +5,6 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
     <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Document\Asset">
-        <field name="value" fieldName="value" type="string" />
+        <field fieldName="value" type="string" />
     </mapped-superclass>
 </doctrine-mongo-mapping>

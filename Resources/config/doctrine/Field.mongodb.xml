@@ -5,9 +5,9 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
     <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Document\Field">
-        <field name="name" fieldName="name" type="string" />
-        <field name="type" fieldName="type" type="string" />
-        <field name="date_created" fieldName="date_created" type="date" />
-        <field name="last_modified" fieldName="last_modified" type="date" />
+        <field fieldName="name" type="string" />
+        <field fieldName="type" type="string" />
+        <field fieldName="dateCreated" type="date" />
+        <field fieldName="lastModified" type="date" />
     </mapped-superclass>
 </doctrine-mongo-mapping>

@@ -42,22 +42,22 @@ abstract class Form implements FormInterface
      *
      * @var bool
      */
-    protected $is_default = true;
+    protected $default = true;
 
     /**
      * @var DateTime
      */
-    protected $date_created;
+    protected $dateCreated;
 
     /**
      * @var DateTime
      */
-    protected $last_modified;
+    protected $lastModified;
 
     public function __construct()
     {
-        $this->date_created  = new DateTime();
-        $this->last_modified = new DateTime();
+        $this->dateCreated  = new DateTime();
+        $this->lastModified = new DateTime();
     }
 
     public function __toString()
@@ -172,15 +172,15 @@ abstract class Form implements FormInterface
      */
     public function isDefault()
     {
-        return $this->is_default;
+        return $this->default;
     }
 
     /**
      * @param Boolean
      */
-    public function setDefault($isDefault)
+    public function setDefault($default)
     {
-        $this->is_default = (Boolean) $isDefault;
+        $this->default = (Boolean) $default;
     }
 
     /**
@@ -188,7 +188,7 @@ abstract class Form implements FormInterface
      */
     public function getDateCreated()
     {
-        return $this->date_created;
+        return $this->dateCreated;
     }
 
     /**
@@ -196,7 +196,7 @@ abstract class Form implements FormInterface
      */
     public function setDateCreated(DateTime $dateCreated)
     {
-        $this->date_created = $dateCreated;
+        $this->dateCreated = $dateCreated;
     }
 
     /**
@@ -204,7 +204,7 @@ abstract class Form implements FormInterface
      */
     public function getLastModified()
     {
-        return $this->last_modified;
+        return $this->lastModified;
     }
 
     /**
@@ -212,6 +212,6 @@ abstract class Form implements FormInterface
      */
     public function setLastModified(DateTime $lastModified)
     {
-        $this->last_modified = $lastModified;
+        $this->lastModified = $lastModified;
     }
 }
