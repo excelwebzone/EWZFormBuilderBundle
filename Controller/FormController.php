@@ -65,6 +65,9 @@ class FormController extends Controller
         // save form
         $formManager->saveForm($form);
 
+        // reload form object
+        $form = $formManager->findFormById($form->getId());
+
         // add/update form fields
         foreach ($fieldsProperties as $item) {
             if (!$item->name || !$field = $fieldManager->findFieldBy(array('name' => $item->name))) {
