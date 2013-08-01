@@ -75,8 +75,8 @@ FormBuilder.RadioType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     render: function(data) {
-        var label = Utils.tmpl('<label for="<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(),
+        var label = Utils.tmpl('<label for="field_<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
+            id          : this.getFieldName(true),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -87,10 +87,12 @@ FormBuilder.RadioType = FormBuilder.Type.extend({
             optionValues = [],
             selected     = this.getProperty('selected').value,
             spreadCols   = this.getProperty('spreadCols').value,
+            fieldId      = this.getFieldName(true),
             fieldName    = this.getFieldName()
         ;
         $.each(this.getProperty('options').value.split(this.getProperty('options').splitter), function (key, value) {
-            options += Utils.tmpl('<span class="form-radio-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="radio" name="<@=name@>" id="field_<@=name@><@=key@>"  value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-radio" /><label for="field_<@=name@><@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
+            options += Utils.tmpl('<span class="form-radio-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="radio" name="<@=name@>" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-radio" /><label for="field_<@=id@>_<@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
+                id       : fieldId,
                 name     : fieldName,
                 key      : key,
                 value    : value,
@@ -100,7 +102,8 @@ FormBuilder.RadioType = FormBuilder.Type.extend({
             optionValues.push(value);
         });
         if (selected && $.inArray(selected, optionValues) === -1) {
-            options += Utils.tmpl('<span class="form-radio-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="radio" name="<@=name@>" id="field_<@=name@><@=key@>"  value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-radio" /><label for="field_<@=name@><@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
+            options += Utils.tmpl('<span class="form-radio-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="radio" name="<@=name@>" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-radio" /><label for="field_<@=id@>_<@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
+                id       : fieldId,
                 name     : fieldName,
                 key      : selected,
                 value    : selected,
@@ -114,6 +117,7 @@ FormBuilder.RadioType = FormBuilder.Type.extend({
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
+                id       : this.getFieldName(true),
                 name     : this.getFieldName(),
                 style    : this.getProperty('spreadCols').value == 1 ? 'single' : 'multiple',
                 required : this.getProperty('required').value == 'Yes',

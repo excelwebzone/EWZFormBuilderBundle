@@ -37,7 +37,7 @@ FormBuilder.FormType = FormBuilder.Type.extend({
             }
         };
 
-        var template = '<input type="hidden" name="<@=name@>" id="field_<@=name@>" data-title="<@=title@>" data-width="<@=width@>" data-label-width="<@=labelWidth@>" value="<@=value@>" class="form-hidden" />';
+        var template = '<input type="hidden" name="<@=name@>" id="field_<@=id@>" data-title="<@=title@>" data-width="<@=width@>" data-label-width="<@=labelWidth@>" value="<@=value@>" class="form-hidden" />';
 
         this._super('form', prop, template);
 
@@ -64,6 +64,7 @@ FormBuilder.FormType = FormBuilder.Type.extend({
             type  : this.getType(),
             style : 'form-input-hidden',
             html  : Utils.tmpl(this.TEMPLATE_, {
+                id         : this.getFieldName(true),
                 name       : this.getFieldName(),
                 value      : this.getProperty('id').value,
                 title      : this.getProperty('title').value,

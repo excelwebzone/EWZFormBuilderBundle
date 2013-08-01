@@ -80,7 +80,7 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
             }
         };
 
-        var template = '<textarea name="<@=name@>" id="field_<@=name@>" cols="<@=cols@>" rows="<@=rows@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>data-required=true<@ } @> <@ if (validation && validation != "none") { @>data-validation="<@=validation@>"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> class="form-textarea"><@=value@></textarea><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span><@ } @>';
+        var template = '<textarea name="<@=name@>" id="field_<@=id@>" cols="<@=cols@>" rows="<@=rows@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>data-required=true<@ } @> <@ if (validation && validation != "none") { @>data-validation="<@=validation@>"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> class="form-textarea"><@=value@></textarea><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span><@ } @>';
 
         this._super('textarea', prop, template);
     },
@@ -89,7 +89,7 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName()).val();
+        return $('#field_' + this.getFieldName(true)).val();
     },
 
     /**
@@ -97,7 +97,7 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
      */
     render: function(data) {
         var label = Utils.tmpl('<label for="field_<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(),
+            id          : this.getFieldName(true),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -109,6 +109,7 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
+                id         : this.getFieldName(true),
                 name       : this.getFieldName(),
                 cols       : this.getProperty('cols').value,
                 rows       : this.getProperty('rows').value,

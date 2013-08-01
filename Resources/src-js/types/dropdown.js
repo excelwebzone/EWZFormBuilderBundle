@@ -89,7 +89,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
             }
         };
 
-        var template = '<select name="<@=name@>" id="field_<@=name@>" size="<@=size@>" <@ if (required) { @>data-required=true<@ } @> <@ if (width) { @>style="width:<@=width@>px"<@ } @> class="form-dropdown"><@=options@></select><i class="dropdown-edit"></i><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span><@ } @>';
+        var template = '<select name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (required) { @>data-required=true<@ } @> <@ if (width) { @>style="width:<@=width@>px"<@ } @> class="form-dropdown"><@=options@></select><i class="dropdown-edit"></i><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span><@ } @>';
 
         this._super('dropdown', prop, template);
     },
@@ -98,7 +98,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName()).val();
+        return $('#field_' + this.getFieldName(true)).val();
     },
 
     /**
@@ -108,7 +108,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
      */
     render: function(data, options) {
         var label = Utils.tmpl('<label for="field_<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(),
+            id          : this.getFieldName(true),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -117,7 +117,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
 
         // override to prevent recursive load
         if (!options && this.processAjaxCall_) {
-            options = $('#field_' + this.getFieldName()).html();
+            options = $('#field_' + this.getFieldName(true)).html();
         }
 
         if (!options) {
@@ -197,6 +197,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
+                id       : this.getFieldName(true),
                 name     : this.getFieldName(),
                 size     : this.getProperty('size').value,
                 required : this.getProperty('required').value == 'Yes',

@@ -61,7 +61,7 @@ FormBuilder.prototype.init = function (prop) {
             elem = eval('new FormBuilder.' + value.type.charAt(0).toUpperCase() + value.type.slice(1) + 'Type()');
             elem.load(value);
             elem.setFieldName(key);
-            
+
             // set the builder id, need when reRender()
             elem.setBuilderId($this.id_);
 
@@ -253,8 +253,8 @@ FormBuilder.prototype.makeProperties = function (type) {
             field : this.drawField(key, tmp)
         });
     };
-    return Utils.tmpl('<input type="hidden" name="elem_id" value="<@=id@>" /><table class="prop-table"><tbody><@=rows@></tbody></table>', {
-        id   : type.getFieldName(),
+    return Utils.tmpl('<input type="hidden" name="elem_id" value="<@=name@>" /><table class="prop-table"><tbody><@=rows@></tbody></table>', {
+        name : type.getFieldName(),
         rows : rows
     });
 };

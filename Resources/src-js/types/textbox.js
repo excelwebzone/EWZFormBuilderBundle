@@ -77,7 +77,7 @@ FormBuilder.TextboxType = FormBuilder.Type.extend({
             }
         };
 
-        var template = '<input type="text" name="<@=name@>" id="field_<@=name@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>data-required=true<@ } @> <@ if (validation && validation != "none") { @>data-validation="<@=validation@>"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span><@ } @>';
+        var template = '<input type="text" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>data-required=true<@ } @> <@ if (validation && validation != "none") { @>data-validation="<@=validation@>"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span><@ } @>';
 
         this._super('textbox', prop, template);
     },
@@ -86,7 +86,7 @@ FormBuilder.TextboxType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName()).val();
+        return $('#field_' + this.getFieldName(true)).val();
     },
 
     /**
@@ -94,7 +94,7 @@ FormBuilder.TextboxType = FormBuilder.Type.extend({
      */
     render: function(data) {
         var label = Utils.tmpl('<label for="field_<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(),
+            id          : this.getFieldName(true),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -106,6 +106,7 @@ FormBuilder.TextboxType = FormBuilder.Type.extend({
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
+                id         : this.getFieldName(true),
                 name       : this.getFieldName(),
                 size       : this.getProperty('size').value,
                 maxsize    : this.getProperty('maxsize').value,
