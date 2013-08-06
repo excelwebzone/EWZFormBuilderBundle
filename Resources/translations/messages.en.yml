@@ -26,3 +26,7 @@ form_type.textarea: Text Area
 form_type.dropdown: Dropdown
 form_type.radio: Radio Button
 form_type.checkbox: Checkbox
+form_type.email: Email
+form_type.number: Number
+form_type.phone: Phone
+form_type.birthday: Birth Date Picker

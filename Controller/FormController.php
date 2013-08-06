@@ -87,13 +87,6 @@ class FormController extends Controller
                 case Field::TYPE_TEXT:
                     break;
 
-                case Field::TYPE_TEXTBOX:
-                    $customAttributes['labelAlign'] = $item->labelAlign;
-
-                    unset($item->labelAlign);
-
-                    break;
-
                 case Field::TYPE_TEXTAREA:
                     $customAttributes['labelAlign'] = $item->labelAlign;
                     $customAttributes['rows'] = $item->rows;
@@ -125,6 +118,24 @@ class FormController extends Controller
                     unset($item->spreadCols);
 
                     break;
+
+                case Field::TYPE_BIRTHDAY:
+                    $customAttributes['labelAlign'] = $item->labelAlign;
+                    $customAttributes['format'] = $item->format;
+
+                    unset($item->labelAlign);
+                    unset($item->format);
+
+                    break;
+
+                case Field::TYPE_TEXTBOX:
+                case Field::TYPE_EMAIL:
+                case Field::TYPE_NUMBER:
+                case Field::TYPE_PHONE:
+                default:
+                    $customAttributes['labelAlign'] = $item->labelAlign;
+
+                    unset($item->labelAlign);
             }
 
             // update attributes
@@ -136,7 +147,6 @@ class FormController extends Controller
             // add cell to form
             $cell = $cellManager->createCell($form, $field);
             $cell->setAttributes((array)$customAttributes);
-            $cellManager->saveCell($cell);
 
             $form->getCells()->add($cell);
         }

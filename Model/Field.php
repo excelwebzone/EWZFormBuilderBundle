@@ -16,6 +16,10 @@ abstract class Field implements FieldInterface
     const TYPE_DROPDOWN = 'dropdown';
     const TYPE_RADIO    = 'radio';
     const TYPE_CHECKBOX = 'checkbox';
+    const TYPE_EMAIL    = 'email';
+    const TYPE_NUMBER   = 'number';
+    const TYPE_PHONE    = 'phone';
+    const TYPE_BIRTHDAY = 'birthday';
 
     /**
      * Field id

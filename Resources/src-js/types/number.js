@@ -1,9 +1,9 @@
 /**
- * Textarea type
+ * Number type
  *
  * @implements {FormBuilder.Type}
  */
-FormBuilder.TextareaType = FormBuilder.Type.extend({
+FormBuilder.NumberType = FormBuilder.Type.extend({
 
     /**
      * @constructor
@@ -12,12 +12,12 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
         var prop = {
             text: {
                 text: 'Title',
-                value: '....',
+                value: 'Number',
                 reserved: true
             },
             labelAlign: {
                 text: 'Label Align',
-                value: 'Auto',
+                value: 'Left',
                 dropdown: [
                     ['Auto', 'Auto'],
                     ['Left', 'Left'],
@@ -34,33 +34,18 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
                 ],
                 reserved: true
             },
-            cols: {
-                text: 'Columns',
-                value: 40
-            },
-            rows: {
-                text: 'Rows',
-                value: 6
-            },
-            validation: {
-                text: 'Validation',
-                value: 'None',
-                dropdown: [
-                    ['None', 'None'],
-                    ['Email', 'Email'],
-                    ['AlphaNumeric', 'AlphaNumeric'],
-                    ['Alphabetic', 'Alphabetic'],
-                    ['Numeric', 'Numeric']
-                ],
-                reserved: true
+            size: {
+                text: 'Size',
+                value: 5
             },
             maxsize: {
-                text: 'Entry Limit',
+                text: 'Max Size',
                 value: ''
             },
             defaultValue: {
                 text: 'Default Value',
-                value: ''
+                value: '',
+                reserved: true
             },
             subLabel: {
                 text: 'Sub Label',
@@ -69,7 +54,7 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
             },
             hint: {
                 text: 'Hint Example',
-                value: '',
+                value: 'ex: 23',
                 reserved: true
             },
             description: {
@@ -80,9 +65,9 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
             }
         };
 
-        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><textarea name="<@=name@>" id="field_<@=id@>" cols="<@=cols@>" rows="<@=rows@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>data-required=true<@ } @> <@ if (validation && validation != "none") { @>data-validation="<@=validation@>"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> class="form-textarea"><@=value@></textarea><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="text" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>data-required=true<@ } @> data-validation="Numeric" <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
-        this._super('textarea', prop, template);
+        this._super('number', prop, template);
     },
 
     /**
@@ -109,16 +94,14 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id         : this.getFieldName(true),
-                name       : this.getFieldName(),
-                cols       : this.getProperty('cols').value,
-                rows       : this.getProperty('rows').value,
-                maxsize    : this.getProperty('maxsize').value,
-                required   : this.getProperty('required').value == 'Yes',
-                validation : this.getProperty('validation').value.toLowerCase(),
-                hint       : this.getProperty('hint').value,
-                value      : this.getProperty('defaultValue').value,
-                sublabel   : this.getProperty('subLabel').value
+                id       : this.getFieldName(true),
+                name     : this.getFieldName(),
+                size     : this.getProperty('size').value,
+                maxsize  : this.getProperty('maxsize').value,
+                required : this.getProperty('required').value == 'Yes',
+                hint     : this.getProperty('hint').value,
+                value    : this.getProperty('defaultValue').value,
+                sublabel : this.getProperty('subLabel').value
             })
         });
     }
