@@ -71,7 +71,24 @@ class FormType extends AbstractType
                     break;
 
                 case Field::TYPE_TEXTBOX:
+                case Field::TYPE_PHONE:
                     $builder->add($field->getName(), null, array(
+                        'label'    => $field->getAttribute('text'),
+                        'required' => $required,
+                    ));
+
+                    break;
+
+                case Field::TYPE_NUMBER:
+                    $builder->add($field->getName(), 'number', array(
+                        'label'    => $field->getAttribute('text'),
+                        'required' => $required,
+                    ));
+
+                    break;
+
+                case Field::TYPE_EMAIL:
+                    $builder->add($field->getName(), 'email', array(
                         'label'    => $field->getAttribute('text'),
                         'required' => $required,
                     ));
@@ -80,6 +97,14 @@ class FormType extends AbstractType
 
                 case Field::TYPE_TEXTAREA:
                     $builder->add($field->getName(), 'textarea', array(
+                        'label'    => $field->getAttribute('text'),
+                        'required' => $required,
+                    ));
+
+                    break;
+
+                case Field::TYPE_BIRTHDAY:
+                    $builder->add($field->getName(), 'birthday', array(
                         'label'    => $field->getAttribute('text'),
                         'required' => $required,
                     ));
@@ -119,12 +144,20 @@ class FormType extends AbstractType
         );
 
         foreach ($this->form->getFields() as $field) {
+            $validation = array();
+
             switch ($field->getType()) {
                 case Field::TYPE_HEAD:
                 case Field::TYPE_TEXT:
                     break;
 
+                case Field::TYPE_BIRTHDAY:
+                    $validation[] = new Assert\Date();
+
                 case Field::TYPE_TEXTBOX:
+                case Field::TYPE_NUMBER:
+                case Field::TYPE_EMAIL:
+                case Field::TYPE_PHONE:
                 case Field::TYPE_TEXTAREA:
                 case Field::TYPE_CHECKBOX:
                 case Field::TYPE_RADIO:
@@ -132,9 +165,21 @@ class FormType extends AbstractType
                 default:
                     $options[$field->getName()] = null;
 
-                    // right now we only support required validation
+                    // check is required
                     if (strtolower($field->getAttribute('required')) == 'yes') {
-                        $options[$field->getName()] = new Assert\NotBlank();
+                        $validation[] = new Assert\NotBlank();
+                    }
+
+                    // check string validation option
+                    switch ($field->getAttribute('validation')) {
+                        case 'email': $validation[] = new Assert\Email(); break;
+                        case 'alphanumeric': $validation[] = new Assert\Regex(array('pattern' => '/^[\w\d]+/')); break;
+                        case 'alphabetic': $validation[] = new Assert\Regex(array('pattern' => '/^\w+/')); break;
+                        case 'numeric': $validation[] = new Assert\Type(array('type' => 'numeric')); break;
+                    }
+
+                    if ($validation){
+                        $options[$field->getName()] = $validation;
                     }
             }
         }

@@ -88,7 +88,20 @@ class FormBuilderExtension extends \Twig_Extension
                 if ($field->getName() == $name) {
                     switch ($field->getType()) {
                         case Field::TYPE_TEXTBOX:
+                        case Field::TYPE_PHONE:
+                        case Field::TYPE_NUMBER:
+                        case Field::TYPE_EMAIL:
                         case Field::TYPE_TEXTAREA:
+                            $fields[$key]->setAttribute('defaultValue', $value);
+                            break;
+
+                        case Field::TYPE_BIRTHDAY:
+                            if ($value instanceof \DateTime) {
+                                $value = array(                                    'year' => (int) $value->format('Y'),
+                                    'month' => (int) $value->format('m'),
+                                    'day' => (int) $value->format('d'),
+                                );
+                            }
                             $fields[$key]->setAttribute('defaultValue', $value);
                             break;
 
