@@ -121,7 +121,7 @@ class FormController extends Controller
 
                 case Field::TYPE_BIRTHDAY:
                     $customAttributes['labelAlign'] = $item->labelAlign;
-                    $customAttributes['format'] = $item->format;
+                    //$customAttributes['format'] = $item->format;
 
                     unset($item->labelAlign);
                     unset($item->format);
