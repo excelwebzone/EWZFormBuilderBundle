@@ -97,7 +97,8 @@ class FormBuilderExtension extends \Twig_Extension
 
                         case Field::TYPE_BIRTHDAY:
                             if ($value instanceof \DateTime) {
-                                $value = array(                                    'year' => (int) $value->format('Y'),
+                                $value = array(
+                                    'year' => (int) $value->format('Y'),
                                     'month' => (int) $value->format('m'),
                                     'day' => (int) $value->format('d'),
                                 );
