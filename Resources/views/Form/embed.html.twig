@@ -11,23 +11,6 @@
 </div>
 
 <script type="text/javascript">
-    if (!window.FormBuilder) {
-        var FormBuilder = function () {
-            function run() {
-                for (pageLoaded = true; scripts.length;) scripts.shift()();
-                scripts = null
-            }
-            var pageLoaded, scripts = [];
-            if (window.attachEvent) attachEvent("unload", run);
-            else window.addEventListener && addEventListener("load", run, true);
-            return {
-                onPageLoad: function (script) {
-                    pageLoaded ? script() : scripts.push(script)
-                }
-            }
-        }();
-    }
-
     FormBuilder.onPageLoad(function () {
         // declare the form builder
         var {{ builderId }} = new FormBuilder('{{ builderId }}');

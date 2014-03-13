@@ -1,10 +1,28 @@
 <link href="{{ asset('/bundles/ewzformbuilder/css/doc.css') }}" rel="stylesheet" type="text/css" />
 
+<script type="text/javascript">
+    if (!window.FormBuilder) {
+        var FormBuilder = function () {
+            function run() {
+                for (pageLoaded = true; scripts.length;) scripts.shift()();
+                scripts = null
+            }
+            var pageLoaded, scripts = [];
+            if (window.attachEvent) attachEvent("unload", run);
+            else window.addEventListener && addEventListener("load", run, true);
+            return {
+                onPageLoad: function (script) {
+                    pageLoaded ? script() : scripts.push(script)
+                }
+            }
+        }();
+    }
+</script>
+
 {% javascripts '@EWZFormBuilderBundle/Resources/src-js/builder.js'
                '@EWZFormBuilderBundle/Resources/src-js/*.js'
                '@EWZFormBuilderBundle/Resources/src-js/types/*.js'
                filter='?yui_js'
-               output='/bundles/ewzformbuilder/js/builder.js'
 %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}

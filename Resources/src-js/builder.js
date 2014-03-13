@@ -1,7 +1,3 @@
-if (!window.FormBuilder) {
-    var FormBuilder = {};
-}
-
 /**
  * @constructor
  */
