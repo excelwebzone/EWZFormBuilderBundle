@@ -23,9 +23,9 @@ interface FormInterface
 
     public function getFields();
 
-    public function isDefault();
+    public function isDefaultFlag();
 
-    public function setDefault($isDefault);
+    public function setDefaultFlag($defaultFlag);
 
     public function getDateCreated();
 

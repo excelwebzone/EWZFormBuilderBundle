@@ -42,7 +42,7 @@ abstract class Form implements FormInterface
      *
      * @var bool
      */
-    protected $default = true;
+    protected $defaultFlag = true;
 
     /**
      * @var DateTime
@@ -170,17 +170,17 @@ abstract class Form implements FormInterface
     /**
      * @return Boolean
      */
-    public function isDefault()
+    public function isDefaultFlag()
     {
-        return $this->default;
+        return $this->defaultFlag;
     }
 
     /**
      * @param Boolean
      */
-    public function setDefault($default)
+    public function setDefaultFlag($defaultFlag)
     {
-        $this->default = (Boolean) $default;
+        $this->defaultFlag = (Boolean) $defaultFlag;
     }
 
     /**

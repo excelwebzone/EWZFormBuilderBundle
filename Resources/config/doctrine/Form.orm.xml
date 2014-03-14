@@ -6,7 +6,7 @@
 
     <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Form">
         <field name="name" column="name" type="string" />
-        <field name="default" column="default" type="boolean" />
+        <field name="defaultFlag" column="default_flag" type="boolean" />
         <field name="dateCreated" column="date_created" type="datetime" nullable="true" />
         <field name="lastModified" column="last_modified" type="datetime" nullable="true" />
     </mapped-superclass>
