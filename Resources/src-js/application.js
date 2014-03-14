@@ -39,7 +39,7 @@ function handlePreview() {
 function handleEditor() {
 
     $('#accordion-actions').accordion({
-        header: '.panel-bar'
+        header: '.accordion-bar'
     });
 
     $('#form-editor').bind('click', function() {

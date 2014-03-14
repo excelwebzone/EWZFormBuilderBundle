@@ -31,7 +31,7 @@
     <li id="<@=id@>" data-type="<@=type@>" class="form-line <@=style@>">
         <div class="form-line-inner">
             <@ if (label) { @><@=label@><@ } @>
-            <div class="question-input">
+            <div class="form-question-input">
                 <@=html@>
                 <@ if (error) { @>
                     <div class="form-error-message">
@@ -51,19 +51,19 @@
             </div>
         </div>
         {% if preview is not defined or not preview %}
-            <div class="button-container">
+            <div class="form-button-container">
                 <@ if (tools) { @>
                     <@ if (!reserve) { @>
-                        <i class="tool-item required" title="{{ 'tool.required'|trans }}"></i>
+                        <i class="form-tool-item required" title="{{ 'tool.required'|trans }}"></i>
                     <@ } @>
-                    <i class="tool-item shrink" title="{{ 'tool.shrink'|trans }}"></i>
-                    <i class="tool-item expand" title="{{ 'tool.expand'|trans }}"></i>
-                    <i class="tool-item new-line" title="{{ 'tool.new_live'|trans }}"></i>
-                    <i class="tool-item merge-line" title="{{ 'tool.merge_back'|trans }}"></i>
+                    <i class="form-tool-item shrink" title="{{ 'tool.shrink'|trans }}"></i>
+                    <i class="form-tool-item expand" title="{{ 'tool.expand'|trans }}"></i>
+                    <i class="form-tool-item new-line" title="{{ 'tool.new_live'|trans }}"></i>
+                    <i class="form-tool-item merge-line" title="{{ 'tool.merge_back'|trans }}"></i>
                 <@ } @>
-                <i class="tool-item gear" title="{{ 'tool.properties'|trans }}"></i>
+                <i class="form-tool-item gear" title="{{ 'tool.properties'|trans }}"></i>
                 <@ if (allowDelete) { @>
-                    <i class="tool-item cross " title="{{ 'tool.delete'|trans }}"></i>
+                    <i class="form-tool-item cross " title="{{ 'tool.delete'|trans }}"></i>
                 <@ } @>
             </div>
         {% endif %}
