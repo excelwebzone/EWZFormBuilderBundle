@@ -4,9 +4,9 @@
     </div>
 
     <div id="accordion-actions">
-        <div class="panel-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-properties" /><span>{{ 'form_title.properties'|trans }}</span></div>
-        <div class="panel-content">
-            <div class="panel-content-inner">
+        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-properties" /><span>{{ 'form_title.properties'|trans }}</span></div>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
                 <ul id="toolbox" class="tools properties-tools">
                     <li class="form-action-save" href="{{ path('ewz_form_builder_save_form') }}"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-save" /><span>{{ 'button.save'|trans }}</span></li>
                     <li class="form-action-info"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-info" /><span>{{ 'button.info'|trans }}</span></li>
@@ -14,9 +14,9 @@
             </div>
         </div>
 
-        <div class="panel-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-tool_box" /><span>{{ 'form_title.form_tools'|trans }}</span></div>
-        <div class="panel-content">
-            <div class="panel-content-inner">
+        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-tool_box" /><span>{{ 'form_title.form_tools'|trans }}</span></div>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
                 <ul id="toolbox" class="tools tool_box-tools">
                     <li class="form-action-type" data-type="head"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-header" /><span>{{ 'form_type.head'|trans }}</span></li>
                     <li class="form-action-type" data-type="textbox"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-textbox" /><span>{{ 'form_type.textbox'|trans }}</span></li>
@@ -35,9 +35,9 @@
             </div>
         </div>
 
-        <div class="panel-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-saved_tools" /><span>{{ 'form_title.saves_tools'|trans }}</span></div>
-        <div class="panel-content">
-            <div class="panel-content-inner">
+        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-saved_tools" /><span>{{ 'form_title.saves_tools'|trans }}</span></div>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
                 <ul id="toolbox" class="tools saved_tools-tools">
                     {% if fields|length %}
                         {% for field in fields %}

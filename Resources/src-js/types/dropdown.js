@@ -89,7 +89,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
             }
         };
 
-        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><select name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (required) { @>data-required=true<@ } @> <@ if (width) { @>style="width:<@=width@>px"<@ } @> class="form-dropdown"><@=options@></select><i class="dropdown-edit"></i><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><select name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (required) { @>data-required=true<@ } @> <@ if (width) { @>style="width:<@=width@>px"<@ } @> class="form-dropdown"><@=options@></select><i class="form-dropdown-edit"></i><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
         this._super('dropdown', prop, template);
     },

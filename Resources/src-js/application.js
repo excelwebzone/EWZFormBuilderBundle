@@ -43,7 +43,7 @@ function handleEditor() {
     });
 
     $('#form-editor').bind('click', function() {
-        $('.form-line').removeClass('question-selected').removeClass('question-over');
+        $('.form-line').removeClass('form-question-selected').removeClass('form-question-over');
     });
 
     $('.form-list').sortable({
@@ -77,7 +77,7 @@ function handleEditor() {
         $('.form-list').sortable('disable');
         $('.form-toolbar .actions').hide();
         $('.form-toolbar .loading').show();
-        $('.form-line').removeClass('question-selected').removeClass('question-over');
+        $('.form-line').removeClass('form-question-selected').removeClass('form-question-over');
 
         $.ajax({
             url: $this.attr('href'),
@@ -163,7 +163,7 @@ function handleEditor() {
         currentBuilder.addType(elem);
 
         // add new field to list (after selected element or last)
-        if ($('.form-line.question-selected').length) $('.form-line.question-selected:eq(0)').after(elem.render());
+        if ($('.form-line.form-question-selected').length) $('.form-line.form-question-selected:eq(0)').after(elem.render());
         else $('.form-list').append(elem.render());
 
         // reset rules
@@ -196,7 +196,7 @@ function handleEditor() {
         currentBuilder.addType(elem);
 
         // add new field to list (after selected element or last)
-        if ($('.form-line.question-selected').length) $('.form-line.question-selected:eq(0)').after(elem.render());
+        if ($('.form-line.form-question-selected').length) $('.form-line.form-question-selected:eq(0)').after(elem.render());
         else $('.form-list').append(elem.render());
 
         // reset rules
@@ -243,7 +243,7 @@ function handleEditor() {
             });
         },
         close: function () {
-            $('.prop-table tbody').html('');
+            $('.form-prop-table tbody').html('');
         }
     });
 
@@ -258,20 +258,20 @@ function resetListRules() {
 
     $('.form-line')
         .bind('mouseover', function () {
-            $('.form-line').removeClass('question-over');
-            if (!$(this).hasClass('question-selected')) {
-                $(this).addClass('question-over');
+            $('.form-line').removeClass('form-question-over');
+            if (!$(this).hasClass('form-question-selected')) {
+                $(this).addClass('form-question-over');
             }
         })
         .bind('mouseout', function () {
-            $('.form-line').removeClass('question-over');
+            $('.form-line').removeClass('form-question-over');
         })
         .bind('click', function (event) {
             // ignore on saving
             if (saving) return;
 
-            $('.form-line').removeClass('question-selected').removeClass('question-over');
-            $(this).addClass('question-selected');
+            $('.form-line').removeClass('form-question-selected').removeClass('form-question-over');
+            $(this).addClass('form-question-selected');
             event.stopPropagation();
         });
 
@@ -279,7 +279,7 @@ function resetListRules() {
      * Tools
      */
 
-    $('.tool-item.required').bind('click', function () {
+    $('.form-tool-item.required').bind('click', function () {
         var row = $(this).closest('.form-line');
         var elem = currentBuilder.getType(row.attr('id'));
         // toggle property
@@ -288,7 +288,7 @@ function resetListRules() {
         reRenderItem(elem);
     });
 
-    $('.tool-item.shrink, .tool-item.expand').bind('click', function () {
+    $('.form-tool-item.shrink, .form-tool-item.expand').bind('click', function () {
         var row = $(this).closest('.form-line');
         var elem = currentBuilder.getType(row.attr('id'));
         row.toggleClass('form-line-column');
@@ -305,7 +305,7 @@ function resetListRules() {
         reRenderItem(elem);
     });
 
-    $('.tool-item.new-line, .tool-item.merge-line').bind('click', function () {
+    $('.form-tool-item.new-line, .form-tool-item.merge-line').bind('click', function () {
         var row = $(this).closest('.form-line');
         var elem = currentBuilder.getType(row.attr('id'));
         row.toggleClass('form-line-column-clear');
@@ -319,7 +319,7 @@ function resetListRules() {
         reRenderItem(elem);
     });
 
-    $('.tool-item.gear').bind('click', function () {
+    $('.form-tool-item.gear').bind('click', function () {
         var row = $(this).closest('.form-line');
         var elem = currentBuilder.getType(row.attr('id'));
         // open dialog
@@ -330,7 +330,7 @@ function resetListRules() {
                 .html(currentBuilder.makeProperties(elem));
     });
 
-    $('.tool-item.cross').bind('click', function () {
+    $('.form-tool-item.cross').bind('click', function () {
         var row = $(this).closest('.form-line');
         currentBuilder.removeType(row.attr('id'));
 

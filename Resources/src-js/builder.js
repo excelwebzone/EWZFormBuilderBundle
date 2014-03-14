@@ -243,13 +243,13 @@ FormBuilder.prototype.makeProperties = function (type) {
             }
         }
 
-        rows = rows + Utils.tmpl('<tr><td class="prop-table-label" valign="top" nowrap="nowrap"><@=label@> <@ if (tip) { @><span class="prop-table-detail"><@=tip@></span><@ } @></td><td class="prop-table-value" valign="top"><@=field@></td></tr>', {
+        rows = rows + Utils.tmpl('<tr><td class="form-prop-table-label" valign="top" nowrap="nowrap"><@=label@> <@ if (tip) { @><span class="form-prop-table-detail"><@=tip@></span><@ } @></td><td class="form-prop-table-value" valign="top"><@=field@></td></tr>', {
             label : properties[key].text,
             tip   : this.tips_[key] ? this.tips_[key].tip : null,
             field : this.drawField(key, tmp)
         });
     };
-    return Utils.tmpl('<input type="hidden" name="elem_id" value="<@=name@>" /><table class="prop-table"><tbody><@=rows@></tbody></table>', {
+    return Utils.tmpl('<input type="hidden" name="elem_id" value="<@=name@>" /><table class="form-prop-table"><tbody><@=rows@></tbody></table>', {
         name : type.getFieldName(),
         rows : rows
     });

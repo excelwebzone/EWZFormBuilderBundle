@@ -24,7 +24,7 @@
     -moz-border-radius:6px;
     border-radius:6px;
 }
-.panel-bar {
+.form-toolbar .accordion-bar {
     padding:8px;
     border-bottom:1px solid #999;
     letter-spacing:1px;
@@ -36,25 +36,25 @@
     line-height:20px;
     height:20px
 }
-.panel-bar span {
+.form-toolbar .accordion-bar span {
     margin-left:5px;
 }
-.panel-content {
+.form-toolbar .accordion-content {
     position:relative;
     padding:0 !important;
 }
-.panel-content-inner {
+.form-toolbar .accordion-content-inner {
     padding:5px;
 }
-.panel-content-inner>div {
+.form-toolbar .accordion-content-inner>div {
     font-size:11px;
 }
-.tools {
+.form-toolbar .tools {
     list-style:none;
     padding:0px;
     margin-left:0px;
 }
-.tools li {
+.form-toolbar .tools li {
     position:relative;
     padding:3px!important;
     height:16px;
@@ -69,14 +69,14 @@
     text-align:left;
     outline:none !important;
 }
-.tools li:not(.divider):hover {
+.form-toolbar .tools li:not(.divider):hover {
     border:1px solid #aaa;
     background-color:#e5e5e5;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
     border-radius:3px;
 }
-.tools li.divider {
+.form-toolbar .tools li.divider {
     height:1px;
     margin:9px -5px;
     padding:0 !important;
@@ -84,58 +84,58 @@
     background-color:#e5e5e5;
     cursor:default;
 }
-.panel-bar img,.tools img {
+.form-toolbar .accordion-bar img,.tools img {
     margin:-5px 5px 0 0;
     background:transparent url(../images/controls.png) no-repeat scroll 0 0;
     width:16px;
     height:16px;
 }
-.controls-properties {
+.form-toolbar .controls-properties {
     background-position:-1469px 0px !important;
 }
-.controls-save {
+.form-toolbar .controls-save {
     background-position:-1834px 0px !important;
 }
-.controls-info {
+.form-toolbar .controls-info {
     background-position:-1574px 0px !important;
 }
-.controls-tool_box {
+.form-toolbar .controls-tool_box {
     background-position:-1808px 0px !important;
 }
-.controls-header {
+.form-toolbar .controls-header {
     background-position:-858px 0px !important;
 }
-.controls-text {
+.form-toolbar .controls-text {
     background-position:-1730px 0px !important;
 }
-.controls-textbox {
+.form-toolbar .controls-textbox {
     background-position:-1782px 0px !important;
 }
-.controls-textarea {
+.form-toolbar .controls-textarea {
     background-position:-1756px 0px !important;
 }
-.controls-dropdown {
+.form-toolbar .controls-dropdown {
     background-position:-611px 0px !important;
 }
-.controls-radio {
+.form-toolbar .controls-radio {
     background-position:-1495px 0px !important;
 }
-.controls-checkbox {
+.form-toolbar .controls-checkbox {
     background-position:-442px 0px !important;
 }
-.controls-email {
+.form-toolbar .controls-email {
     background-position:-637px 0 !important;
 }
-.controls-number {
+.form-toolbar .controls-number {
     background-position:-962px 0 !important;
 }
-.controls-phone {
+.form-toolbar .controls-phone {
     background-position:-1418px 0 !important;
 }
-.controls-birthday {
+.form-toolbar .controls-birthday {
     background-position:-365px 0 !important;
 }
-.controls-saved_tools {
+.form-toolbar .controls-saved_tools {
     background-position:-1443px 0px !important;
 }
 
@@ -256,23 +256,23 @@
 .form-textbox,.form-textarea,.form-dropdown {
     width:auto;
 }
-.question-input {
+.form-question-input {
     position:relative;
 }
-.question-over {
+.form-question-over {
     border:1px dotted #999 !important;
     color:#000 !important;
     background:#fffff0 !important;
 }
-.question-selected {
+.form-question-selected {
     border:1px solid #ccc !important;
     color:#000 !important;
     background-color:#f5f5f5;
 }
-.question-over.ui-sortable-helper,.question-selected.ui-sortable-helper {
+.form-question-over.ui-sortable-helper,.form-question-selected.ui-sortable-helper {
     opacity:0.7 !important;
 }
-.button-container {
+.form-button-container {
     position:absolute;
     top:-27px;
     right:-1px;
@@ -281,7 +281,7 @@
     background:#f5f5f5;
     display:none;
 }
-.question-selected .button-container {
+.form-question-selected .form-button-container {
     display:block;
 }
 .form-header {
@@ -394,7 +394,7 @@
     top:10px;
     position:absolute;
 }
-.right {
+form-description.right {
     right:33px !important;
 }
 .form-description-indicator {
@@ -406,12 +406,12 @@
     width:25px;
     background:url(../images/info.png) no-repeat center;
 }
-.right .form-description-arrow {
+form-description.right .form-description-arrow {
     border-color:transparent transparent transparent #ccc;
     left:auto;
     right:-24px;
 }
-.right .form-description-arrow-small {
+form-description.right .form-description-arrow-small {
     border-color:transparent transparent transparent #f5f5f5;
     left:auto;
     right:-14px;
@@ -461,25 +461,25 @@
 
 /* Properties window
 -------------------------------------------------- */
-.prop-table {
+.form-prop-table {
     border:1px solid #ccc;
     border-bottom:none;
     width:100%;
 }
-.prop-table td {
+.form-prop-table td {
     border-bottom:1px solid #ccc;
     padding:5px;
 }
-.prop-table-label {
+.form-prop-table-label {
     background:#fff;
     width:40%
 }
-.prop-table-value {
+.form-prop-table-value {
     background:#eee;
     border-left:1px solid #ccc;
     white-space:pre-wrap
 }
-.prop-table-detail {
+.form-prop-table-detail {
     color:#aaa;
     display:block;
     font-size:9px;
@@ -488,21 +488,21 @@
 
 /* Add-on
 -------------------------------------------------- */
-.dropdown-edit {
+.form-dropdown-edit {
     width:16px;
     height:16px;
     margin-left:5px;
     display:none;
     cursor:pointer;
-    background-image:url(../images/dropdown-properties.png);
+    background-image:url(../images/form-dropdown-properties.png);
 }
-.question-selected .dropdown-edit {
+.form-question-selected .form-dropdown-edit {
     display:inline-block;
 }
 
 /* Fancy styling
 -------------------------------------------------- */
-.question-selected {
+form-line.form-question-selected {
     -moz-border-radius:5px 5px;
     -moz-border-radius-topright:0 0;
     -webkit-border-radius:5px 5px;
@@ -510,7 +510,7 @@
     border-radius:5px 5px;
     border-top-right-radius:0 0;
 }
-.button-container {
+.form-button-container {
     -moz-border-radius-topleft:5px 5px;
     -moz-border-radius-topright:5px 5px;
     -webkit-border-top-left-radius:5px 5px;
@@ -521,7 +521,7 @@
 
 /* Tools sprite
 -------------------------------------------------- */
-.tool-item {
+.form-tool-item {
     display:none;
     width:16px;
     height:16px;
@@ -531,43 +531,43 @@
     cursor:pointer;
     background:transparent url(../images/tools.png) no-repeat scroll 0 0;
 }
-.tool-item:last-child {
+.form-tool-item:last-child {
     margin-left:0;
     margin-right:5px;
 }
-.tool-item.add         { background-position:-0 0; }
-.tool-item.auto-off    { background-position:-16px 0; }
-.tool-item.auto-on     { background-position:-32px 0; }
-.tool-item.cross       { background-position:-48px 0; }
-.tool-item.disk        { background-position:-64px 0; }
-.tool-item.down        { background-position:-80px 0; }
-.tool-item.emails      { background-position:-96px 0; }
-.tool-item.expand      { background-position:-112px 0; }
-.tool-item.gear        { background-position:-128px 0; }
-.tool-item.merge-line  { background-position:-144px 0; }
-.tool-item.new-line    { background-position:-160px 0; }
-.tool-item.pencil      { background-position:-176px 0; }
-.tool-item.preview     { background-position:-192px 0; }
-.tool-item.redo        { background-position:-208px 0; }
-.tool-item.required    { background-position:-224px 0; }
-.tool-item.share       { background-position:-240px 0; }
-.tool-item.shrink      { background-position:-256px 0; }
-.tool-item.toggle      { background-position:-272px 0; }
-.tool-item.transparent { background-position:-288px 0; }
-.tool-item.undo        { background-position:-304px 0; }
-.tool-item.up          { background-position:-320px 0; }
-.tool-item.wand        { background-position:-336px 0; }
+.form-tool-item.add         { background-position:-0 0; }
+.form-tool-item.auto-off    { background-position:-16px 0; }
+.form-tool-item.auto-on     { background-position:-32px 0; }
+.form-tool-item.cross       { background-position:-48px 0; }
+.form-tool-item.disk        { background-position:-64px 0; }
+.form-tool-item.down        { background-position:-80px 0; }
+.form-tool-item.emails      { background-position:-96px 0; }
+.form-tool-item.expand      { background-position:-112px 0; }
+.form-tool-item.gear        { background-position:-128px 0; }
+.form-tool-item.merge-line  { background-position:-144px 0; }
+.form-tool-item.new-line    { background-position:-160px 0; }
+.form-tool-item.pencil      { background-position:-176px 0; }
+.form-tool-item.preview     { background-position:-192px 0; }
+.form-tool-item.redo        { background-position:-208px 0; }
+.form-tool-item.required    { background-position:-224px 0; }
+.form-tool-item.share       { background-position:-240px 0; }
+.form-tool-item.shrink      { background-position:-256px 0; }
+.form-tool-item.toggle      { background-position:-272px 0; }
+.form-tool-item.transparent { background-position:-288px 0; }
+.form-tool-item.undo        { background-position:-304px 0; }
+.form-tool-item.up          { background-position:-320px 0; }
+.form-tool-item.wand        { background-position:-336px 0; }
 
-.form-line .tool-item.required,
-.form-line .tool-item.shrink,
-.form-line .tool-item.gear,
-.form-line .tool-item.cross,
-.form-line-column .tool-item.expand,
-.form-line-column .tool-item.new-line,
-.form-line-column-clear .tool-item.merge-line {
+.form-line .form-tool-item.required,
+.form-line .form-tool-item.shrink,
+.form-line .form-tool-item.gear,
+.form-line .form-tool-item.cross,
+.form-line-column .form-tool-item.expand,
+.form-line-column .form-tool-item.new-line,
+.form-line-column-clear .form-tool-item.merge-line {
     display:inline-block;
 }
-.form-line-column .tool-item.shrink,
-.form-line-column-clear .tool-item.new-line {
+.form-line-column .form-tool-item.shrink,
+.form-line-column-clear .form-tool-item.new-line {
     display:none;
 }
