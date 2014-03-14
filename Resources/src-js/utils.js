@@ -134,10 +134,6 @@ var Utils = {
      * @param {Object} elem The delete button
      */
     poof: function (elem) {
-        if ($.browser.msie) {
-            return false;
-        }
-
         var img = $('<div style="height:55px; width:55px; background-image:url(/bundles/ewzformbuilder/images/poof.png); z-index:10000000"></div>');
 
         var point = elem.offset();
