@@ -4,9 +4,7 @@ namespace EWZ\Bundle\FormBuilderBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use EWZ\Bundle\FormBuilderBundle\Model\Field;
@@ -17,29 +15,26 @@ class FormController extends Controller
      * Saves a (new or exists) Form from the submitted data.
      *
      * @return Response A Response instance
-     *
-     * @Route("/save_form", name="ewz_form_builder_save_form")
-     * @Method("POST")
      */
-    public function saveFormAction()
+    public function saveFormAction(Request $request)
     {
         $formManager  = $this->get('ewz_form_builder.manager.form');
         $fieldManager = $this->get('ewz_form_builder.manager.field');
         $cellManager = $this->get('ewz_form_builder.manager.cell');
 
         // get form properties
-        $properties = (object)$this->get('request')->request->get('properties');
+        $properties = (object) $request->get('properties');
 
         $formProperties = $fieldsProperties = array();
 
         foreach ($properties as $property) {
             if ($property['type'] == 'form') {
-                $formProperties = (object)$property;
+                $formProperties = (object) $property;
             } else {
                 // remove property 'id' if set, no need as the id is set automatically
                 if (isset($property['id'])) unset($property['id']);
 
-                $fieldsProperties[] = (object)$property;
+                $fieldsProperties[] = (object) $property;
             }
         }
 
@@ -139,14 +134,14 @@ class FormController extends Controller
             }
 
             // update attributes
-            $field->setAttributes((array)$item);
+            $field->setAttributes((array) $item);
 
             // save form
             $fieldManager->saveField($field);
 
             // add cell to form
             $cell = $cellManager->createCell($form, $field);
-            $cell->setAttributes((array)$customAttributes);
+            $cell->setAttributes((array) $customAttributes);
 
             $form->getCells()->add($cell);
         }
