@@ -125,7 +125,7 @@ class FormType extends AbstractType
 
                     $builder->add($field->getName(), 'choice', array(
                         'label'    => $field->getAttribute('text'),
-                        'data'     => array($field->getAttribute('selected')),
+                        'data'     => $field->getAttribute('selected'),
                         'choices'  => $options,
                         'multiple' => $multiple ?: false,
                         'expanded' => $expanded ?: false,
