@@ -15,18 +15,24 @@ tool.delete: Delete
 button.save: Save Form
 button.info: Form Settings
 
-form_title.properties: Properties
 form_title.form_tools: Form Tools
-form_title.saves_tools: Saved Tools
+form_title.quick_tools: Quick Tools
+form_title.power_tools: Widgets
+form_title.saved_fields: Saved Fields
 
-form_type.head: Head
-form_type.text: Free Text (HTML)
+form_type.heading: Heading
+form_type.text: Text
 form_type.textbox: Text Box
 form_type.textarea: Text Area
-form_type.dropdown: Dropdown
+form_type.dropdown: Drop Down
 form_type.radio: Radio Button
 form_type.checkbox: Checkbox
-form_type.email: Email
-form_type.number: Number
+form_type.fullname: Full Name
+form_type.email: E-mail
 form_type.phone: Phone
+form_type.datetime: DateTime
+form_type.time: Time
 form_type.birthday: Birth Date Picker
+form_type.number: Number
+form_type.matrix: Matrix
+form_type.calculation: Form Calculation

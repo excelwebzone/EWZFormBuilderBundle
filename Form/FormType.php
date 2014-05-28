@@ -71,7 +71,9 @@ class FormType extends AbstractType
                     break;
 
                 case Field::TYPE_TEXTBOX:
+                case Field::TYPE_FULLNAME:
                 case Field::TYPE_PHONE:
+                case Field::TYPE_MATRIX:
                     $builder->add($field->getName(), null, array(
                         'label'    => $field->getAttribute('text'),
                         'required' => $required,
@@ -80,6 +82,7 @@ class FormType extends AbstractType
                     break;
 
                 case Field::TYPE_NUMBER:
+                case Field::TYPE_CALCULATION:
                     $builder->add($field->getName(), 'number', array(
                         'label'    => $field->getAttribute('text'),
                         'required' => $required,
@@ -97,6 +100,22 @@ class FormType extends AbstractType
 
                 case Field::TYPE_TEXTAREA:
                     $builder->add($field->getName(), 'textarea', array(
+                        'label'    => $field->getAttribute('text'),
+                        'required' => $required,
+                    ));
+
+                    break;
+
+                case Field::TYPE_DATETIME:
+                    $builder->add($field->getName(), $field->getAttribute('allowTime') == 'Yes' ? 'datetime' : 'date', array(
+                        'label'    => $field->getAttribute('text'),
+                        'required' => $required,
+                    ));
+
+                    break;
+
+                case Field::TYPE_TIME:
+                    $builder->add($field->getName(), 'time', array(
                         'label'    => $field->getAttribute('text'),
                         'required' => $required,
                     ));
@@ -151,17 +170,22 @@ class FormType extends AbstractType
                 case Field::TYPE_TEXT:
                     break;
 
+                case Field::TYPE_DATETIME:
+                case Field::TYPE_TIME:
                 case Field::TYPE_BIRTHDAY:
                     $validation[] = new Assert\Date();
 
                 case Field::TYPE_TEXTBOX:
-                case Field::TYPE_NUMBER:
+                case Field::TYPE_TEXTAREA:
+                case Field::TYPE_DROPDOWN:
+                case Field::TYPE_RADIO:
+                case Field::TYPE_CHECKBOX:
+                case Field::TYPE_FULLNAME:
                 case Field::TYPE_EMAIL:
                 case Field::TYPE_PHONE:
-                case Field::TYPE_TEXTAREA:
-                case Field::TYPE_CHECKBOX:
-                case Field::TYPE_RADIO:
-                case Field::TYPE_DROPDOWN:
+                case Field::TYPE_NUMBER:
+                case Field::TYPE_MATRIX:
+                case Field::TYPE_CALCULATION:
                 default:
                     $options[$field->getName()] = null;
 

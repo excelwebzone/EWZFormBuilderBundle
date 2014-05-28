@@ -1,41 +1,52 @@
+{# Properties and form save buttons:
+
+<a class="form-action-save" href="{{ path('ewz_form_builder_save_form') }}">{{ 'button.save'|trans }}</a>
+<a class="form-action-info">{{ 'button.info'|trans }}</a>
+#}
+
 <div class="form-toolbar">
-    <div class="loading">
-        <img src="{{ asset('/bundles/ewzformbuilder/images/loading.gif') }}" /> {{ 'loading'|trans }}
-    </div>
-
     <div id="accordion-actions">
-        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-properties" /><span>{{ 'form_title.properties'|trans }}</span></div>
+        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-form_tools" /><span>{{ 'form_title.form_tools'|trans }}</span></div>
         <div class="accordion-content">
             <div class="accordion-content-inner">
-                <ul id="toolbox" class="tools properties-tools">
-                    <li class="form-action-save" href="{{ path('ewz_form_builder_save_form') }}"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-save" /><span>{{ 'button.save'|trans }}</span></li>
-                    <li class="form-action-info"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-info" /><span>{{ 'button.info'|trans }}</span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-tool_box" /><span>{{ 'form_title.form_tools'|trans }}</span></div>
-        <div class="accordion-content">
-            <div class="accordion-content-inner">
-                <ul id="toolbox" class="tools tool_box-tools">
-                    <li class="form-action-type" data-type="head"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-header" /><span>{{ 'form_type.head'|trans }}</span></li>
+                <ul id="toolbox" class="tools">
+                    <li class="form-action-type" data-type="head"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-head" /><span>{{ 'form_type.heading'|trans }}</span></li>
+                    <li class="form-action-type" data-type="text"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-text" /><span>{{ 'form_type.text'|trans }}</span></li>
                     <li class="form-action-type" data-type="textbox"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-textbox" /><span>{{ 'form_type.textbox'|trans }}</span></li>
                     <li class="form-action-type" data-type="textarea"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-textarea" /><span>{{ 'form_type.textarea'|trans }}</span></li>
                     <li class="form-action-type" data-type="dropdown"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-dropdown" /><span>{{ 'form_type.dropdown'|trans }}</span></li>
                     <li class="form-action-type" data-type="radio"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-radio" /><span>{{ 'form_type.radio'|trans }}</span></li>
                     <li class="form-action-type" data-type="checkbox"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-checkbox" /><span>{{ 'form_type.checkbox'|trans }}</span></li>
-                    <li class="divider"></li>
-                    <li class="form-action-type" data-type="email"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-email" /><span>{{ 'form_type.email'|trans }}</span></li>
-                    <li class="form-action-type" data-type="number"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-number" /><span>{{ 'form_type.number'|trans }}</span></li>
-                    <li class="form-action-type" data-type="phone"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-phone" /><span>{{ 'form_type.phone'|trans }}</span></li>
-                    <li class="form-action-type" data-type="birthday"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-birthday" /><span>{{ 'form_type.birthday'|trans }}</span></li>
-                    <li class="divider"></li>
-                    <li class="form-action-type" data-type="text"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-text" /><span>{{ 'form_type.text'|trans }}</span></li>
                 </ul>
             </div>
         </div>
 
-        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-saved_tools" /><span>{{ 'form_title.saves_tools'|trans }}</span></div>
+        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-quick_tools" /><span>{{ 'form_title.quick_tools'|trans }}</span></div>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <ul id="toolbox" class="tools">
+                    <li class="form-action-type" data-type="fullname"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-fullname" /><span>{{ 'form_type.fullname'|trans }}</span></li>
+                    <li class="form-action-type" data-type="email"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-email" /><span>{{ 'form_type.email'|trans }}</span></li>
+                    <li class="form-action-type" data-type="phone"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-phone" /><span>{{ 'form_type.phone'|trans }}</span></li>
+                    <li class="form-action-type" data-type="datetime"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-datetime" /><span>{{ 'form_type.datetime'|trans }}</span></li>
+                    <li class="form-action-type" data-type="time"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-time" /><span>{{ 'form_type.time'|trans }}</span></li>
+                    <li class="form-action-type" data-type="birthday"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-birthday" /><span>{{ 'form_type.birthday'|trans }}</span></li>
+                    <li class="form-action-type" data-type="number"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-number" /><span>{{ 'form_type.number'|trans }}</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-power_tools" /><span>{{ 'form_title.power_tools'|trans }}</span></div>
+        <div class="accordion-content">
+            <div class="accordion-content-inner">
+                <ul id="toolbox" class="tools">
+                    <li class="form-action-type" data-type="matrix"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-matrix" /><span>{{ 'form_type.matrix'|trans }}</span></li>
+                    <li class="form-action-type" data-type="calculation"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-calculation" /><span>{{ 'form_type.calculation'|trans }}</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="accordion-bar"><img src="{{ asset('/bundles/ewzformbuilder/images/blank.gif') }}" class="controls-saved_fields" /><span>{{ 'form_title.saved_fields'|trans }}</span></div>
         <div class="accordion-content">
             <div class="accordion-content-inner">
                 <ul id="toolbox" class="tools saved_tools-tools">

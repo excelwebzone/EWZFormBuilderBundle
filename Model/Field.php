@@ -9,6 +9,7 @@ use DateTime;
  */
 abstract class Field implements FieldInterface
 {
+    // form tools
     const TYPE_HEAD     = 'head';
     const TYPE_TEXT     = 'text';
     const TYPE_TEXTBOX  = 'textbox';
@@ -16,10 +17,19 @@ abstract class Field implements FieldInterface
     const TYPE_DROPDOWN = 'dropdown';
     const TYPE_RADIO    = 'radio';
     const TYPE_CHECKBOX = 'checkbox';
+
+    // quick tools
+    const TYPE_FULLNAME = 'fullname';
     const TYPE_EMAIL    = 'email';
-    const TYPE_NUMBER   = 'number';
     const TYPE_PHONE    = 'phone';
+    const TYPE_DATETIME = 'datetime';
+    const TYPE_TIME     = 'time';
     const TYPE_BIRTHDAY = 'birthday';
+    const TYPE_NUMBER   = 'number';
+
+    // power tools
+    const TYPE_MATRIX      = 'matrix';
+    const TYPE_CALCULATION = 'calculation';
 
     /**
      * Field id

@@ -17,9 +17,8 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
     init: function() {
         var prop = {
             text: {
-                text: 'Title',
-                value: '....',
-                reserved: true
+                text: 'Question',
+                value: '....'
             },
             labelAlign: {
                 text: 'Label Align',
@@ -37,31 +36,25 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                 dropdown: [
                     ['No', 'No'],
                     ['Yes', 'Yes']
-                ],
-                reserved: true
+                ]
             },
             options: {
                 text: 'Options',
                 value: 'Option 1|Option 2|Option 3',
                 textarea: true,
-                splitter: '|',
-                reserved: true
+                splitter: '|'
             },
             special: {
-                hidden: true,
                 text: 'Special Options',
                 value: 'None',
-                dropdown: [
-                    ['None', 'None']
-                ],
-                ajax: {
-                    url: '',
-                    type: 'POST',
-                    data: {},
-                    params: []
-                },
-                reserved: true
+                dropdown: Consts.specialOptions.getByType('dropdown')
             },
+            /*calcValues: {
+                text: 'Calculation Values',
+                value: '',
+                textarea: true,
+                splitter: '|'
+            },*/
             size: {
                 text: 'Height',
                 value: 0
@@ -73,23 +66,30 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
             selected: {
                 text: 'Selected',
                 value: '',
-                dropdown: 'options',
-                reserved: true
+                dropdown: 'options'
             },
             subLabel: {
                 text: 'Sub Label',
-                value: '',
-                reserved: true
+                value: ''
             },
             description: {
                 text: 'Hover Text',
                 value: '',
-                textarea: true,
-                reserved: true
+                textarea: true
+            },
+            emptyText: {
+                text: 'Empty Option Text',
+                value: ''
+            },
+
+            /* override */
+            defaultValue: {
+                hidden: true,
+                value: ''
             }
         };
 
-        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><select name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (required) { @>data-required=true<@ } @> <@ if (width) { @>style="width:<@=width@>px"<@ } @> class="form-dropdown"><@=options@></select><i class="form-dropdown-edit"></i><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><select name="<@=name@>" id="field_<@=id@>" <@ if (required) { @>required="required"<@ } @> <@ if (size > 0) { @>size="<@=size@>" multiple="multiple"<@ } @> <@ if (width > 0) { @>style="width:<@=width@>px"<@ } @> class="form-dropdown"><@=options@></select><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
         this._super('dropdown', prop, template);
     },
@@ -121,21 +121,13 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
         }
 
         if (!options) {
-            var
+            var dropdown     = [],
                 options      = '',
                 optionValues = [],
-                selected     = this.getProperty('selected').value
-            ;
-            $.each(this.getProperty('options').value.split(this.getProperty('options').splitter), function (key, value) {
-                options += '<option value="' + value + '" ' + (selected == value ? 'selected="selected"' : '') + '>' + value + '</option>';
-                optionValues.push(value);
-            });
-            if (selected && $.inArray(selected, optionValues) === -1) {
-                options += '<option value="' + selected + '" selected="selected">' + selected + '</option>';
-            }
+                selected     = this.getProperty('selected').value;
 
             // replace options with special options
-            if (this.getProperty('special').ajax.url) {
+            if (typeof this.getProperty('special').ajax != 'undefined') {
                 var $this = this;
 
                 $this.processAjaxCall_ = true;
@@ -164,7 +156,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                                 optionValues = [];
                                 options = '<option value=""></option>';
                                 $.each(json.data.entries, function (key, value) {
-                                    options += '<option value="' + value.id + '" ' + (selected == value.id ? 'selected="selected"' : '') + '>' + value.name + '</option>';
+                                    options += '<option value="' + value.id + '" ' + (selected == value.id ? 'selected="selected"' : null) + '>' + value.name + '</option>';
                                     optionValues.push(value.id);
                                 });
                                 if (selected && $.inArray(selected, optionValues) === -1) {
@@ -179,13 +171,28 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                     }
                 });
             }
-            else if (this.getProperty('special').value != 'None') {
-                var optionValues = [];
-                options = '<option value=""></option>';
-                $.each(this.getProperty('special').dropdown, function (key, value) {
-                    options += '<option value="' + value[0] + '" ' + (selected == value[0] ? 'selected="selected"' : '') + '>' + value[1] + '</option>';
+            // options or special
+            else {
+
+                // empty value
+                options += '<option value="' + this.getProperty('emptyText').value + '">' + this.getProperty('emptyText').value + '</option>';
+
+                // options
+                if (this.getProperty('special').value == 'None') {
+                    dropdown = this.getProperty('options').value.split(this.getProperty('options').splitter);
+                }
+
+                // special
+                else {
+                    dropdown = Consts.specialOptions[this.getProperty('special').value].value;
+                }
+
+                $.each(dropdown, function (key, value) {
+                    options += '<option value="' + value + '" ' + (selected == value ? 'selected="selected"' : null) + '>' + value + '</option>';
                     optionValues.push(key);
                 });
+
+                // if not found in array
                 if (selected && $.inArray(selected, optionValues) === -1) {
                     options += '<option value="' + selected + '" selected="selected">' + selected + '</option>';
                 }
@@ -200,8 +207,8 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                 id       : this.getFieldName(true),
                 name     : this.getFieldName(),
                 size     : this.getProperty('size').value,
-                required : this.getProperty('required').value == 'Yes',
                 width    : this.getProperty('width').value,
+                required : this.getProperty('required').value == 'Yes',
                 options  : options,
                 sublabel : this.getProperty('subLabel').value
             })

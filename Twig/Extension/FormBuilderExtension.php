@@ -88,10 +88,38 @@ class FormBuilderExtension extends \Twig_Extension
                 if ($field->getName() == $name) {
                     switch ($field->getType()) {
                         case Field::TYPE_TEXTBOX:
+                        case Field::TYPE_TEXTAREA:
+                        case Field::TYPE_FULLNAME:
+                        case Field::TYPE_EMAIL:
                         case Field::TYPE_PHONE:
                         case Field::TYPE_NUMBER:
-                        case Field::TYPE_EMAIL:
-                        case Field::TYPE_TEXTAREA:
+                        case Field::TYPE_MATRIX:
+                        case Field::TYPE_CALCULATION:
+                            $fields[$key]->setAttribute('defaultValue', $value);
+                            break;
+
+                        case Field::TYPE_DATETIME:
+                            if ($value instanceof \DateTime) {
+                                $value = array(
+                                    'year' => (int) $value->format('Y'),
+                                    'month' => (int) $value->format('m'),
+                                    'day' => (int) $value->format('d'),
+                                    'hour' => (int) $value->format('H'),
+                                    'minute' => (int) $value->format('i'),
+                                    'ampm' => $value->format('a'),
+                                );
+                            }
+                            $fields[$key]->setAttribute('defaultValue', $value);
+                            break;
+
+                        case Field::TYPE_TIME:
+                            if ($value instanceof \DateTime) {
+                                $value = array(
+                                    'hour' => (int) $value->format('H'),
+                                    'minute' => (int) $value->format('i'),
+                                    'ampm' => $value->format('a'),
+                                );
+                            }
                             $fields[$key]->setAttribute('defaultValue', $value);
                             break;
 

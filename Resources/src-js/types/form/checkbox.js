@@ -6,14 +6,19 @@
 FormBuilder.CheckboxType = FormBuilder.Type.extend({
 
     /**
+     * @var {string}
+     * @protected
+     */
+    inputType: 'checkbox',
+
+    /**
      * @constructor
      */
     init: function() {
         var prop = {
             text: {
-                text: 'Title',
-                value: '...',
-                reserved: true
+                text: 'Question',
+                value: '....'
             },
             labelAlign: {
                 text: 'Label Align',
@@ -31,16 +36,25 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
                 dropdown: [
                     ['No', 'No'],
                     ['Yes', 'Yes']
-                ],
-                reserved: true
+                ]
             },
             options: {
                 text: 'Options',
                 value: 'Option 1|Option 2|Option 3',
                 textarea: true,
-                splitter: '|',
-                reserved: true
+                splitter: '|'
             },
+            special: {
+                text: 'Special Options',
+                value: 'None',
+                dropdown: Consts.specialOptions.getByType('checkbox')
+            },
+            /*calcValues: {
+                text: 'Calculation Values',
+                value: '',
+                textarea: true,
+                splitter: '|'
+            },*/
             spreadCols: {
                 text: 'Spread to Columns',
                 value: '1'
@@ -48,14 +62,18 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
             selected: {
                 text: 'Selected',
                 value: '',
-                dropdown: 'options',
-                reserved: true
+                dropdown: 'options'
             },
             description: {
                 text: 'Hover Text',
                 value: '',
-                textarea: true,
-                reserved: true
+                textarea: true
+            },
+
+            /* override */
+            defaultValue: {
+                hidden: true,
+                value: ''
             }
         };
 
@@ -87,32 +105,47 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
             required    : this.getProperty('required').value == 'Yes'
         });
 
-        var options      = '',
+        var $this        = this,
+            dropdown     = [],
+            options      = '',
             optionValues = [],
             selected     = this.getProperty('selected').value,
             spreadCols   = this.getProperty('spreadCols').value,
             fieldId      = this.getFieldName(true),
-            fieldName    = this.getFieldName()
-        ;
-        $.each(this.getProperty('options').value.split(this.getProperty('options').splitter), function (key, value) {
-            options += Utils.tmpl('<span class="form-checkbox-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="checkbox" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-checkbox" /><label for="field_<@=id@>_<@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
-                id       : fieldId,
-                name     : fieldName,
-                key      : key,
-                value    : value,
-                selected : 'object' == typeof selected ? $.inArray(value, selected) >= 0 : selected == value,
-                newline  : key % spreadCols === 0
+            fieldName    = this.getFieldName();
+
+        // options
+        if (this.getProperty('special').value == 'None') {
+            dropdown = this.getProperty('options').value.split(this.getProperty('options').splitter);
+        }
+        // special
+        else {
+            dropdown = Consts.specialOptions[this.getProperty('special').value].value;
+        }
+
+        $.each(dropdown, function (key, value) {
+            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" /><label for="field_<@=id@>_<@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
+                id        : fieldId,
+                name      : fieldName,
+                key       : key,
+                value     : value,
+                selected  : 'object' == typeof selected ? $.inArray(value, selected) >= 0 : selected == value,
+                newline   : key % spreadCols === 0,
+                inputType : $this.inputType
             });
             optionValues.push(value);
         });
+
+        // if not found in array
         if (selected && $.inArray(selected, optionValues) === -1) {
-            options += Utils.tmpl('<span class="form-checkbox-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="checkbox" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-checkbox" /><label for="field_<@=id@>_<@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
-                id       : fieldId,
-                name     : fieldName,
-                key      : selected,
-                value    : selected,
-                selected : true,
-                newline  : spreadCols === 0
+            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" /><label for="field_<@=id@>_<@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
+                id        : fieldId,
+                name      : fieldName,
+                key       : selected,
+                value     : selected,
+                selected  : true,
+                newline   : spreadCols === 0,
+                inputType : $this.inputType
             });
         }
 

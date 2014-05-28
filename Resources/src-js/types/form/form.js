@@ -15,17 +15,18 @@ FormBuilder.FormType = FormBuilder.Type.extend({
                 value: '',
                 hidden: true
             },
-            text: {
+            title: {
                 text: 'Title',
-                value: '...'
+                value: 'Untitled Form'
             },
-            width: {
-                text: 'Width',
-                value: 691
+            formWidth: {
+                text: 'Form Width',
+                value: '690',
+                unit: 'px'
             },
             labelWidth: {
                 text: 'Label Width',
-                value: 150
+                value: '150'
             },
             isDefault: {
                 text: 'Is Default?',
@@ -34,10 +35,24 @@ FormBuilder.FormType = FormBuilder.Type.extend({
                     ['No', 'No'],
                     ['Yes', 'Yes']
                 ]
+            },
+            status: {
+                text: 'Status',
+                value: 'Enabled',
+                dropdown: [
+                    ['Enabled', 'Enabled'],
+                    ['Disabled', 'Disabled']
+                ]
+            },
+
+            /* override */
+            defaultValue: {
+                hidden: true,
+                value: ''
             }
         };
 
-        var template = '<input type="hidden" name="<@=name@>" id="field_<@=id@>" data-title="<@=title@>" data-width="<@=width@>" data-label-width="<@=labelWidth@>" value="<@=value@>" class="form-hidden" />';
+        var template = '<input type="hidden" name="<@=name@>" id="field_<@=id@>" data-title="<@=title@>" data-form-width="<@=formWidth@>" data-label-width="<@=labelWidth@>" value="<@=value@>" class="form-hidden" />';
 
         this._super('form', prop, template);
 
@@ -56,7 +71,7 @@ FormBuilder.FormType = FormBuilder.Type.extend({
      */
     render: function(data) {
         // update layout
-        $('.form-list').css('width', this.getProperty('width').value);
+        $('.form-list').css('width', this.getProperty('formWidth').value);
         $('[class*="form-label-"]').css('width', this.getProperty('labelWidth').value);
 
         return this._super({
@@ -68,7 +83,7 @@ FormBuilder.FormType = FormBuilder.Type.extend({
                 name       : this.getFieldName(),
                 value      : this.getProperty('id').value,
                 title      : this.getProperty('title').value,
-                width      : this.getProperty('width').value,
+                formWidth  : this.getProperty('formWidth').value,
                 labelWidth : this.getProperty('labelWidth').value
             }),
             tools : false

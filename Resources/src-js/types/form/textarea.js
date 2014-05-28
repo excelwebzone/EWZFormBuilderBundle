@@ -1,9 +1,9 @@
 /**
- * Textbox type
+ * Textarea type
  *
  * @implements {FormBuilder.Type}
  */
-FormBuilder.TextboxType = FormBuilder.Type.extend({
+FormBuilder.TextareaType = FormBuilder.Type.extend({
 
     /**
      * @constructor
@@ -11,13 +11,12 @@ FormBuilder.TextboxType = FormBuilder.Type.extend({
     init: function() {
         var prop = {
             text: {
-                text: 'Title',
-                value: '...',
-                reserved: true
+                text: 'Question',
+                value: '....'
             },
             labelAlign: {
                 text: 'Label Align',
-                value: 'Left',
+                value: 'Auto',
                 dropdown: [
                     ['Auto', 'Auto'],
                     ['Left', 'Left'],
@@ -31,12 +30,15 @@ FormBuilder.TextboxType = FormBuilder.Type.extend({
                 dropdown: [
                     ['No', 'No'],
                     ['Yes', 'Yes']
-                ],
-                reserved: true
+                ]
             },
-            size: {
-                text: 'Size',
-                value: 20
+            cols: {
+                text: 'Columns',
+                value: 40
+            },
+            rows: {
+                text: 'Rows',
+                value: 6
             },
             validation: {
                 text: 'Validation',
@@ -47,39 +49,38 @@ FormBuilder.TextboxType = FormBuilder.Type.extend({
                     ['AlphaNumeric', 'AlphaNumeric'],
                     ['Alphabetic', 'Alphabetic'],
                     ['Numeric', 'Numeric']
-                ],
-                reserved: true
+                ]
             },
             maxsize: {
-                text: 'Max Size',
+                text: 'Max Length',
                 value: ''
-            },
-            defaultValue: {
-                text: 'Default Value',
-                value: '',
-                reserved: true
             },
             subLabel: {
                 text: 'Sub Label',
-                value: '',
-                reserved: true
+                value: ''
             },
             hint: {
                 text: 'Hint Example',
-                value: '',
-                reserved: true
+                value: ''
             },
             description: {
                 text: 'Hover Text',
                 value: '',
-                textarea: true,
-                reserved: true
+                textarea: true
+            },
+            readonly: {
+                text: 'Read-only',
+                value: 'No',
+                dropdown: [
+                    ['No', 'No'],
+                    ['Yes', 'Yes']
+                ]
             }
         };
 
-        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="text" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>data-required=true<@ } @> <@ if (validation && validation != "none") { @>data-validation="<@=validation@>"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><textarea name="<@=name@>" id="field_<@=id@>" cols="<@=cols@>" rows="<@=rows@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>required="required"<@ } @> <@ if (validation && validation != "none") { @>data-validation="<@=validation@>"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textarea"><@=value@></textarea><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
-        this._super('textbox', prop, template);
+        this._super('textarea', prop, template);
     },
 
     /**
@@ -108,12 +109,14 @@ FormBuilder.TextboxType = FormBuilder.Type.extend({
             html  : Utils.tmpl(this.TEMPLATE_, {
                 id         : this.getFieldName(true),
                 name       : this.getFieldName(),
-                size       : this.getProperty('size').value,
+                cols       : this.getProperty('cols').value,
+                rows       : this.getProperty('rows').value,
                 maxsize    : this.getProperty('maxsize').value,
                 required   : this.getProperty('required').value == 'Yes',
+                readonly   : this.getProperty('readonly').value == 'Yes',
                 validation : this.getProperty('validation').value.toLowerCase(),
                 hint       : this.getProperty('hint').value,
-                value      : this.getProperty('defaultValue').value,
+                value      : Utils.newlineToEntities(this.getProperty('defaultValue').value),
                 sublabel   : this.getProperty('subLabel').value
             })
         });

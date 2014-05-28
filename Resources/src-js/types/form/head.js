@@ -12,7 +12,7 @@ FormBuilder.HeadType = FormBuilder.Type.extend({
         var prop = {
             text: {
                 text: 'Text',
-                value: '...'
+                value: 'Click to edit this text...'
             },
             subHeader: {
                 text: 'Sub Heading',
@@ -26,6 +26,12 @@ FormBuilder.HeadType = FormBuilder.Type.extend({
                     ['Large', 'Large'],
                     ['Small', 'Small']
                 ]
+            },
+
+            /* override */
+            defaultValue: {
+                hidden: true,
+                value: ''
             }
         };
 
@@ -48,9 +54,9 @@ FormBuilder.HeadType = FormBuilder.Type.extend({
             type  : this.getType(),
             style : 'form-input-wide',
             html  : Utils.tmpl(this.TEMPLATE_, {
+                h    : headingType,
                 text : this.getProperty('text').value,
-                sub  : this.getProperty('subHeader').value,
-                h    : headingType
+                sub  : this.getProperty('subHeader').value
             }),
             tools : false
         });

@@ -1,9 +1,9 @@
 /**
- * Number type
+ * Calculation type
  *
  * @implements {FormBuilder.Type}
  */
-FormBuilder.NumberType = FormBuilder.Type.extend({
+FormBuilder.CalculationType = FormBuilder.Type.extend({
 
     /**
      * @constructor
@@ -11,13 +11,12 @@ FormBuilder.NumberType = FormBuilder.Type.extend({
     init: function() {
         var prop = {
             text: {
-                text: 'Title',
-                value: 'Number',
-                reserved: true
+                text: 'Text',
+                value: 'Calculation'
             },
             labelAlign: {
                 text: 'Label Align',
-                value: 'Left',
+                value: 'Auto',
                 dropdown: [
                     ['Auto', 'Auto'],
                     ['Left', 'Left'],
@@ -25,56 +24,32 @@ FormBuilder.NumberType = FormBuilder.Type.extend({
                     ['Top', 'Top']
                 ]
             },
-            required: {
-                text: 'Required',
-                value: 'No',
-                dropdown: [
-                    ['No', 'No'],
-                    ['Yes', 'Yes']
-                ],
-                reserved: true
-            },
             size: {
                 text: 'Size',
-                value: 5
-            },
-            maxsize: {
-                text: 'Max Size',
-                value: ''
-            },
-            defaultValue: {
-                text: 'Default Value',
-                value: '',
-                reserved: true
-            },
-            subLabel: {
-                text: 'Sub Label',
-                value: '',
-                reserved: true
-            },
-            hint: {
-                text: 'Hint Example',
-                value: 'ex: 23',
-                reserved: true
+                value: 20
             },
             description: {
                 text: 'Hover Text',
                 value: '',
-                textarea: true,
-                reserved: true
+                textarea: true
+            },
+            subLabel: {
+                text: 'Sub Label',
+                value: ''
             }
         };
 
-        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="text" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>data-required=true<@ } @> data-validation="Numeric" <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="text" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" value="<@=value@>" class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
-        this._super('number', prop, template);
+        this._super('calculation', prop, template);
     },
 
     /**
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName(true)).val();
+        return Utils.stringify({
+        });
     },
 
     /**
@@ -97,9 +72,6 @@ FormBuilder.NumberType = FormBuilder.Type.extend({
                 id       : this.getFieldName(true),
                 name     : this.getFieldName(),
                 size     : this.getProperty('size').value,
-                maxsize  : this.getProperty('maxsize').value,
-                required : this.getProperty('required').value == 'Yes',
-                hint     : this.getProperty('hint').value,
                 value    : this.getProperty('defaultValue').value,
                 sublabel : this.getProperty('subLabel').value
             })

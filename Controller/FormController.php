@@ -44,14 +44,17 @@ class FormController extends Controller
         }
 
         // set form properties
-        $form->setName($formProperties->text ?: $this->get('translator')->trans('form.default_name'));
+        $form->setName($formProperties->title ?: $this->get('translator')->trans('form.default_name'));
         $form->setAttributes(array(
-            'width'      => $formProperties->width,
+            'width'      => $formProperties->formWidth,
             'labelWidth' => $formProperties->labelWidth,
         ));
 
         // is default?
         $form->setDefaultFlag($formProperties->isDefault == 'Yes');
+
+        // is enabled
+        $form->setEnabled($formProperties->status == 'Enabled');
 
         // clear all fields
         foreach ($form->getCells() as $cell) $cellManager->deleteCell($cell);
@@ -114,9 +117,10 @@ class FormController extends Controller
 
                     break;
 
+                case Field::TYPE_DATETIME:
+                case Field::TYPE_TIME:
                 case Field::TYPE_BIRTHDAY:
                     $customAttributes['labelAlign'] = $item->labelAlign;
-                    //$customAttributes['format'] = $item->format;
 
                     unset($item->labelAlign);
                     unset($item->format);
@@ -124,9 +128,12 @@ class FormController extends Controller
                     break;
 
                 case Field::TYPE_TEXTBOX:
+                case Field::TYPE_FULLNAME:
                 case Field::TYPE_EMAIL:
-                case Field::TYPE_NUMBER:
                 case Field::TYPE_PHONE:
+                case Field::TYPE_NUMBER:
+                case Field::TYPE_MATRIX:
+                case Field::TYPE_CALCULATION:
                 default:
                     $customAttributes['labelAlign'] = $item->labelAlign;
 

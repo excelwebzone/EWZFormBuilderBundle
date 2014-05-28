@@ -12,8 +12,14 @@ FormBuilder.TextType = FormBuilder.Type.extend({
         var prop = {
             text: {
                 text: 'HTML',
-                value: '...',
-                textarea: true
+                value: 'Double-click to edit this text...',
+                type: 'textarea'
+            },
+
+            /* override */
+            defaultValue: {
+                hidden: true,
+                value: ''
             }
         };
 
@@ -30,7 +36,7 @@ FormBuilder.TextType = FormBuilder.Type.extend({
             id    : this.getFieldName(true),
             type  : this.getType(),
             html  : Utils.tmpl(this.TEMPLATE_, {
-                text : this.getProperty('text').value
+                text : Utils.htmlDecode(Utils.stripslashes(this.getProperty('text').value))
             }),
             tools : false
         });

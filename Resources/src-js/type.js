@@ -26,13 +26,9 @@ FormBuilder.Type = FormBuilder.Class.extend({
      * @protected
      */
     prop_: {
-        reserve: {
-            hidden: true,
-            value: 'No',
-            dropdown: [
-                ['No', 'No'],
-                ['Yes', 'Yes']
-            ]
+        defaultValue: {
+            text: 'Default Value',
+            value: ''
         },
         allowDelete: {
             hidden: true,
@@ -225,9 +221,6 @@ FormBuilder.Type.prototype.render = function(data) {
     if (typeof data.allowDelete == 'undefined') {
         data.allowDelete = this.getProperty('allowDelete').value == 'Yes';
     }
-    if (typeof data.reserve == 'undefined') {
-        data.reserve = this.getProperty('reserve').value == 'Yes';
-    }
     if (typeof data.error == 'undefined') {
         data.error = this.getProperty('error').value;
     }
@@ -252,7 +245,6 @@ FormBuilder.Type.prototype.render = function(data) {
         error       : data.error       || null,
         description : data.description || null,
         tools       : data.tools       || null,
-        reserve     : data.reserve     || null,
         allowDelete : data.allowDelete || null
     });
 };

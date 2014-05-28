@@ -11,13 +11,12 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
     init: function() {
         var prop = {
             text: {
-                text: 'Title',
-                value: 'Birth Day',
-                reserved: true
+                text: 'Question',
+                value: 'Birth Date'
             },
             labelAlign: {
                 text: 'Label Align',
-                value: 'Left',
+                value: 'Auto',
                 dropdown: [
                     ['Auto', 'Auto'],
                     ['Left', 'Left'],
@@ -31,35 +30,29 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
                 dropdown: [
                     ['No', 'No'],
                     ['Yes', 'Yes']
-                ],
-                reserved: true
-            },
-            /* format: {
-                text: 'Date Format',
-                value: 'mmddyyyy',
-                dropdown: [
-                    ['mmddyyyy', 'mmddyyyy'],
-                    ['ddmmyyyy', 'ddmmyyyy']
                 ]
-            }, */
-            defaultValue: {
-                hidden: true,
-                text: 'Default Value',
-                value: '',
-                reserved: true
+            },
+            yearFrom: {
+                text: 'Year From',
+                type: 'number',
+                value: ''
+            },
+            yearTo: {
+                text: 'Year To',
+                type: 'number',
+                value: ''
             },
             description: {
                 text: 'Hover Text',
                 value: '',
-                textarea: true,
-                reserved: true
+                textarea: true
             }
         };
 
         var template = ' \
-            <span class="form-sub-label-container"><select id="field_<@=id@>_month" name="<@=name@>[month]" class="form-dropdown"><@=month_options@></select> <label id="sublabel_month" for="id="field_<@=id@>_month" class="form-sub-label">Month</label></span> \
-            <span class="form-sub-label-container"><select id="field_<@=id@>_day" name="<@=name@>[day]" class="form-dropdown"><@=day_options@></select> <label id="sublabel_day" for="field_<@=id@>_day" class="form-sub-label">Day</label></span> \
-            <span class="form-sub-label-container"><select id="field_<@=id@>_year" name="<@=name@>[year]" class="form-dropdown"><@=year_options@></select> <label id="sublabel_year" for="field_<@=id@>_year" class="form-sub-label">Year</label></span> \
+            <div class="form-sub-label-container"><select name="<@=name@>[month]" id="field_<@=id@>_month" class="form-dropdown"><@=monthChoices@></select><span class="form-sub-label">Month</span></div> \
+            <div class="form-sub-label-container"><select name="<@=name@>[day]" id="field_<@=id@>_day" class="form-dropdown"><@=dayChoices@></select><span class="form-sub-label">Day</span></div> \
+            <div class="form-sub-label-container"><select name="<@=name@>[year]" id="field_<@=id@>_year" class="form-dropdown"><@=yearChoices@></select><span class="form-sub-label">Year</span></div> \
         ';
 
         this._super('birthday', prop, template);
@@ -69,7 +62,11 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName(true)).val();
+        return Utils.stringify({
+            month: $('#field_' + this.getFieldName(true) + '_month').val(),
+            day: $('#field_' + this.getFieldName(true) + '_day').val(),
+            year: $('#field_' + this.getFieldName(true) + '_year').val(),
+        });
     },
 
     /**
@@ -84,11 +81,17 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
             required    : this.getProperty('required').value == 'Yes'
         });
 
-        var date = new Date();
         var defaultValue = this.getProperty('defaultValue').value;
+        if (defaultValue) defaultValue = $.parseJSON(defaultValue || {});
+
         var years = months = days = '<option value=""></option>';
         var monthString = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        for (var i=date.getFullYear()-100; i<=date.getFullYear(); i++) {
+
+        var date = new Date();
+        var yearFrom = this.getProperty('yearFrom').value || date.getFullYear()-100;
+        var yearTo = this.getProperty('yearTo').value || date.getFullYear();
+
+        for (var i=yearFrom; i<=yearTo; i++) {
             years = years + '<option value="' + i + '" ' + (defaultValue && defaultValue['year'] == i ? 'selected="selected"' : null) + '>' + i + '</option>';
         }
         for (var i=1; i<=12; i++) {
@@ -103,15 +106,12 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id            : this.getFieldName(true),
-                name          : this.getFieldName(),
-                size          : this.getProperty('size').value,
-                maxsize       : this.getProperty('maxsize').value,
-                required      : this.getProperty('required').value == 'Yes',
-                hint          : this.getProperty('hint').value,
-                month_options : months,
-                day_options   : days,
-                year_options  : years,
+                id           : this.getFieldName(true),
+                name         : this.getFieldName(),
+                required     : this.getProperty('required').value == 'Yes',
+                monthChoices : months,
+                dayChoices   : days,
+                yearChoices  : years
             })
         });
     }

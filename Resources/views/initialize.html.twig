@@ -21,7 +21,9 @@
 
 {% javascripts '@EWZFormBuilderBundle/Resources/src-js/builder.js'
                '@EWZFormBuilderBundle/Resources/src-js/*.js'
-               '@EWZFormBuilderBundle/Resources/src-js/types/*.js'
+               '@EWZFormBuilderBundle/Resources/src-js/types/form/*.js'
+               '@EWZFormBuilderBundle/Resources/src-js/types/quick/*.js'
+               '@EWZFormBuilderBundle/Resources/src-js/types/widget/*.js'
                filter='?yui_js'
 %}
     <script src="{{ asset_url }}" type="text/javascript"></script>
@@ -53,9 +55,7 @@
         {% if preview is not defined or not preview %}
             <div class="form-button-container">
                 <@ if (tools) { @>
-                    <@ if (!reserve) { @>
-                        <i class="form-tool-item required" title="{{ 'tool.required'|trans }}"></i>
-                    <@ } @>
+                    <i class="form-tool-item required" title="{{ 'tool.required'|trans }}"></i>
                     <i class="form-tool-item shrink" title="{{ 'tool.shrink'|trans }}"></i>
                     <i class="form-tool-item expand" title="{{ 'tool.expand'|trans }}"></i>
                     <i class="form-tool-item new-line" title="{{ 'tool.new_live'|trans }}"></i>

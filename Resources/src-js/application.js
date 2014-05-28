@@ -7,13 +7,11 @@ var currentBuilder = null;
 function handlePreview() {
 
     $('.form-description').each(function () {
-        var
-            right = $(this).hasClass('right'),
+        var right = $(this).hasClass('right'),
             cont = $(this).closest('.form-line'),
             arrow = $(this).children('.form-description-arrow'),
             arrowsmall = $(this).children('.form-description-arrow-small'),
-            indicator = $(this).children('.form-description-indicator')
-        ;
+            indicator = $(this).children('.form-description-indicator');
 
         if ((cont.width() / 2) < $(this).width()) {
             $(this).css('right', '-' + (cont.width() - (right ? 100 : 20)) + 'px');
@@ -75,9 +73,10 @@ function handleEditor() {
 
         // disable sorting and toolbar actions
         $('.form-list').sortable('disable');
-        $('.form-toolbar .actions').hide();
-        $('.form-toolbar .loading').show();
         $('.form-line').removeClass('form-question-selected').removeClass('form-question-over');
+        $('#accordion-actions').accordion({
+            disabled: true
+        });
 
         $.ajax({
             url: $this.attr('href'),
@@ -93,8 +92,6 @@ function handleEditor() {
                 try {
                     json = $.parseJSON(xhr.responseText);
                     if (null !== json) {
-                        $this.trigger(json.event, [json.data]);
-
                         if (json.event == 'form_builder:error') {
                             throw json.data.message;
                         }
@@ -126,9 +123,13 @@ function handleEditor() {
 
                         // enable sorting and toolbar actions
                         $('.form-list').sortable('enable');
-                        $('.form-toolbar .actions').show();
-                        $('.form-toolbar .loading').hide();
+                        $('#accordion-actions').accordion({
+                            disabled: false
+                        });
+
                         resetListRules();
+
+                        $this.trigger(json.event, [json.data]);
                     }
 
                     // this catches empty or otherwise non-JSON responses
@@ -218,11 +219,10 @@ function handleEditor() {
         resizable: false,
         buttons: {
             'OK': function () {
-                var
-                    form   = $(this).children('form'),
+                var form   = $(this).children('form'),
                     elem   = currentBuilder.getType(form.find('input[name=elem_id]').val()),
-                    values = form.serializeArray()
-                ;
+                    values = form.serializeArray();
+
                 // re-assign values
                 $.each(values, function (key, value) {
                     elem.setPropertyValue(value.name, value.value);

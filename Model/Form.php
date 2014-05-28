@@ -40,9 +40,16 @@ abstract class Form implements FormInterface
     /**
      * Whether or not the form is set as default
      *
-     * @var bool
+     * @var Boolean
      */
     protected $defaultFlag = true;
+
+    /**
+     * State of the form
+     *
+     * @var Boolean
+     */
+    protected $enabled = true;
 
     /**
      * @var DateTime
@@ -181,6 +188,22 @@ abstract class Form implements FormInterface
     public function setDefaultFlag($defaultFlag)
     {
         $this->defaultFlag = (Boolean) $defaultFlag;
+    }
+
+    /**
+     * @return Boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param Boolean
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = (Boolean) $enabled;
     }
 
     /**

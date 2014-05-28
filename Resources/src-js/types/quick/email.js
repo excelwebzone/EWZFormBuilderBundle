@@ -1,9 +1,9 @@
 /**
- * Phone type
+ * Email type
  *
  * @implements {FormBuilder.Type}
  */
-FormBuilder.PhoneType = FormBuilder.Type.extend({
+FormBuilder.EmailType = FormBuilder.Type.extend({
 
     /**
      * @constructor
@@ -11,13 +11,12 @@ FormBuilder.PhoneType = FormBuilder.Type.extend({
     init: function() {
         var prop = {
             text: {
-                text: 'Title',
-                value: 'Phone Number',
-                reserved: true
+                text: 'Question',
+                value: 'E-mail'
             },
             labelAlign: {
                 text: 'Label Align',
-                value: 'Left',
+                value: 'Auto',
                 dropdown: [
                     ['Auto', 'Auto'],
                     ['Left', 'Left'],
@@ -31,38 +30,42 @@ FormBuilder.PhoneType = FormBuilder.Type.extend({
                 dropdown: [
                     ['No', 'No'],
                     ['Yes', 'Yes']
-                ],
-                reserved: true
+                ]
             },
             size: {
                 text: 'Size',
-                value: 20
+                value: 30
             },
             maxsize: {
                 text: 'Max Size',
                 value: ''
             },
-            defaultValue: {
-                text: 'Default Value',
-                value: '',
-                reserved: true
+            subLabel: {
+                text: 'Sub Label',
+                value: ''
             },
             hint: {
                 text: 'Hint Example',
-                value: '',
-                reserved: true
+                value: 'ex: myname@example.com'
             },
             description: {
                 text: 'Hover Text',
                 value: '',
-                textarea: true,
-                reserved: true
+                textarea: true
+            },
+            readonly: {
+                text: 'Read-only',
+                value: 'No',
+                dropdown: [
+                    ['No', 'No'],
+                    ['Yes', 'Yes']
+                ]
             }
         };
 
-        var template = '<div class="form-sub-label-container"><input type="text" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>data-required=true<@ } @> data-validation="Numeric" <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" class="form-textbox" /><span class="form-sub-label">Area Code + Phone Number</span></div>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="email" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (required) { @>required="required"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
-        this._super('phone', prop, template);
+        this._super('email', prop, template);
     },
 
     /**
@@ -94,8 +97,10 @@ FormBuilder.PhoneType = FormBuilder.Type.extend({
                 size     : this.getProperty('size').value,
                 maxsize  : this.getProperty('maxsize').value,
                 required : this.getProperty('required').value == 'Yes',
+                readonly : this.getProperty('readonly').value == 'Yes',
                 hint     : this.getProperty('hint').value,
-                value    : this.getProperty('defaultValue').value
+                value    : this.getProperty('defaultValue').value,
+                sublabel : this.getProperty('subLabel').value
             })
         });
     }
