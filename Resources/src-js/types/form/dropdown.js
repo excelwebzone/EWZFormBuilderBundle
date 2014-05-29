@@ -184,8 +184,14 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                     dropdown = Consts.specialOptions[this.getProperty('special').value].value;
                 }
 
+                // calculation values
+                var calcValues = this.getProperty('calcValues').value.split(this.getProperty('calcValues').splitter) || [];
+
                 $.each(dropdown, function (key, value) {
-                    options += '<option value="' + value + '" ' + (selected == value ? 'selected="selected"' : null) + '>' + value + '</option>';
+                    var text = value;
+                    value = typeof calcValues[key] != 'undefined' ? calcValues[key] : value
+
+                    options += '<option value="' + value + '" ' + (selected == value ? 'selected="selected"' : null) + '>' + text + '</option>';
                     optionValues.push(key);
                 });
             }

@@ -123,13 +123,20 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
             dropdown = Consts.specialOptions[this.getProperty('special').value].value;
         }
 
+        // calculation values
+        var calcValues = this.getProperty('calcValues').value.split(this.getProperty('calcValues').splitter) || [];
+
         $.each(dropdown, function (key, value) {
-            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" /><label for="field_<@=id@>_<@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
+            var text = value;
+            value = typeof calcValues[key] != 'undefined' ? calcValues[key] : value
+
+            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" /><label for="field_<@=id@>_<@=key@>"><@=text@></label></span><span class="clearfix"></span>', {
                 id        : fieldId,
                 name      : fieldName,
                 key       : key,
                 value     : value,
-                selected  : 'object' == typeof selected ? $.inArray(value, selected) >= 0 : selected == value,
+                text      : text,
+                selected  : typeof selected == 'object' ? $.inArray(value, selected) >= 0 : selected == value,
                 newline   : key % spreadCols === 0,
                 inputType : $this.inputType
             });
