@@ -129,7 +129,6 @@ FormBuilder.FullnameType = FormBuilder.Type.extend({
         });
 
         var defaultValue = this.getProperty('defaultValue').value;
-        if (defaultValue) defaultValue = $.parseJSON(defaultValue || {});
 
         var prefix = defaultValue && defaultValue['prefix'] ? defaultValue['prefix'] : null;
         var first = defaultValue && defaultValue['first'] ? defaultValue['first'] : null;

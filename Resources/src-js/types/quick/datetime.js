@@ -109,7 +109,7 @@ FormBuilder.DatetimeType = FormBuilder.Type.extend({
                 <div class="form-sub-label-container"><strong>at</strong><span class="form-sub-label">&nbsp;</span></div> \
                 <div class="form-sub-label-container"><select name="<@=name@>[hour]" id="field_<@=id@>_hour" <@ if (readonly) { @>disabled="disabled"<@ } @> class="form-dropdown"><@=hourChoices@></select><span class="form-sub-label">Hour</span></div> \
                 <div class="form-sub-label-container"><select name="<@=name@>[minute]" id="field_<@=id@>_minute" <@ if (readonly) { @>disabled="disabled"<@ } @> class="form-dropdown"><@=minuteChoices@></select><span class="form-sub-label">Minutes</span></div> \
-                <@ if (timeFormat == "AM/PM") { @> \
+                <@ if (ampmTimeFormat) { @> \
                     <div class="form-sub-label-container"><select name="<@=name@>[ampm]" id="field_<@=id@>_ampm" <@ if (readonly) { @>disabled="disabled"<@ } @> class="form-dropdown"><@=ampmChoices@></select><span class="form-sub-label">&nbsp;</span></div> \
                 <@ } @> \
             <@ } @> \
@@ -129,12 +129,17 @@ FormBuilder.DatetimeType = FormBuilder.Type.extend({
         };
 
         if (this.getProperty('allowTime').value == 'Yes') {
-            data = $.extend(data, {
+            time = {
                 hour: $('#field_' + this.getFieldName(true) + '_hour').val(),
                 minute: $('#field_' + this.getFieldName(true) + '_minute').val(),
-            });
+            };
 
-            if (this.getProperty('timeFormat').value == 'AM/PM') data.ampm = $('#field_' + this.getFieldName(true) + '_ampm').val();
+            if (this.getProperty('timeFormat').value == 'AM/PM') time.ampm = $('#field_' + this.getFieldName(true) + '_ampm').val();
+
+            data = {
+                date: data,
+                time: time
+            }
         }
 
         return Utils.stringify(data);
@@ -153,10 +158,6 @@ FormBuilder.DatetimeType = FormBuilder.Type.extend({
         });
 
         var defaultValue = this.getProperty('defaultValue').value;
-        if (defaultValue) defaultValue = $.parseJSON(defaultValue || {});
-
-        var years = months = days = '<option value=""></option>';
-        var monthString = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
         var date = new Date(),
             years = months = days = hours = minutes = '<option value=""></option>',
@@ -182,7 +183,6 @@ FormBuilder.DatetimeType = FormBuilder.Type.extend({
 
         var monthString = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-        var date = new Date();
         var yearFrom = this.getProperty('yearFrom').value || date.getFullYear()-100;
         var yearTo = this.getProperty('yearTo').value || date.getFullYear();
 
@@ -206,10 +206,10 @@ FormBuilder.DatetimeType = FormBuilder.Type.extend({
                     hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
                 }
             }
-            for (var i=0; i<60; i+=this.getProperty('step').value) {
+            for (var i=0; i<60; i+=parseInt(this.getProperty('step').value)) {
                 minutes = minutes + '<option value="' + i + '" ' + (defaultValue && defaultValue['minute'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
             }
-            if (this.getProperty('defaultValue').value == 'AM/PM') {
+            if (this.getProperty('timeFormat').value == 'AM/PM') {
                 if (this.getProperty('showDayPeriods').value == 'both' || this.getProperty('showDayPeriods').value == 'amOnly') {
                     ampm = ampm + '<option value="am" ' + (defaultValue && defaultValue['ampm'] == 'am' ? 'selected="selected"' : null) + '>AM</option>';
                 }
@@ -228,14 +228,14 @@ FormBuilder.DatetimeType = FormBuilder.Type.extend({
                 name          : this.getFieldName(),
                 required      : this.getProperty('required').value == 'Yes',
                 readonly      : this.getProperty('readonly').value == 'Yes',
-                monthChoices : months,
-                dayChoices   : days,
-                yearChoices  : years,
-                allowTime     : this.getProperty('allowTime').value == 'Yes',
-                timeFormat    : this.getProperty('timeFormat').value,
-                hourChoices   : hours,
-                minuteChoices : minutes,
-                ampmChoices   : ampm
+                monthChoices   : months,
+                dayChoices     : days,
+                yearChoices    : years,
+                allowTime      : this.getProperty('allowTime').value == 'Yes',
+                ampmTimeFormat : this.getProperty('timeFormat').value == 'AM/PM',
+                hourChoices    : hours,
+                minuteChoices  : minutes,
+                ampmChoices    : ampm
             })
         });
     }

@@ -82,7 +82,6 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
         });
 
         var defaultValue = this.getProperty('defaultValue').value;
-        if (defaultValue) defaultValue = $.parseJSON(defaultValue || {});
 
         var years = months = days = '<option value=""></option>';
         var monthString = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

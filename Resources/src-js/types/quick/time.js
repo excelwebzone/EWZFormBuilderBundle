@@ -85,7 +85,7 @@ FormBuilder.TimeType = FormBuilder.Type.extend({
         var template = ' \
             <div class="form-sub-label-container"><select name="<@=name@>[hour]" id="field_<@=id@>_hour" <@ if (readonly) { @>disabled="disabled"<@ } @> class="form-dropdown"><@=hourChoices@></select><span class="form-sub-label">Hour</span></div> \
             <div class="form-sub-label-container"><select name="<@=name@>[minute]" id="field_<@=id@>_minute" <@ if (readonly) { @>disabled="disabled"<@ } @> class="form-dropdown"><@=minuteChoices@></select><span class="form-sub-label">Minutes</span></div> \
-            <@ if (timeFormat == "AM/PM") { @> \
+            <@ if (ampmTimeFormat) { @> \
                 <div class="form-sub-label-container"><select name="<@=name@>[ampm]" id="field_<@=id@>_ampm" <@ if (readonly) { @>disabled="disabled"<@ } @> class="form-dropdown"><@=ampmChoices@></select><span class="form-sub-label">&nbsp;</span></div> \
             <@ } @> \
         ';
@@ -120,7 +120,6 @@ FormBuilder.TimeType = FormBuilder.Type.extend({
         });
 
         var defaultValue = this.getProperty('defaultValue').value;
-        if (defaultValue) defaultValue = $.parseJSON(defaultValue || {});
 
         var hours = minutes = '<option value=""></option>',
             ampm = '';
@@ -151,10 +150,10 @@ FormBuilder.TimeType = FormBuilder.Type.extend({
                 hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
             }
         }
-        for (var i=0; i<60; i+=this.getProperty('step').value) {
+        for (var i=0; i<60; i+=parseInt(this.getProperty('step').value)) {
             minutes = minutes + '<option value="' + i + '" ' + (defaultValue && defaultValue['minute'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
         }
-        if (this.getProperty('defaultValue').value == 'AM/PM') {
+        if (this.getProperty('timeFormat').value == 'AM/PM') {
             if (this.getProperty('showDayPeriods').value == 'both' || this.getProperty('showDayPeriods').value == 'amOnly') {
                 ampm = ampm + '<option value="am" ' + (defaultValue && defaultValue['ampm'] == 'am' ? 'selected="selected"' : null) + '>AM</option>';
             }
@@ -168,14 +167,14 @@ FormBuilder.TimeType = FormBuilder.Type.extend({
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id            : this.getFieldName(true),
-                name          : this.getFieldName(),
-                required      : this.getProperty('required').value == 'Yes',
-                readonly      : this.getProperty('readonly').value == 'Yes',
-                timeFormat    : this.getProperty('timeFormat').value,
-                hourChoices   : hours,
-                minuteChoices : minutes,
-                ampmChoices   : ampm
+                id             : this.getFieldName(true),
+                name           : this.getFieldName(),
+                required       : this.getProperty('required').value == 'Yes',
+                readonly       : this.getProperty('readonly').value == 'Yes',
+                ampmTimeFormat : this.getProperty('timeFormat').value == 'AM/PM',
+                hourChoices    : hours,
+                minuteChoices  : minutes,
+                ampmChoices    : ampm
             })
         });
     }

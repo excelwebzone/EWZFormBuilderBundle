@@ -104,7 +104,6 @@ FormBuilder.MatrixType = FormBuilder.Type.extend({
         });
 
         var defaultValue = this.getProperty('defaultValue').value;
-        if (defaultValue) defaultValue = $.parseJSON(defaultValue || {});
 
         var tablewidth = this.getProperty('matrixwidth').value
             ? ' style="width: ' + this.getProperty('matrixwidth').value + 'px;"'

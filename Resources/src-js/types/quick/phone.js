@@ -93,7 +93,6 @@ FormBuilder.PhoneType = FormBuilder.Type.extend({
         });
 
         var defaultValue = this.getProperty('defaultValue').value;
-        if (defaultValue) defaultValue = $.parseJSON(defaultValue || {});
 
         var country = defaultValue && defaultValue['country'] ? defaultValue['country'] : null;
         var area = defaultValue && defaultValue['area'] ? defaultValue['area'] : null;
