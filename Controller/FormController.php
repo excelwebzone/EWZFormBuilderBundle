@@ -46,7 +46,7 @@ class FormController extends Controller
         // set form properties
         $form->setName($formProperties->title ?: $this->get('translator')->trans('form.default_name'));
         $form->setAttributes(array(
-            'width'      => $formProperties->formWidth,
+            'formWidth'  => $formProperties->formWidth,
             'labelWidth' => $formProperties->labelWidth,
         ));
 
