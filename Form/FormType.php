@@ -60,7 +60,8 @@ class FormType extends AbstractType
         ));
 
         foreach ($this->form->getFields() as $field) {
-            $multiple = $expanded = false;
+            $multiple = false;
+            $expanded = false;
 
             $required = strtolower($field->getAttribute('required')) == 'yes';
 
@@ -142,9 +143,12 @@ class FormType extends AbstractType
                         $options[$option] = $option;
                     }
 
+                    $data = $field->getAttribute('selected');
+                    if ($multiple) $data = array($data);
+
                     $builder->add($field->getName(), 'choice', array(
                         'label'    => $field->getAttribute('text'),
-                        'data'     => $field->getAttribute('selected'),
+                        'data'     => $data,
                         'choices'  => $options,
                         'multiple' => $multiple ?: false,
                         'expanded' => $expanded ?: false,
