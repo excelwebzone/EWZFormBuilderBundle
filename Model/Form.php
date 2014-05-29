@@ -61,12 +61,9 @@ abstract class Form implements FormInterface
      */
     protected $lastModified;
 
-    public function __construct()
-    {
-        $this->dateCreated  = new DateTime();
-        $this->lastModified = new DateTime();
-    }
-
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName();
@@ -153,7 +150,7 @@ abstract class Form implements FormInterface
     }
 
     /**
-     * Gets the form fields (merge field attributers with cell's).
+     * Gets the form fields.
      *
      * @return array
      */

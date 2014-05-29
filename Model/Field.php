@@ -60,6 +60,13 @@ abstract class Field implements FieldInterface
     protected $attributes;
 
     /**
+     * List of cells
+     *
+     * @var array
+     */
+    protected $cells = array();
+
+    /**
      * @var DateTime
      */
     protected $dateCreated;
@@ -69,12 +76,9 @@ abstract class Field implements FieldInterface
      */
     protected $lastModified;
 
-    public function __construct()
-    {
-        $this->dateCreated  = new DateTime();
-        $this->lastModified = new DateTime();
-    }
-
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName();
@@ -164,6 +168,32 @@ abstract class Field implements FieldInterface
         if (isset($this->attributes[$key])) {
             unset($this->attributes[$key]);
         }
+    }
+
+    /**
+     * Gets the form cells.
+     *
+     * @return array
+     */
+    public function getCells()
+    {
+        return $this->cells ?: $this->cells = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Gets the forms.
+     *
+     * @return array
+     */
+    public function getForms()
+    {
+        $forms = array();
+
+        foreach ($this->getCells() as $cell) {
+            $forms[] = $cell->getForm();
+        }
+
+        return $forms;
     }
 
     /**

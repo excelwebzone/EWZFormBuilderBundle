@@ -30,6 +30,9 @@ abstract class Asset implements AssetInterface
      */
     protected $value;
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getValue();

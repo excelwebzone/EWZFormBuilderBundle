@@ -27,6 +27,10 @@ interface FieldInterface
 
     public function setAttributes(array $attributes = array());
 
+    public function getCells();
+
+    public function getForms();
+
     public function getDateCreated();
 
     public function getLastModified();
