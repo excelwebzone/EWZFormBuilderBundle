@@ -149,8 +149,8 @@ class FormBuilderExtension extends \Twig_Extension
             foreach ($formView->children as $child) {
                 foreach ($fields as $key => $field) {
                     if ($child->vars['name'] == $field->getName()) {
-                        if ($child->vars['errors']) {
-                            $fields[$key]->setAttribute('error', current(current($child->vars['errors'])));
+                        if ($error = $child->vars['errors']->__toString()) {
+                            $fields[$key]->setAttribute('error', $error);
                         }
 
                         // update special dropdown values
