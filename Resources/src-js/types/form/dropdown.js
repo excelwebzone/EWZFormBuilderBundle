@@ -159,9 +159,6 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                                     options += '<option value="' + value.id + '" ' + (selected == value.id ? 'selected="selected"' : null) + '>' + value.name + '</option>';
                                     optionValues.push(value.id);
                                 });
-                                if (selected && $.inArray(selected, optionValues) === -1) {
-                                    options += '<option value="' + selected + '" selected="selected">' + selected + '</option>';
-                                }
 
                                 // re-render
                                 $this.reRender($this.render({}, options));
@@ -191,11 +188,6 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                     options += '<option value="' + value + '" ' + (selected == value ? 'selected="selected"' : null) + '>' + value + '</option>';
                     optionValues.push(key);
                 });
-
-                // if not found in array
-                if (selected && $.inArray(selected, optionValues) === -1) {
-                    options += '<option value="' + selected + '" selected="selected">' + selected + '</option>';
-                }
             }
         }
 

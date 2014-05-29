@@ -79,7 +79,7 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
 
         var template = '<div class="form-<@=style@>-column"><@=options@></div>';
 
-        this._super('checkbox', prop, template);
+        this._super(this.inputType, prop, template);
     },
 
     /**
@@ -135,19 +135,6 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
             });
             optionValues.push(value);
         });
-
-        // if not found in array
-        if (selected && $.inArray(selected, optionValues) === -1) {
-            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" /><label for="field_<@=id@>_<@=key@>"><@=value@></label></span><span class="clearfix"></span>', {
-                id        : fieldId,
-                name      : fieldName,
-                key       : selected,
-                value     : selected,
-                selected  : true,
-                newline   : spreadCols === 0,
-                inputType : $this.inputType
-            });
-        }
 
         return this._super({
             id    : this.getFieldName(true),
