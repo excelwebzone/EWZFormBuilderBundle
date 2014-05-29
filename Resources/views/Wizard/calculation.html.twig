@@ -1,0 +1,114 @@
+<div class="calcActions">
+    <button class="finishButton calcButton">Finish</button>
+</div>
+
+<span class="calcTitle">Calculate Fields</span>
+<p>Add, subtract, multiply or divide fields and display them on your form, or use them in form conditions.</p>
+
+<div class="calcContainer">
+    <div class="calcBacking">
+        <div class="calcEditor"></div>
+
+        <div class="fieldListContainer">
+            {% if data.fields|length > 0 %}
+                <ul class="fieldList">
+                    {% for f in data.fields %}
+                        {% if f != field %}
+                            <li class="fieldItem" style="-moz-user-select: none; cursor: default;">{{ f }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="noFields" style="display:none; padding-left: 10px;">
+                    There are no valid fields that can be inserted.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="calcControls">
+        <div class="addFieldContainer">
+            <button class="addField calcButton">Add Field</button>
+        </div>
+
+        <div class="operandsContainer">
+            <div style="margin:10px 30px;">
+                <div style="float: left">
+                    <button class="opPlus calcButton opButton topLeftButton">+</button>
+                    <button class="opMinus calcButton opButton topRightButton">-</button>
+                    <br/>
+                    <button class="opMultiply calcButton opButton bottomLeftButton" style="clear:both">*</button>
+                    <button class="opDivide calcButton opButton bottomRightButton">/</button>
+                </div>
+                <div style="margin-left: 10px; float: right;">
+                    <button class="opLeftBracket calcButton opButton topButton" style="clear:both">(</button>
+                    <br/>
+                    <button class="opRightBracket calcButton opButton bottomButton" style="clear:both">)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="numberPadContainer">
+            <button class="opDigit calcButton opButton topLeftButton">1</button>
+            <button class="opDigit calcButton opButton middleButton">2</button>
+            <button class="opDigit calcButton opButton topRightButton">3</button>
+            <br/>
+            <button class="opDigit calcButton opButton middleButton" style="clear:both">4</button>
+            <button class="opDigit calcButton opButton middleButton">5</button>
+            <button class="opDigit calcButton opButton middleButton">6</button>
+            <br/>
+            <button class="opDigit calcButton opButton middleButton" style="clear:both">7</button>
+            <button class="opDigit calcButton opButton middleButton">8</button>
+            <button class="opDigit calcButton opButton middleButton">9</button>
+            <br/>
+            <button class="opDigit calcButton opButton bottomLeftButton" style="clear:both"><b>.</b></button>
+            <button class="opDigit calcButton opButton middleButton">0</button>
+            <button class="opBackspace calcButton opButton bottomRightButton backspace">&laquo;</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var actions = $('.calcActions');
+    var container = $('.calcContainer');
+
+    container.find('.addField').on('click', function () {
+        container.find('.calcEditor').toggle();
+        container.find('.fieldListContainer').toggle();
+        container.find('.operandsContainer').toggle();
+        container.find('.numberPadContainer').toggle();
+        if ($(this).text() == 'Add Field') $(this).text('Back');
+        else $(this).text('Add Field');
+    });
+
+    container.find('.opButton,.fieldItem').on('click', function () {
+        if ($(this).hasClass('opBackspace')) {
+            var span = container.find('.calcEditor').find('span');
+            $(span.splice(-1, 1)).remove();
+            $(span.splice(-1, 1)).remove();
+            return false;
+        }
+        var color = 'blue';
+        if ($(this).hasClass('opLeftBracket') || $(this).hasClass('opRightBracket')) color = 'grey';
+        if ($(this).hasClass('opPlus') || $(this).hasClass('opMinus') || $(this).hasClass('opMultiply') || $(this).hasClass('opDivide')) color = 'green';
+        if ($(this).hasClass('fieldItem')) color = 'orange';
+        container.find('.calcEditor').append('<span class="calcElement calcText"></span><span class="calcElement color ' + color + '">' + $(this).text() + '</span>');
+        if ($(this).hasClass('fieldItem')) container.find('.addField').click();
+    });
+
+    actions.find('.finishButton').on('click', function () {
+        var formula = [];
+        var span = container.find('.calcEditor').find('span:not(.calcText)');
+        for (var i=0; i<span.length; i++) {
+            var color = $(span[i]).attr('class').split(' ')[2];
+            formula.push({ text: $(span[i]).text(), color: color });
+        }
+        currentBuilder.getType('{{ field }}').setPropertyValue('formula', formula);
+        $('#form-wizard').dialog('close');
+    });
+
+    var formulaItems = currentBuilder.getType('{{ field }}').getProperty('formula').value || [];
+    for (var i=0; i<formulaItems.length; i++) {
+        container.find('.calcEditor').append('<span class="calcElement calcText"></span><span class="calcElement color ' + formulaItems[i].color + '">' + formulaItems[i].text + '</span>');
+    }
+</script>

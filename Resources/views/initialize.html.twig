@@ -54,6 +54,9 @@
         </div>
         {% if preview is not defined or not preview %}
             <div class="form-button-container">
+                <@ if (wizard) { @>
+                    <i class="form-tool-item wand" title="{{ 'tool.wizard'|trans }}" data-url="{{ path('ewz_form_builder_wizard') }}" data-field="<@=id@>" data-type="<@=type@>"></i>
+                <@ } @>
                 <@ if (tools) { @>
                     <i class="form-tool-item required" title="{{ 'tool.required'|trans }}"></i>
                     <i class="form-tool-item shrink" title="{{ 'tool.shrink'|trans }}"></i>
@@ -63,7 +66,7 @@
                 <@ } @>
                 <i class="form-tool-item gear" title="{{ 'tool.properties'|trans }}"></i>
                 <@ if (allowDelete) { @>
-                    <i class="form-tool-item cross " title="{{ 'tool.delete'|trans }}"></i>
+                    <i class="form-tool-item cross" title="{{ 'tool.delete'|trans }}"></i>
                 <@ } @>
             </div>
         {% endif %}

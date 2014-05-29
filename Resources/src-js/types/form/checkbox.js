@@ -49,12 +49,12 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
                 value: 'None',
                 dropdown: Consts.specialOptions.getByType('checkbox')
             },
-            /*calcValues: {
+            calcValues: {
                 text: 'Calculation Values',
                 value: '',
                 textarea: true,
                 splitter: '|'
-            },*/
+            },
             spreadCols: {
                 text: 'Spread to Columns',
                 value: '1'

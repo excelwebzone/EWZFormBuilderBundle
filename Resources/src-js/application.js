@@ -40,7 +40,7 @@ function handleEditor() {
         header: '.accordion-bar'
     });
 
-    $('#form-editor').bind('click', function() {
+    $('#form-editor').on('click', function() {
         $('.form-line').removeClass('form-question-selected').removeClass('form-question-over');
     });
 
@@ -53,7 +53,7 @@ function handleEditor() {
     });
     $('.form-list').disableSelection();
 
-    $('.form-action-info').bind('click', function () {
+    $('.form-action-info').on('click', function () {
         // ignore on saving
         if (saving) return;
 
@@ -68,7 +68,7 @@ function handleEditor() {
                 .html(currentBuilder.makeProperties(elem));
     });
 
-    $('.form-action-save').bind('click', function () {
+    $('.form-action-save').on('click', function () {
         var $this = $(this);
 
         // disable sorting and toolbar actions
@@ -147,7 +147,7 @@ function handleEditor() {
         return false;
     });
 
-    $('.form-action-type').bind('click', function () {
+    $('.form-action-type').on('click', function () {
         // ignore on saving
         if (saving) return;
 
@@ -174,7 +174,7 @@ function handleEditor() {
         focusItem(elem);
     });
 
-    $('.form-saved-type').bind('click', function () {
+    $('.form-saved-type').on('click', function () {
         // ignore on saving
         if (saving) return;
 
@@ -246,7 +246,6 @@ function handleEditor() {
             $('.form-prop-table tbody').html('');
         }
     });
-
 }
 
 /**
@@ -257,16 +256,16 @@ function resetListRules() {
     if ($('#form-preview').length) return false;
 
     $('.form-line')
-        .bind('mouseover', function () {
+        .on('mouseover', function () {
             $('.form-line').removeClass('form-question-over');
             if (!$(this).hasClass('form-question-selected')) {
                 $(this).addClass('form-question-over');
             }
         })
-        .bind('mouseout', function () {
+        .on('mouseout', function () {
             $('.form-line').removeClass('form-question-over');
         })
-        .bind('click', function (event) {
+        .on('click', function (event) {
             // ignore on saving
             if (saving) return;
 
@@ -279,7 +278,7 @@ function resetListRules() {
      * Tools
      */
 
-    $('.form-tool-item.required').bind('click', function () {
+    $('.form-tool-item.required').on('click', function () {
         var row = $(this).closest('.form-line');
         var elem = currentBuilder.getType(row.attr('id'));
         // toggle property
@@ -288,7 +287,7 @@ function resetListRules() {
         reRenderItem(elem);
     });
 
-    $('.form-tool-item.shrink, .form-tool-item.expand').bind('click', function () {
+    $('.form-tool-item.shrink, .form-tool-item.expand').on('click', function () {
         var row = $(this).closest('.form-line');
         var elem = currentBuilder.getType(row.attr('id'));
         row.toggleClass('form-line-column');
@@ -305,7 +304,7 @@ function resetListRules() {
         reRenderItem(elem);
     });
 
-    $('.form-tool-item.new-line, .form-tool-item.merge-line').bind('click', function () {
+    $('.form-tool-item.new-line, .form-tool-item.merge-line').on('click', function () {
         var row = $(this).closest('.form-line');
         var elem = currentBuilder.getType(row.attr('id'));
         row.toggleClass('form-line-column-clear');
@@ -319,7 +318,7 @@ function resetListRules() {
         reRenderItem(elem);
     });
 
-    $('.form-tool-item.gear').bind('click', function () {
+    $('.form-tool-item.gear').on('click', function () {
         var row = $(this).closest('.form-line');
         var elem = currentBuilder.getType(row.attr('id'));
         // open dialog
@@ -330,7 +329,7 @@ function resetListRules() {
                 .html(currentBuilder.makeProperties(elem));
     });
 
-    $('.form-tool-item.cross').bind('click', function () {
+    $('.form-tool-item.cross').on('click', function () {
         var row = $(this).closest('.form-line');
         currentBuilder.removeType(row.attr('id'));
 
@@ -340,6 +339,51 @@ function resetListRules() {
         Utils.poof($(this));
         row.fadeOut(function () {
             $(this).remove();
+        });
+    });
+
+    $('.form-tool-item.wand').on('click', function () {
+        var data = {},
+            field = $(this).data('field'),
+            type = $(this).data('type');
+
+        if (type == 'calculation') {
+            data.formula = currentBuilder.getType(field).getProperty('formula').value;
+            data.fields = [];
+            for (var key in currentBuilder.getTypes()) {
+                var t = currentBuilder.getTypes()[key];
+                switch (t.getType()) {
+                    case 'dropdown':
+                    case 'checkbox':
+                    case 'radio':
+                        if (t.getProperty('calcValues').value.length == 0) continue;
+
+                    case 'textbox':
+                    case 'number':
+                        data.fields.push(t.getFieldName(true));
+                        break;
+
+                }
+            }
+        }
+
+        var dialog = $('<div id="form-wizard" style="display:hidden"></div>').appendTo('body');
+        dialog.load($(this).data("url"), {
+            field: field,
+            type: type,
+            data: data
+        }, function () {
+            dialog.dialog({
+                title: 'Wizard: ' + type,
+                width: 700,
+                height: 480,
+                modal: true,
+                resizable: false,
+                close: function () {
+                    $('#form-wizard').remove();
+                },
+                modal: true
+            });
         });
     });
 };

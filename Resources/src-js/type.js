@@ -215,11 +215,14 @@ FormBuilder.Type.prototype.getFieldName = function (slugify) {
  * @return {string}
  */
 FormBuilder.Type.prototype.render = function(data) {
+    if (typeof data.allowDelete == 'undefined') {
+        data.allowDelete = this.getProperty('allowDelete').value == 'Yes';
+    }
     if (typeof data.tools == 'undefined') {
         data.tools = true;
     }
-    if (typeof data.allowDelete == 'undefined') {
-        data.allowDelete = this.getProperty('allowDelete').value == 'Yes';
+    if (typeof data.wizard == 'undefined') {
+        data.wizard = false
     }
     if (typeof data.error == 'undefined') {
         data.error = this.getProperty('error').value;
@@ -245,6 +248,7 @@ FormBuilder.Type.prototype.render = function(data) {
         error       : data.error       || null,
         description : data.description || null,
         tools       : data.tools       || null,
+        wizard      : data.wizard      || null,
         allowDelete : data.allowDelete || null
     });
 };

@@ -154,6 +154,15 @@ FormBuilder.prototype.getFormData = function (onlyValue) {
 };
 
 /**
+ * Returns all form types.
+ *
+ * @return {array} List of form types
+ */
+FormBuilder.prototype.getTypes = function () {
+    return this.types_;
+};
+
+/**
  * Adds a form type.
  *
  * @param {FormBuilder.Type} type A form type instance

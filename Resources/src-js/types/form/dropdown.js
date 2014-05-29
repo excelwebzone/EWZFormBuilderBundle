@@ -49,12 +49,12 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
                 value: 'None',
                 dropdown: Consts.specialOptions.getByType('dropdown')
             },
-            /*calcValues: {
+            calcValues: {
                 text: 'Calculation Values',
                 value: '',
                 textarea: true,
                 splitter: '|'
-            },*/
+            },
             size: {
                 text: 'Height',
                 value: 0

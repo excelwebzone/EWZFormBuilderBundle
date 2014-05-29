@@ -165,4 +165,17 @@ class FormController extends Controller
             ),
         )));
     }
+
+    /**
+     * Wizard dialog.
+     *
+     * @return Response A Response instance
+     */
+    public function wizardAction(Request $request)
+    {
+        return $this->render('EWZFormBuilderBundle:Wizard:'.$request->get('type').'.html.twig', array(
+            'field' => $request->get('field'),
+            'data' => $request->get('data', array())
+        ));
+    }
 }

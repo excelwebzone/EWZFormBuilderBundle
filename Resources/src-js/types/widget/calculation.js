@@ -36,6 +36,10 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
             subLabel: {
                 text: 'Sub Label',
                 value: ''
+            },
+            formula: {
+                hidden: true,
+                value: ''
             }
         };
 
@@ -74,7 +78,8 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
                 size     : this.getProperty('size').value,
                 value    : this.getProperty('defaultValue').value,
                 sublabel : this.getProperty('subLabel').value
-            })
+            }),
+            wizard : true
         });
     }
 

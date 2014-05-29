@@ -7,4 +7,8 @@
     <route id="ewz_form_builder_save_form" path="/save_form">
         <default key="_controller">EWZFormBuilderBundle:Form:saveForm</default>
     </route>
+
+    <route id="ewz_form_builder_wizard" path="/wizard">
+        <default key="_controller">EWZFormBuilderBundle:Form:wizard</default>
+    </route>
 </routes>
