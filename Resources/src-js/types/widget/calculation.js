@@ -37,13 +37,21 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
                 text: 'Sub Label',
                 value: ''
             },
+            readonly: {
+                text: 'Read-only',
+                value: 'Yes',
+                dropdown: [
+                    ['No', 'No'],
+                    ['Yes', 'Yes']
+                ]
+            },
             formula: {
                 hidden: true,
                 value: ''
             }
         };
 
-        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="text" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" value="<@=value@>" class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="text" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" value="<@=value@>" <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
         this._super('calculation', prop, template);
     },
@@ -76,6 +84,7 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
                 id       : this.getFieldName(true),
                 name     : this.getFieldName(),
                 size     : this.getProperty('size').value,
+                readonly : this.getProperty('readonly').value == 'Yes',
                 value    : this.getProperty('defaultValue').value,
                 sublabel : this.getProperty('subLabel').value
             }),
