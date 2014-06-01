@@ -1,3 +1,4 @@
+var preview = false;
 var saving = false;
 var currentBuilder = null;
 
@@ -5,6 +6,7 @@ var currentBuilder = null;
  * Handle form preview.
  */
 function handlePreview() {
+    preview = true;
 
     $('.form-description').each(function () {
         var right = $(this).hasClass('right'),
@@ -23,6 +25,22 @@ function handlePreview() {
         }
     });
 
+    calculationFields();
+
+}
+
+/**
+ * Calculate "calculation" field formula's.
+ */
+function calculationFields() {
+    if (preview) {
+        for (var key in currentBuilder.getTypes()) {
+            var type = currentBuilder.getTypes()[key];
+            if (type.getType() == 'calculation') {
+                type.calc();
+            }
+        }
+    }
 }
 
 /**
@@ -154,8 +172,8 @@ function handleEditor() {
         var type = $(this).data('type');
         var elem = eval('new FormBuilder.' + type.charAt(0).toUpperCase() + type.slice(1) + 'Type()');
 
-        // set the builder id, need when reRender()
-        elem.setBuilderId(currentBuilder.getId());
+        // set the builder, need when reRender()
+        elem.setBuilder(currentBuilder);
 
         // load form properties
         elem.load($(this).data('prop') || {});
@@ -184,8 +202,8 @@ function handleEditor() {
         var type = $(this).data('type');
         var elem = eval('new FormBuilder.' + type.charAt(0).toUpperCase() + type.slice(1) + 'Type()');
 
-        // set the builder id, need when reRender()
-        elem.setBuilderId(currentBuilder.getId());
+        // set the builder, need when reRender()
+        elem.setBuilder(currentBuilder);
 
         // load form properties
         elem.load($(this).data('prop') || {});

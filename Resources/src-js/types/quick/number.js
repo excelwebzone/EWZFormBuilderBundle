@@ -75,7 +75,7 @@ FormBuilder.NumberType = FormBuilder.Type.extend({
             }
         };
 
-        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="number" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (minValue) { @>min="<@=minValue@>"<@ } @> <@ if (maxValue) { @>max="<@=maxValue@>"<@ } @> <@ if (addAmount) { @>step="<@=addAmount@>"<@ } @> <@ if (required) { @>required="required"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="number" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (minValue) { @>min="<@=minValue@>"<@ } @> <@ if (maxValue) { @>max="<@=maxValue@>"<@ } @> <@ if (addAmount) { @>step="<@=addAmount@>"<@ } @> <@ if (required) { @>required="required"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" onchange="calculationFields()" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
         this._super('number', prop, template);
     },

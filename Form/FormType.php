@@ -138,9 +138,18 @@ class FormType extends AbstractType
                     $expanded = true;
 
                 case Field::TYPE_DROPDOWN:
+                    $calcValues = array();
+                    foreach (explode('|', $field->getAttribute('calcValues')) as $option) {
+                        $calcValues[] = $option;
+                    }
+
                     $options = array();
-                    foreach (explode('|', $field->getAttribute('options')) as $option) {
-                        $options[$option] = $option;
+                    foreach (explode('|', $field->getAttribute('options')) as $key => $option) {
+                        if (isset($calcValues[$key])) {
+                            $options[$calcValues[$key]] = $option;
+                        } else {
+                            $options[$option] = $option;
+                        }
                     }
 
                     $data = $field->getAttribute('selected');

@@ -60,8 +60,41 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return Utils.stringify({
-        });
+        return $('#field_' + this.getFieldName(true)).val();
+    },
+
+    /**
+     * Calculate formula
+     */
+    calc: function () {
+        var array = this.getProperty('formula').value || [],
+            formula = [];
+        for (var key in array) {
+            var value = array[key].text;
+            if (array[key].color == 'orange') {
+                if (this.getBuilder().getName()) {
+                    value = this.getBuilder().getName() + '[' + value + ']';
+                }
+                value = this.getBuilder().getType(value).val();
+                if (typeof value == 'object') {
+                    var tmp = 0;
+                    for (var i in value) {
+                        tmp += parseFloat(0+value[i]);
+                    }
+                    value = tmp;
+                } else {
+                    value = parseFloat(0+value);
+                }
+            }
+            formula.push(value);
+        }
+
+        try {
+            value = eval(formula.join(''));
+        } catch (e) {
+            value = 'NaN';
+        }
+        $('#field_' + this.getFieldName(true)).val(value);
     },
 
     /**

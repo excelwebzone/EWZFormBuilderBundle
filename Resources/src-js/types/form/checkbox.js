@@ -87,7 +87,7 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
      */
     val: function () {
         var value = [];
-        $('input[type=checkbox][name=' + this.getFieldName() + '[]]:checked').each(function () {
+        $('input[type=checkbox][id^=field_' + this.getFieldName(true) + ']:checked').each(function () {
             value.push($(this).val());
         });
         return value;
@@ -126,11 +126,14 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
         // calculation values
         var calcValues = this.getProperty('calcValues').value.split(this.getProperty('calcValues').splitter) || [];
 
+        // convert selected to string
+        for (key in selected) selected[key] = '' + selected[key];
+
         $.each(dropdown, function (key, value) {
             var text = value;
             value = typeof calcValues[key] != 'undefined' ? calcValues[key] : value
 
-            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" /><label for="field_<@=id@>_<@=key@>"><@=text@></label></span><span class="clearfix"></span>', {
+            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" onchange="calculationFields()" /><label for="field_<@=id@>_<@=key@>"><@=text@></label></span><span class="clearfix"></span>', {
                 id        : fieldId,
                 name      : fieldName,
                 key       : key,

@@ -13,7 +13,7 @@
 <script type="text/javascript">
     AppFormBuilder.onPageLoad(function () {
         // declare the form builder
-        var {{ builderId }} = new FormBuilder('{{ builderId }}');
+        var {{ builderId }} = new FormBuilder('{{ builderId }}', '{% if preview is defined and preview %}{{ formView.vars.name }}{% endif %}');
 
         {{ builderId }}.init({
             {% if form %}
@@ -26,7 +26,7 @@
                 },
                 fields: {
                     {% for field in form.getFields() %}
-                        '{{ preview is defined and preview ? formView.vars.name ~ '[' ~ field.getName() ~ ']' : field.getName() }}': {{ field.getAttributes()|json_encode()|raw }},
+                        '{{ field.getName() }}': {{ field.getAttributes()|json_encode()|raw }},
                     {% endfor %}
                 }
             {% endif %}

@@ -1,13 +1,19 @@
 /**
  * @constructor
  */
-FormBuilder = function (id) {
+FormBuilder = function (id, name) {
 
     /**
      * @var {string}
      * @protected
      */
     this.id_ = id;
+
+    /**
+     * @var {string}
+     * @protected
+     */
+    this.name_ = name;
 
     /**
      * Holds list of form types.
@@ -29,6 +35,15 @@ FormBuilder.prototype.getId = function () {
 };
 
 /**
+ * Returns a form name.
+ *
+ * @return {string} The form name
+ */
+FormBuilder.prototype.getName = function () {
+    return this.name_;
+};
+
+/**
  * Initialize form types and properties.
  *
  * @param {Object} prop An array of properties (type => key => value)
@@ -39,8 +54,8 @@ FormBuilder.prototype.init = function (prop) {
     // create (default) form type
     var elem = new FormBuilder.FormType();
 
-    // set the builder id, need when reRender()
-    elem.setBuilderId($this.id_);
+    // set the builder, need when reRender()
+    elem.setBuilder($this);
 
     // load form properties
     if (prop.form) elem.load(prop.form);
@@ -56,10 +71,12 @@ FormBuilder.prototype.init = function (prop) {
         $.each(prop.fields, function (key, value) {
             elem = eval('new FormBuilder.' + value.type.charAt(0).toUpperCase() + value.type.slice(1) + 'Type()');
             elem.load(value);
+
+            if ($this.getName()) key = $this.getName() + '[' + key + ']';
             elem.setFieldName(key);
 
-            // set the builder id, need when reRender()
-            elem.setBuilderId($this.id_);
+            // set the builder, need when reRender()
+            elem.setBuilder($this);
 
             // add new type
             $this.addType(elem);
