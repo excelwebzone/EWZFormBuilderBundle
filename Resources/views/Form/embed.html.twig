@@ -2,7 +2,7 @@
 
 <div id="{{ builderId }}">
     {% if preview is not defined or not preview %}
-        <div id="props-dialog-form" title="{{ 'dialog.properties'|trans }}"><form></form></div>
+        <div id="props-dialog-form" title="{{ 'dialog.properties'|trans }}"></div>
     {% endif %}
 
     <div id="form-{{ preview is defined and preview ? 'preview' : 'editor' }}">

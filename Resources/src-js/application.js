@@ -255,10 +255,12 @@ function handleEditor() {
             }
         },
         open: function(event, ui) {
-            $(this).css({
-                'max-height': 320,
-                'overflow-y': 'auto'
-            });
+            $(this)
+                .css({
+                    'max-height': 320,
+                    'overflow-y': 'auto'
+                })
+                .html('<form></form>');
         },
         close: function () {
             $('.form-prop-table tbody').html('');
