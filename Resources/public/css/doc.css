@@ -666,7 +666,7 @@ form-line.form-question-selected {
 .form-collapse-right-show {
     background:url(../images/arrow-open.png) no-repeat center;
 }
-.form-collapse-right-hide,.form-section-closed .form-collapse-right-show {
+.form-collapse-right-hide {
     background:url(../images/arrow-closed.png) no-repeat center;
 }
 .form-collapse-hidden {

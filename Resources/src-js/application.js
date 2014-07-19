@@ -52,11 +52,28 @@ function enabledFormCollapse() {
             $('#form-preview > ul > ul.form-section')
                 .not($(this).parent('ul'))
                 .removeClass('form-section')
-                .addClass('form-section-closed');
+                .addClass('form-section-closed')
+                    .find('.form-collapse-table .form-collapse-right')
+                        .removeClass('form-collapse-right-show')
+                        .addClass('form-collapse-right-hide');
 
             $(this).parent('ul')
                 .toggleClass('form-section')
                 .toggleClass('form-section-closed');
+
+
+
+            if ($(this).parent('ul').hasClass('form-section')) {
+                $(this).parent('ul')
+                    .find('.form-collapse-table .form-collapse-right')
+                        .removeClass('form-collapse-right-hide')
+                        .addClass('form-collapse-right-show');
+            } else {
+                $(this).parent('ul')
+                    .find('.form-collapse-table .form-collapse-right')
+                        .removeClass('form-collapse-right-show')
+                        .addClass('form-collapse-right-hide');
+            }
 
             return false;
         });
