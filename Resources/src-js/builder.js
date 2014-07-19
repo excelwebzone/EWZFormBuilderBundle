@@ -108,8 +108,6 @@ FormBuilder.prototype.init = function (prop, isPreviewMode) {
             // add new field to list (place last)
             formList.append(elem.render());
         });
-
-        console.log(formList);
     }
 };
 
