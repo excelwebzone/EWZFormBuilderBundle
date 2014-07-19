@@ -26,7 +26,7 @@ function handlePreview() {
     });
 
     calculationFields();
-
+    enabledFormCollapse();
 }
 
 /**
@@ -40,6 +40,26 @@ function calculationFields() {
                 type.calc();
             }
         }
+    }
+}
+
+/**
+ * Enabled form section collapse effect.
+ */
+function enabledFormCollapse() {
+    if (preview) {
+        $('.form-line[data-type=formcollapse]').on('click', function() {
+            $('#form-preview > ul > ul.form-section')
+                .not($(this).parent('ul'))
+                .removeClass('form-section')
+                .addClass('form-section-closed');
+
+            $(this).parent('ul')
+                .toggleClass('form-section')
+                .toggleClass('form-section-closed');
+
+            return false;
+        });
     }
 }
 

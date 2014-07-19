@@ -46,10 +46,11 @@ FormBuilder.prototype.getName = function () {
 /**
  * Initialize form types and properties.
  *
- * @param {Object} prop An array of properties (type => key => value)
+ * @param {Object}  prop          An array of properties (type => key => value)
+ * @param {Boolean} isPreviewMode Is preview mode
  */
-FormBuilder.prototype.init = function (prop) {
-    var $this = this;
+FormBuilder.prototype.init = function (prop, isPreviewMode) {
+    var $this = this, openingCollapse = false;
 
     // create (default) form type
     var elem = new FormBuilder.FormType();
@@ -64,7 +65,9 @@ FormBuilder.prototype.init = function (prop) {
     $this.addType(elem);
 
     // add new field to list (place first)
-    $('#' + $this.id_ + ' .form-list').prepend(elem.render());
+    var formList = $('#' + $this.id_ + ' .form-list');
+
+    formList.prepend(elem.render());
 
     // add fields
     if (prop.fields) {
@@ -81,9 +84,32 @@ FormBuilder.prototype.init = function (prop) {
             // add new type
             $this.addType(elem);
 
+            if (isPreviewMode) {
+                if (elem.getType() == 'formcollapse') {
+                    if (openingCollapse) {
+                        formList = formList.parent();
+                    }
+
+                    var statusClass = '', style = '';
+                    if (elem.getProperty('status').value === 'Closed') {
+                        statusClass = '-closed';
+                        if (elem.getProperty('visibility').value === 'Hidden') {
+                            style = 'style="display:none"';
+                        }
+                    }
+
+                    formList.append('<ul class="form-section' + statusClass + '" ' + style + ' id="section_' + elem.getFieldName(true) + '"></ul>');
+                    formList = formList.find('ul#section_' + elem.getFieldName(true));
+
+                    openingCollapse = true;
+                }
+            }
+
             // add new field to list (place last)
-            $('#' + $this.id_ + ' .form-list').append(elem.render());
+            formList.append(elem.render());
         });
+
+        console.log(formList);
     }
 };
 

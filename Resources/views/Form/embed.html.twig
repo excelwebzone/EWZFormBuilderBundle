@@ -30,7 +30,7 @@
                     {% endfor %}
                 }
             {% endif %}
-        });
+        }{% if preview is defined and preview %}, true{% endif %});
 
         currentBuilder = {{ builderId }};
 

@@ -190,6 +190,10 @@ Consts.tips = {
     validation: {
         title: 'Validation',
         tip: 'Validate entry format'
+    },
+    visibility: {
+        title: 'Visibility',
+        tip: 'Hide or show collapse field'
     }
 };
 

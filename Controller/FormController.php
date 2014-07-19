@@ -83,6 +83,7 @@ class FormController extends Controller
             switch ($item->type) {
                 case Field::TYPE_HEAD:
                 case Field::TYPE_TEXT:
+                case Field::TYPE_FORMCOLLAPSE:
                     break;
 
                 case Field::TYPE_TEXTAREA:

@@ -35,5 +35,6 @@ form_type.datetime: DateTime
 form_type.time: Time
 form_type.birthday: Birth Date Picker
 form_type.number: Number
+form_type.formcollapse: Form Collapse
 form_type.matrix: Matrix
 form_type.calculation: Form Calculation

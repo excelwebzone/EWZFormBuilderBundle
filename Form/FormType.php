@@ -68,6 +68,7 @@ class FormType extends AbstractType
             switch ($field->getType()) {
                 case Field::TYPE_HEAD:
                 case Field::TYPE_TEXT:
+                case Field::TYPE_FORMCOLLAPSE:
                     // do nothing
                     break;
 

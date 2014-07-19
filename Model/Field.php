@@ -28,8 +28,9 @@ abstract class Field implements FieldInterface
     const TYPE_NUMBER   = 'number';
 
     // power tools
-    const TYPE_MATRIX      = 'matrix';
-    const TYPE_CALCULATION = 'calculation';
+    const TYPE_FORMCOLLAPSE = 'formcollapse';
+    const TYPE_MATRIX       = 'matrix';
+    const TYPE_CALCULATION  = 'calculation';
 
     /**
      * Field id
