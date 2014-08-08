@@ -96,7 +96,7 @@ FormBuilder.MatrixType = FormBuilder.Type.extend({
      */
     render: function(data) {
         var label = Utils.tmpl('<label for="field_<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(true),
+            id          : this.getFieldName(),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -174,11 +174,11 @@ FormBuilder.MatrixType = FormBuilder.Type.extend({
         html += '</table>';
 
         return this._super({
-            id    : this.getFieldName(true),
+            id    : this.getFieldName(),
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id       : this.getFieldName(true),
+                id       : this.getFieldName(),
                 name     : this.getFieldName(),
                 required : this.getProperty('required').value == 'Yes',
                 html     : html

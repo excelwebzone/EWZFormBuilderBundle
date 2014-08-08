@@ -54,11 +54,11 @@ FormBuilder.FormcollapseType = FormBuilder.Type.extend({
      */
     render: function(data) {
         return this._super({
-            id    : this.getFieldName(true),
+            id    : this.getFieldName(),
             type  : this.getType(),
             style : 'form-input-wide',
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id         : this.getFieldName(true),
+                id         : this.getFieldName(),
                 text       : this.getProperty('text').value,
                 status     : this.getProperty('status').value,
                 visibility : this.getProperty('visibility').value

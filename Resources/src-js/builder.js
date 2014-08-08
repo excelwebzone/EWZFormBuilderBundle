@@ -23,6 +23,12 @@ FormBuilder = function (id, name) {
      */
     this.types_ = [];
 
+    /**
+     * @var {Boolean}
+     * @protected
+     */
+    this.allowManualFieldName_ = false;
+
 }
 
 /**
@@ -44,10 +50,28 @@ FormBuilder.prototype.getName = function () {
 };
 
 /**
+ * Sets whether or not to allow override the field name.
+ *
+ * @param {Boolean} allowOverride Allow override
+ */
+FormBuilder.prototype.setAllowManualFieldName = function (allowOverride) {
+    this.allowManualFieldName_ = allowOverride;
+};
+
+/**
+ * Gets whether or not to allow override the field name.
+ *
+ * @return {Boolean} Allow override
+ */
+FormBuilder.prototype.isAllowManualFieldName = function () {
+    return this.allowManualFieldName_;
+};
+
+/**
  * Initialize form types and properties.
  *
- * @param {Object}  prop          An array of properties (type => key => value)
- * @param {Boolean} isPreviewMode Is preview mode
+ * @param {Object}  prop                 An array of properties (type => key => value)
+ * @param {Boolean} isPreviewMode        Is preview mode
  */
 FormBuilder.prototype.init = function (prop, isPreviewMode) {
     var $this = this, openingCollapse = false;
@@ -77,6 +101,7 @@ FormBuilder.prototype.init = function (prop, isPreviewMode) {
 
             if ($this.getName()) key = $this.getName() + '[' + key + ']';
             elem.setFieldName(key);
+            elem.setPropertyValue('fieldName', elem.getFieldName());
 
             // set the builder, need when reRender()
             elem.setBuilder($this);
@@ -98,8 +123,8 @@ FormBuilder.prototype.init = function (prop, isPreviewMode) {
                         }
                     }
 
-                    formList.append('<ul class="form-section' + statusClass + '" ' + style + ' id="section_' + elem.getFieldName(true) + '"></ul>');
-                    formList = formList.find('ul#section_' + elem.getFieldName(true));
+                    formList.append('<ul class="form-section' + statusClass + '" ' + style + ' id="section_' + elem.getFieldName() + '"></ul>');
+                    formList = formList.find('ul#section_' + elem.getFieldName());
 
                     openingCollapse = true;
                 }
@@ -267,7 +292,7 @@ FormBuilder.prototype.sort = function (types) {
  * @return {string} The html table
  */
 FormBuilder.prototype.makeProperties = function (type) {
-    var tmp, rows = '',
+    var tmp, rows = '', fieldDetails = '',
         properties = type.getProperties();
 
     for (key in properties) {
@@ -298,21 +323,34 @@ FormBuilder.prototype.makeProperties = function (type) {
             field : this.drawField(key, tmp)
         });
     };
-    return Utils.tmpl('<input type="hidden" name="elem_id" value="<@=name@>" /><table class="form-prop-table"><tbody><@=rows@></tbody></table>', {
-        name : type.getFieldName(),
-        rows : rows
+
+
+    if (this.allowManualFieldName_) {
+        tmp = $.extend(true, {}, properties['fieldName']);
+
+        fieldDetails = Utils.tmpl('<div class="field-details"><legend>Field Details</legend><table class="form-prop-table"><tbody><tr><td class="form-prop-table-label" valign="top" nowrap="nowrap"><@=label@> <@ if (tip) { @><span class="form-prop-table-detail"><@=tip@></span><@ } @></td><td class="form-prop-table-value" valign="top"><@=field@></td></tr></tbody></table></div>', {
+            label : properties['fieldName'].text,
+            tip   : Consts.tips['fieldName'] ? Consts.tips['fieldName'].tip : null,
+            field : this.drawField('fieldName', tmp)
+        });
+    }
+
+    return Utils.tmpl('<input type="hidden" name="elem_id" value="<@=id@>" /><table class="form-prop-table"><tbody><@=rows@></tbody></table><@=fieldDetails@>', {
+        id           : type.getFieldName(),
+        rows         : rows,
+        fieldDetails : fieldDetails
     });
 };
 
 /**
  * Returns an html field based on a property options.
  *
- * @param {string} name    Property name
+ * @param {string} id      Property id
  * @param {Object} options Property options
  *
  * @return {string} The html field
  */
-FormBuilder.prototype.drawField = function (name, options) {
+FormBuilder.prototype.drawField = function (id, options) {
     if (options.textarea) {
         // if the property has a splitter value then it means this is a list value
         // it should be splitted and displayed in the textarea
@@ -320,8 +358,8 @@ FormBuilder.prototype.drawField = function (name, options) {
             options.value = options.value.split(options.splitter).join('\n');
         }
 
-        return Utils.tmpl('<textarea name="<@=name@>" class="edit-textarea"><@=value@></textarea>', {
-            name  : name,
+        return Utils.tmpl('<textarea name="<@=id@>" class="edit-textarea"><@=value@></textarea>', {
+            id    : id,
             value : options.value
         });
     }
@@ -332,15 +370,15 @@ FormBuilder.prototype.drawField = function (name, options) {
             options.dropdown[k] = '<option value="' + v[0] + '" ' + (options.value == v[0] ? 'selected="selected"' : null) + '>' + v[1] + '</option>';
         });
 
-        return Utils.tmpl('<select name="<@=name@>" class="edit-dropdown"><@=options@></select>', {
-            name    : name,
+        return Utils.tmpl('<select name="<@=id@>" class="edit-dropdown"><@=options@></select>', {
+            id      : id,
             options : options.dropdown.join('')
         });
     }
 
-    return Utils.tmpl('<input type="<@=type@>" name="<@=name@>" value="<@=value@>" class="edit-text" />', {
+    return Utils.tmpl('<input type="<@=type@>" name="<@=id@>" value="<@=value@>" class="edit-text" />', {
         type  : options.type || 'text',
-        name  : name,
+        id    : id,
         value : options.value
     });
 };

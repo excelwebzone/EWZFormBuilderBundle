@@ -89,7 +89,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
             }
         };
 
-        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><select name="<@=name@>" id="field_<@=id@>" <@ if (required) { @>required="required"<@ } @> <@ if (size > 0) { @>size="<@=size@>" multiple="multiple"<@ } @> <@ if (width > 0) { @>style="width:<@=width@>px"<@ } @> class="form-dropdown" onchange="calculationFields()"><@=options@></select><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><select name="<@=id@>" id="field_<@=id@>" <@ if (required) { @>required="required"<@ } @> <@ if (size > 0) { @>size="<@=size@>" multiple="multiple"<@ } @> <@ if (width > 0) { @>style="width:<@=width@>px"<@ } @> class="form-dropdown" onchange="calculationFields()"><@=options@></select><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
         this._super('dropdown', prop, template);
     },
@@ -98,7 +98,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName(true)).val();
+        return $('#field_' + this.getFieldName()).val();
     },
 
     /**
@@ -108,7 +108,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
      */
     render: function(data, options) {
         var label = Utils.tmpl('<label for="field_<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(true),
+            id          : this.getFieldName(),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -117,7 +117,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
 
         // override to prevent recursive load
         if (!options && this.processAjaxCall_) {
-            options = $('#field_' + this.getFieldName(true)).html();
+            options = $('#field_' + this.getFieldName()).html();
         }
 
         if (!options) {
@@ -198,12 +198,11 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
         }
 
         return this._super({
-            id    : this.getFieldName(true),
+            id    : this.getFieldName(),
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id       : this.getFieldName(true),
-                name     : this.getFieldName(),
+                id       : this.getFieldName(),
                 size     : this.getProperty('size').value,
                 width    : this.getProperty('width').value,
                 required : this.getProperty('required').value == 'Yes',

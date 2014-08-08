@@ -15,6 +15,10 @@
         // declare the form builder
         var {{ builderId }} = new FormBuilder('{{ builderId }}', '{% if preview is defined and preview %}{{ formView.vars.name }}{% endif %}');
 
+        {% if allowManualFieldName is defined and allowManualFieldName %}
+            {{ builderId }}.setAllowManualFieldName(true);
+        {% endif %}
+
         {{ builderId }}.init({
             {% if form %}
                 form: {

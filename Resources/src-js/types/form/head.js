@@ -50,7 +50,7 @@ FormBuilder.HeadType = FormBuilder.Type.extend({
             case 'Small': headingType = 'h3'; break;
         }
         return this._super({
-            id    : this.getFieldName(true),
+            id    : this.getFieldName(),
             type  : this.getType(),
             style : 'form-input-wide',
             html  : Utils.tmpl(this.TEMPLATE_, {

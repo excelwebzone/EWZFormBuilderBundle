@@ -50,9 +50,9 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
         };
 
         var template = ' \
-            <div class="form-sub-label-container"><select name="<@=name@>[month]" id="field_<@=id@>_month" class="form-dropdown"><@=monthChoices@></select><span class="form-sub-label">Month</span></div> \
-            <div class="form-sub-label-container"><select name="<@=name@>[day]" id="field_<@=id@>_day" class="form-dropdown"><@=dayChoices@></select><span class="form-sub-label">Day</span></div> \
-            <div class="form-sub-label-container"><select name="<@=name@>[year]" id="field_<@=id@>_year" class="form-dropdown"><@=yearChoices@></select><span class="form-sub-label">Year</span></div> \
+            <div class="form-sub-label-container"><select name="<@=id@>[month]" id="field_<@=id@>_month" class="form-dropdown"><@=monthChoices@></select><span class="form-sub-label">Month</span></div> \
+            <div class="form-sub-label-container"><select name="<@=id@>[day]" id="field_<@=id@>_day" class="form-dropdown"><@=dayChoices@></select><span class="form-sub-label">Day</span></div> \
+            <div class="form-sub-label-container"><select name="<@=id@>[year]" id="field_<@=id@>_year" class="form-dropdown"><@=yearChoices@></select><span class="form-sub-label">Year</span></div> \
         ';
 
         this._super('birthday', prop, template);
@@ -63,9 +63,9 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
      */
     val: function () {
         return Utils.stringify({
-            month: $('#field_' + this.getFieldName(true) + '_month').val(),
-            day: $('#field_' + this.getFieldName(true) + '_day').val(),
-            year: $('#field_' + this.getFieldName(true) + '_year').val(),
+            month: $('#field_' + this.getFieldName() + '_month').val(),
+            day: $('#field_' + this.getFieldName() + '_day').val(),
+            year: $('#field_' + this.getFieldName() + '_year').val(),
         });
     },
 
@@ -74,7 +74,7 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
      */
     render: function(data) {
         var label = Utils.tmpl('<label for="field_<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(true),
+            id          : this.getFieldName(),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -101,12 +101,11 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
         }
 
         return this._super({
-            id    : this.getFieldName(true),
+            id    : this.getFieldName(),
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id           : this.getFieldName(true),
-                name         : this.getFieldName(),
+                id           : this.getFieldName(),
                 required     : this.getProperty('required').value == 'Yes',
                 monthChoices : months,
                 dayChoices   : days,

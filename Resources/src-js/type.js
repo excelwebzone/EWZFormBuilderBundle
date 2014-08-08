@@ -26,6 +26,11 @@ FormBuilder.Type = FormBuilder.Class.extend({
      * @protected
      */
     prop_: {
+        fieldName: {
+            text: 'Field Name',
+            value: '',
+            hidden: true,
+        },
         defaultValue: {
             text: 'Default Value',
             value: ''
@@ -189,22 +194,17 @@ FormBuilder.Type.prototype.setPropertyValue = function (name, value, key) {
  * @param {string} name The field name
  */
 FormBuilder.Type.prototype.setFieldName = function (name) {
-    this.fieldName_ = name;
+    this.fieldName_ = name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9\-_]/g, '_');
 };
 
 /**
  * Returns the field name of the form type.
  *
- * @param {Boolean} slugify Whether or not to slugify the field name
- *
  * @return {string} The field name
  */
-FormBuilder.Type.prototype.getFieldName = function (slugify) {
-    if (!this.fieldName_) this.fieldName_ = Utils.uniqid(this.type_);
-    return slugify || false
-        ? this.fieldName_.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9\-_]/g, '_')
-        : this.fieldName_
-    ;
+FormBuilder.Type.prototype.getFieldName = function () {
+    if (!this.fieldName_) this.setFieldName(Utils.uniqid(this.type_));
+    return this.fieldName_;
 };
 
 /**
@@ -240,7 +240,7 @@ FormBuilder.Type.prototype.render = function(data) {
         }
     }
     return Utils.tmpl('formLineTmpl', {
-        id          : data.id          || this.getFieldName(true),
+        id          : data.id          || this.getFieldName(),
         type        : data.type        || this.getType(),
         style       : data.style       || null,
         label       : data.label       || null,
@@ -256,10 +256,11 @@ FormBuilder.Type.prototype.render = function(data) {
 /**
  * Returns the rendered form type.
  *
- * @param {stinrg} html An html string
+ * @param {stinrg} html      An html string
+ * @param {string} fieldName The form type field name
  */
-FormBuilder.Type.prototype.reRender = function(html) {
-    $('#' + this.getBuilder().getId() + ' #' + this.getFieldName(true)).replaceWith(html || this.render());
+FormBuilder.Type.prototype.reRender = function(html, fieldName) {
+    $('#' + this.getBuilder().getId() + ' #' + (fieldName || this.getFieldName())).replaceWith(html || this.render());
 };
 
 /**
@@ -292,7 +293,9 @@ FormBuilder.Type.prototype.getFormData = function (asString) {
             }
         }
 
-        tmp[key] = value.value;
+        if (key != 'fieldName') {
+            tmp[key] = value.value;
+        }
     });
 
     return asString ? Utils.stringify(tmp) : tmp;

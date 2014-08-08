@@ -500,6 +500,25 @@ form-description.right .form-description-arrow-small {
 
 /* Properties window
 -------------------------------------------------- */
+.field-details {
+    margin:17px 0 7px;
+    padding-top:6px;
+    position:relative;
+}
+.field-details legend {
+    background:#fff;
+    border:1px solid #aaa;
+    border-radius:4px 4px 4px 4px;
+    color:#444;
+    left:6px;
+    padding:2px 10px;
+    position:absolute;
+    text-shadow:none;
+    top:-10px;
+    font-size:10px;
+    font-weight:normal;
+    width:auto;
+}
 .form-prop-table {
     border:1px solid #ccc;
     border-bottom:none;

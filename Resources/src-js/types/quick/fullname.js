@@ -81,19 +81,19 @@ FormBuilder.FullnameType = FormBuilder.Type.extend({
             <@ if (prefix) { @> \
                 <div class="form-sub-label-container"> \
                 <@ if (prefixChoices) { @> \
-                    <select name="<@=name@>[prefix]" id="field_<@=id@>_prefix"><@=prefixChoices@></select> \
+                    <select name="<@=id@>[prefix]" id="field_<@=id@>_prefix"><@=prefixChoices@></select> \
                 <@ } else { @> \
-                    <input type="text" name="<@=name@>[prefix]" id="field_<@=id@>_prefix" size="4" value="<@=value.prefix@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /> \
+                    <input type="text" name="<@=id@>[prefix]" id="field_<@=id@>_prefix" size="4" value="<@=value.prefix@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /> \
                 <@ } @> \
                 <span class="form-sub-label">Prefix</span></div> \
             <@ } @> \
-            <div class="form-sub-label-container"><input type="text" name="<@=name@>[first]" id="field_<@=id@>_first" size="10" value="<@=value.first@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><span class="form-sub-label">First Name</span></div> \
+            <div class="form-sub-label-container"><input type="text" name="<@=id@>[first]" id="field_<@=id@>_first" size="10" value="<@=value.first@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><span class="form-sub-label">First Name</span></div> \
             <@ if (middle) { @> \
-                <div class="form-sub-label-container"><input type="text" name="<@=name@>[middle]" id="field_<@=id@>_middle" size="10" value="<@=value.middle@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><span class="form-sub-label">Middle Name</span></div> \
+                <div class="form-sub-label-container"><input type="text" name="<@=id@>[middle]" id="field_<@=id@>_middle" size="10" value="<@=value.middle@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><span class="form-sub-label">Middle Name</span></div> \
             <@ } @> \
-            <div class="form-sub-label-container"><input type="text" name="<@=name@>[last]" id="field_<@=id@>_last" size="15" value="<@=value.last@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><span class="form-sub-label">Last Name</span></div> \
+            <div class="form-sub-label-container"><input type="text" name="<@=id@>[last]" id="field_<@=id@>_last" size="15" value="<@=value.last@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><span class="form-sub-label">Last Name</span></div> \
             <@ if (suffix) { @> \
-                <div class="form-sub-label-container"><input type="text" name="<@=name@>[suffix]" id="field_<@=id@>_suffix" size="4" value="<@=value.suffix@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><span class="form-sub-label">Suffix</span></div> \
+                <div class="form-sub-label-container"><input type="text" name="<@=id@>[suffix]" id="field_<@=id@>_suffix" size="4" value="<@=value.suffix@>" <@ if (required) { @>required="required"<@ } @> <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" /><span class="form-sub-label">Suffix</span></div> \
             <@ } @> \
         ';
 
@@ -105,13 +105,13 @@ FormBuilder.FullnameType = FormBuilder.Type.extend({
      */
     val: function () {
         var data = {
-            first: $('#field_' + this.getFieldName(true) + '_first').val(),
-            last: $('#field_' + this.getFieldName(true) + '_last').val()
+            first: $('#field_' + this.getFieldName() + '_first').val(),
+            last: $('#field_' + this.getFieldName() + '_last').val()
         };
 
-        if (this.getProperty('prefix').value == 'Yes') data.prefix = $('#field_' + this.getFieldName(true) + '_prefix').val();
-        if (this.getProperty('middle').value == 'Yes') data.middle = $('#field_' + this.getFieldName(true) + '_middle').val();
-        if (this.getProperty('suffix').value == 'Yes') data.suffix = $('#field_' + this.getFieldName(true) + '_suffix').val();
+        if (this.getProperty('prefix').value == 'Yes') data.prefix = $('#field_' + this.getFieldName() + '_prefix').val();
+        if (this.getProperty('middle').value == 'Yes') data.middle = $('#field_' + this.getFieldName() + '_middle').val();
+        if (this.getProperty('suffix').value == 'Yes') data.suffix = $('#field_' + this.getFieldName() + '_suffix').val();
 
         return Utils.stringify(data);
     },
@@ -121,7 +121,7 @@ FormBuilder.FullnameType = FormBuilder.Type.extend({
      */
     render: function(data) {
         var label = Utils.tmpl('<label for="field_<@=id@>_area" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(true),
+            id          : this.getFieldName(),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -144,12 +144,11 @@ FormBuilder.FullnameType = FormBuilder.Type.extend({
         }
 
         return this._super({
-            id    : this.getFieldName(true),
+            id    : this.getFieldName(),
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id            : this.getFieldName(true),
-                name          : this.getFieldName(),
+                id            : this.getFieldName(),
                 required      : this.getProperty('required').value == 'Yes',
                 readonly      : this.getProperty('readonly').value == 'Yes',
                 prefix        : this.getProperty('prefix').value == 'Yes',

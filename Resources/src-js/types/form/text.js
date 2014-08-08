@@ -33,7 +33,7 @@ FormBuilder.TextType = FormBuilder.Type.extend({
      */
     render: function(data) {
         return this._super({
-            id    : this.getFieldName(true),
+            id    : this.getFieldName(),
             type  : this.getType(),
             html  : Utils.tmpl(this.TEMPLATE_, {
                 text : Utils.htmlDecode(Utils.stripslashes(this.getProperty('text').value))

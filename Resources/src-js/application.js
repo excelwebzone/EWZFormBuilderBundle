@@ -215,6 +215,9 @@ function handleEditor() {
         // load form properties
         elem.load($(this).data('prop') || {});
 
+        // update field name
+        elem.setPropertyValue('fieldName', elem.getFieldName());
+
         // add new type
         currentBuilder.addType(elem);
 
@@ -247,6 +250,7 @@ function handleEditor() {
 
         // update field name
         elem.setFieldName($(this).data('name'));
+        elem.setPropertyValue('fieldName', elem.getFieldName());
 
         // add new type
         currentBuilder.addType(elem);
@@ -274,16 +278,21 @@ function handleEditor() {
         resizable: false,
         buttons: {
             'OK': function () {
-                var form   = $(this).children('form'),
-                    elem   = currentBuilder.getType(form.find('input[name=elem_id]').val()),
-                    values = form.serializeArray();
+                var form      = $(this).children('form'),
+                    elem      = currentBuilder.getType(form.find('input[name=elem_id]').val()),
+                    values    = form.serializeArray(),
+                    fieldName = elem.getFieldName();
 
                 // re-assign values
                 $.each(values, function (key, value) {
+                    if (currentBuilder.isAllowManualFieldName && value.name == 'fieldName') {
+                        elem.setFieldName(value.value);
+                    }
+
                     elem.setPropertyValue(value.name, value.value);
                 });
                 // re-render
-                reRenderItem(elem);
+                reRenderItem(elem, fieldName);
 
                 $(this).dialog('close');
             },
@@ -417,7 +426,7 @@ function resetListRules() {
 
                     case 'textbox':
                     case 'number':
-                        data.fields.push(t.getFieldName(true));
+                        data.fields.push(t.getFieldName());
                         break;
 
                 }
@@ -448,11 +457,13 @@ function resetListRules() {
 /**
  * Re-renders the element.
  *
- * @param {FormBuilder.Type} elem A form type instance
+ * @param {FormBuilder.Type} elem      A form type instance
+ * @param {string}           fieldName The form type field name
+ *                                     (Will be used when editing form type properties)
  */
-function reRenderItem(elem) {
+function reRenderItem(elem, fieldName) {
     // re-render
-    elem.reRender();
+    elem.reRender(null, fieldName);
     // reset rules
     resetListRules();
     // focus

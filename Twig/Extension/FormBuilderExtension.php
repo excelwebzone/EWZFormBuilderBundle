@@ -54,14 +54,16 @@ class FormBuilderExtension extends \Twig_Extension
     /**
      * Embeds the form builder GUI.
      *
-     * @param FormInterface $form The embeded Form (optional)
+     * @param FormInterface $form                 The embeded Form (optional)
+     * @param Boolean       $allowManualFieldName Whether or not to allow override the field name (optional)
      *
      * @return Response A Response instance
      */
-    public function formEmbed(FormInterface $form = null)
+    public function formEmbed(FormInterface $form = null, $allowManualFieldName = false)
     {
         return $this->render('EWZFormBuilderBundle:Form:embed.html.twig', array(
             'form' => $form,
+            'allowManualFieldName' => $allowManualFieldName
         ));
     }
 

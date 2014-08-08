@@ -75,7 +75,7 @@ FormBuilder.NumberType = FormBuilder.Type.extend({
             }
         };
 
-        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="number" name="<@=name@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (minValue) { @>min="<@=minValue@>"<@ } @> <@ if (maxValue) { @>max="<@=maxValue@>"<@ } @> <@ if (addAmount) { @>step="<@=addAmount@>"<@ } @> <@ if (required) { @>required="required"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" onchange="calculationFields()" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
+        var template = '<@ if (sublabel) { @><div class="form-sub-label-container"><@ } @><input type="number" name="<@=id@>" id="field_<@=id@>" size="<@=size@>" <@ if (maxsize) { @>maxlength="<@=maxsize@>"<@ } @> <@ if (minValue) { @>min="<@=minValue@>"<@ } @> <@ if (maxValue) { @>max="<@=maxValue@>"<@ } @> <@ if (addAmount) { @>step="<@=addAmount@>"<@ } @> <@ if (required) { @>required="required"<@ } @> <@ if (hint) { @>placeholder="<@=hint@>"<@ } @> value="<@=value@>" <@ if (readonly) { @>readonly="readonly"<@ } @> class="form-textbox" onchange="calculationFields()" /><@ if (sublabel) { @><span class="form-sub-label"><@=sublabel@></span></div><@ } @>';
 
         this._super('number', prop, template);
     },
@@ -84,7 +84,7 @@ FormBuilder.NumberType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName(true)).val();
+        return $('#field_' + this.getFieldName()).val();
     },
 
     /**
@@ -92,7 +92,7 @@ FormBuilder.NumberType = FormBuilder.Type.extend({
      */
     render: function(data) {
         var label = Utils.tmpl('<label for="field_<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(true),
+            id          : this.getFieldName(),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -100,12 +100,11 @@ FormBuilder.NumberType = FormBuilder.Type.extend({
         });
 
         return this._super({
-            id    : this.getFieldName(true),
+            id    : this.getFieldName(),
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id        : this.getFieldName(true),
-                name      : this.getFieldName(),
+                id        : this.getFieldName(),
                 size      : this.getProperty('size').value,
                 maxsize   : this.getProperty('maxsize').value,
                 minValue  : this.getProperty('minValue').value,

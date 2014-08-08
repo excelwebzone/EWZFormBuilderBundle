@@ -7,6 +7,10 @@ var Consts = {};
  * @protected
  */
 Consts.tips = {
+    fieldName: {
+        title: 'Field Name',
+        tip: 'Set the field name [0-9a-z_]'
+    },
     addAmount: {
         title: 'Stepping',
         tip: 'Defines increase/decrease amount'

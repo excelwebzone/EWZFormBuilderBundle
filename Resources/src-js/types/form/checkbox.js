@@ -87,7 +87,7 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
      */
     val: function () {
         var value = [];
-        $('input[type=checkbox][id^=field_' + this.getFieldName(true) + ']:checked').each(function () {
+        $('input[type=checkbox][id^=field_' + this.getFieldName() + ']:checked').each(function () {
             value.push($(this).val());
         });
         return value;
@@ -98,7 +98,7 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
      */
     render: function(data) {
         var label = Utils.tmpl('<label for="field_<@=id@>" class="form-label-<@=style@>" <@ if (description) { @>title="<@=description@>"<@ } @>><@=text@><@ if (required) { @><span class="form-required">*</span><@ } @></label>', {
-            id          : this.getFieldName(true),
+            id          : this.getFieldName(),
             style       : this.getProperty('labelAlign').value.toLowerCase(),
             description : this.getProperty('description').value,
             text        : this.getProperty('text').value,
@@ -111,7 +111,7 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
             optionValues = [],
             selected     = this.getProperty('selected').value,
             spreadCols   = this.getProperty('spreadCols').value,
-            fieldId      = this.getFieldName(true),
+            fieldId      = this.getFieldName(),
             fieldName    = this.getFieldName();
 
         // options
@@ -133,7 +133,7 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
             var text = value;
             value = typeof calcValues[key] != 'undefined' ? calcValues[key] : value
 
-            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=name@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" onchange="calculationFields()" /><label for="field_<@=id@>_<@=key@>"><@=text@></label></span><span class="clearfix"></span>', {
+            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=id@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" onchange="calculationFields()" /><label for="field_<@=id@>_<@=key@>"><@=text@></label></span><span class="clearfix"></span>', {
                 id        : fieldId,
                 name      : fieldName,
                 key       : key,
@@ -147,12 +147,11 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
         });
 
         return this._super({
-            id    : this.getFieldName(true),
+            id    : this.getFieldName(),
             type  : this.getType(),
             label : label,
             html  : Utils.tmpl(this.TEMPLATE_, {
-                id       : this.getFieldName(true),
-                name     : this.getFieldName(),
+                id       : this.getFieldName(),
                 style    : this.getProperty('spreadCols').value == 1 ? 'single' : 'multiple',
                 required : this.getProperty('required').value == 'Yes',
                 options  : options
