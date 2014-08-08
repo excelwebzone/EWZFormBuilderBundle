@@ -56,6 +56,8 @@ FormBuilder.FormType = FormBuilder.Type.extend({
 
         this._super('form', prop, template);
 
+        this.removeProperty('fieldName');
+
         this.fieldName_ = 'form';
     },
 

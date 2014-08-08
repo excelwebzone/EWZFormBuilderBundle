@@ -26,6 +26,8 @@ FormBuilder.TextType = FormBuilder.Type.extend({
         var template = '<div class="form-html"><@=text@></div>';
 
         this._super('text', prop, template);
+
+        this.removeProperty('fieldName');
     },
 
     /**

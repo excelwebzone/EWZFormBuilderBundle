@@ -101,7 +101,6 @@ FormBuilder.prototype.init = function (prop, isPreviewMode) {
 
             if ($this.getName()) key = $this.getName() + '[' + key + ']';
             elem.setFieldName(key);
-            elem.setPropertyValue('fieldName', elem.getFieldName());
 
             // set the builder, need when reRender()
             elem.setBuilder($this);
@@ -324,8 +323,7 @@ FormBuilder.prototype.makeProperties = function (type) {
         });
     };
 
-
-    if (this.allowManualFieldName_) {
+    if (this.allowManualFieldName_ && properties.hasOwnProperty('fieldName')) {
         tmp = $.extend(true, {}, properties['fieldName']);
 
         fieldDetails = Utils.tmpl('<div class="field-details"><legend>Field Details</legend><table class="form-prop-table"><tbody><tr><td class="form-prop-table-label" valign="top" nowrap="nowrap"><@=label@> <@ if (tip) { @><span class="form-prop-table-detail"><@=tip@></span><@ } @></td><td class="form-prop-table-value" valign="top"><@=field@></td></tr></tbody></table></div>', {

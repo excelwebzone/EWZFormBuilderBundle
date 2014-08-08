@@ -215,9 +215,6 @@ function handleEditor() {
         // load form properties
         elem.load($(this).data('prop') || {});
 
-        // update field name
-        elem.setPropertyValue('fieldName', elem.getFieldName());
-
         // add new type
         currentBuilder.addType(elem);
 
@@ -250,7 +247,6 @@ function handleEditor() {
 
         // update field name
         elem.setFieldName($(this).data('name'));
-        elem.setPropertyValue('fieldName', elem.getFieldName());
 
         // add new type
         currentBuilder.addType(elem);

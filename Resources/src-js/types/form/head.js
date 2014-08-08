@@ -38,6 +38,8 @@ FormBuilder.HeadType = FormBuilder.Type.extend({
         var template = '<div class="form-header-group"><<@=h@> class="form-header"><@=text@></<@=h@>><@ if (sub) { @><div class="form-subHeader"><@=sub@></div><@ } @></div>';
 
         this._super('head', prop, template);
+
+        this.removeProperty('fieldName');
     },
 
     /**

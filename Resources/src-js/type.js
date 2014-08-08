@@ -88,6 +88,9 @@ FormBuilder.Type.prototype.load = function (prop) {
             this.prop_[key].value = prop[key];
         }
     }
+    if (this.prop_.hasOwnProperty('fieldName')) {
+        this.prop_['fieldName'].value = this.getFieldName();
+    }
 };
 
 /**
