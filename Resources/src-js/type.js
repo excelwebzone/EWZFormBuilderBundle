@@ -159,17 +159,11 @@ FormBuilder.Type.prototype.getProperty = function (key) {
  * Removes a property object.
  *
  * @param {string} key Property key
- *
- * @return {Boolean} True is successfully removed, otherwise false
  */
 FormBuilder.Type.prototype.removeProperty = function (key) {
-    for (k in this.prop_) {
-        if (k == key) {
-            this.prop_.splice(k, 1);
-            return true;
-        }
+    if (this.prop_.hasOwnProperty(key)) {
+        delete this.prop_[key];
     }
-    return false;
 };
 
 /**
