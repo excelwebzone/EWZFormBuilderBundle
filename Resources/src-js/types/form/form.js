@@ -44,6 +44,11 @@ FormBuilder.FormType = FormBuilder.Type.extend({
                     ['Disabled', 'Disabled']
                 ]
             },
+            injectCSS: {
+                text: 'Inject Custom CSS',
+                value: '',
+                type: 'textarea'
+            },
 
             /* override */
             defaultValue: {

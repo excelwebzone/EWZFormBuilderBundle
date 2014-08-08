@@ -2,6 +2,10 @@
 
 <div id="{{ builderId }}">
     {% if preview is not defined or not preview %}
+        {% if form.getAttribute('injectCSS') %}
+            <style type="text/css">{{ form.getAttribute('injectCSS') }}</style>
+        {% endif %}
+
         <div id="props-dialog-form" title="{{ 'dialog.properties'|trans }}"></div>
     {% endif %}
 
