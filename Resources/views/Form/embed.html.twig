@@ -30,7 +30,8 @@
                     title: '{{ form.getName()|default('form.default_name'|trans) }}',
                     width: {{ form.getAttribute('width')|default(691) }},
                     labelWidth: {{ form.getAttribute('labelWidth')|default(150) }},
-                    isDefault: '{{ form.isDefaultFlag() ? 'Yes' : 'No' }}'
+                    isDefault: '{{ form.isDefaultFlag() ? 'Yes' : 'No' }}',
+                    isTable: '{{ form.isTableFlag() ? 'Yes' : 'No' }}'
                 },
                 fields: {
                     {% for field in form.getFields() %}
