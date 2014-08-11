@@ -53,6 +53,9 @@ class FormController extends Controller
         // is default?
         $form->setDefaultFlag($formProperties->isDefault == 'Yes');
 
+        // is table?
+        $form->setTableFlag($formProperties->isTable == 'Yes');
+
         // is enabled
         $form->setEnabled($formProperties->status == 'Enabled');
 

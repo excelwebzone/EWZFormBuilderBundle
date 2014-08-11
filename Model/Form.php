@@ -45,6 +45,13 @@ abstract class Form implements FormInterface
     protected $defaultFlag = true;
 
     /**
+     * Whether or not the form is set as table
+     *
+     * @var Boolean
+     */
+    protected $tableFlag = true;
+
+    /**
      * State of the form
      *
      * @var Boolean
@@ -185,6 +192,22 @@ abstract class Form implements FormInterface
     public function setDefaultFlag($defaultFlag)
     {
         $this->defaultFlag = (Boolean) $defaultFlag;
+    }
+
+    /**
+     * @return Boolean
+     */
+    public function isTableFlag()
+    {
+        return $this->tableFlag;
+    }
+
+    /**
+     * @param Boolean
+     */
+    public function setTableFlag($tableFlag)
+    {
+        $this->tableFlag = (Boolean) $tableFlag;
     }
 
     /**

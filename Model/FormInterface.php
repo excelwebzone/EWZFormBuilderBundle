@@ -27,6 +27,10 @@ interface FormInterface
 
     public function setDefaultFlag($defaultFlag);
 
+    public function isTableFlag();
+
+    public function setTableFlag($tableFlag);
+
     public function getDateCreated();
 
     public function getLastModified();
