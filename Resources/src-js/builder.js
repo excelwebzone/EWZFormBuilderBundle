@@ -325,6 +325,7 @@ FormBuilder.prototype.makeProperties = function (type) {
 
     if (this.allowManualFieldName_ && properties.hasOwnProperty('fieldName')) {
         tmp = $.extend(true, {}, properties['fieldName']);
+        tmp.value = type.getFieldName();
 
         fieldDetails = Utils.tmpl('<div class="field-details"><legend>Field Details</legend><table class="form-prop-table"><tbody><tr><td class="form-prop-table-label" valign="top" nowrap="nowrap"><@=label@> <@ if (tip) { @><span class="form-prop-table-detail"><@=tip@></span><@ } @></td><td class="form-prop-table-value" valign="top"><@=field@></td></tr></tbody></table></div>', {
             label : properties['fieldName'].text,
