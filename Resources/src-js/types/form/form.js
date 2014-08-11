@@ -47,7 +47,7 @@ FormBuilder.FormType = FormBuilder.Type.extend({
             injectCSS: {
                 text: 'Inject Custom CSS',
                 value: '',
-                type: 'textarea'
+                textarea: true
             },
 
             /* override */

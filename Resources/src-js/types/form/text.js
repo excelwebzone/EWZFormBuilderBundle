@@ -13,7 +13,7 @@ FormBuilder.TextType = FormBuilder.Type.extend({
             text: {
                 text: 'HTML',
                 value: 'Double-click to edit this text...',
-                type: 'textarea'
+                textarea: true
             },
 
             /* override */

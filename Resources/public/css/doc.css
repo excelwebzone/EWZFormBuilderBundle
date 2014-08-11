@@ -31,7 +31,7 @@
     text-shadow:0 1px 0 #fff,0 0 10px rgba(255,255,255,0.6);
     white-space:nowrap;
     line-height:30px;
-    height:30px
+    height:30px;
 }
 .form-toolbar .accordion-bar span {
     margin-left:5px;
@@ -530,18 +530,23 @@ form-description.right .form-description-arrow-small {
 }
 .form-prop-table-label {
     background:#fff;
-    width:40%
+    width:40%;
 }
 .form-prop-table-value {
     background:#eee;
     border-left:1px solid #ccc;
-    white-space:pre-wrap
+    white-space:pre-wrap;
 }
 .form-prop-table-detail {
     color:#aaa;
     display:block;
     font-size:9px;
-    white-space: normal
+    white-space: normal;
+}
+.form-prop-table-detail pre {
+    font-size:8px;
+    background:none;
+    border:none;
 }
 
 /* Fancy styling
