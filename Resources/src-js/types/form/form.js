@@ -21,7 +21,7 @@ FormBuilder.FormType = FormBuilder.Type.extend({
             },
             pluralTitle: {
                 text: 'Plural Title',
-                value: 'Untitled Forms'
+                value: ''
             },
             formWidth: {
                 text: 'Form Width',
