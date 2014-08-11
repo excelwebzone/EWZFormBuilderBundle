@@ -75,6 +75,10 @@ Consts.tips = {
         title: 'Is Default Form',
         tip: 'Yes or No.'
     },
+    isTable: {
+        title: 'Is Table Form',
+        tip: 'Yes or No.'
+    },
     labelAlign: {
         title: 'Label Align',
         tip: 'Align question label'

@@ -49,6 +49,14 @@ FormBuilder.FormType = FormBuilder.Type.extend({
                 value: '',
                 textarea: true
             },
+            isTable: {
+                text: 'Is Table?',
+                value: 'No',
+                dropdown: [
+                    ['No', 'No'],
+                    ['Yes', 'Yes']
+                ]
+            },
 
             /* override */
             defaultValue: {
