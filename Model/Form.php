@@ -24,6 +24,13 @@ abstract class Form implements FormInterface
     protected $name;
 
     /**
+     * Form $plural name
+     *
+     * @var string
+     */
+    protected $pluralName;
+
+    /**
      * Form attributes
      *
      * @var array
@@ -42,14 +49,14 @@ abstract class Form implements FormInterface
      *
      * @var Boolean
      */
-    protected $defaultFlag = true;
+    protected $defaultFlag = false;
 
     /**
      * Whether or not the form is set as table
      *
      * @var Boolean
      */
-    protected $tableFlag = true;
+    protected $tableFlag = false;
 
     /**
      * State of the form
@@ -98,6 +105,22 @@ abstract class Form implements FormInterface
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPluralName()
+    {
+        return $this->pluralName;
+    }
+
+    /**
+     * @param string $pluralName
+     */
+    public function setPluralName($pluralName)
+    {
+        $this->pluralName = $pluralName;
     }
 
     /**

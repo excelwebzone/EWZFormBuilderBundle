@@ -195,6 +195,10 @@ Consts.tips = {
         title: 'Form Title',
         tip: 'A short descriptive name for this form'
     },
+    pluralTitle: {
+        title: 'Plural Form Title',
+        tip: 'The plural version of the form name'
+    },
     validation: {
         title: 'Validation',
         tip: 'Validate entry format'

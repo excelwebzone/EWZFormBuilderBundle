@@ -19,6 +19,10 @@ FormBuilder.FormType = FormBuilder.Type.extend({
                 text: 'Title',
                 value: 'Untitled Form'
             },
+            pluralTitle: {
+                text: 'Plural Title',
+                value: 'Untitled Forms'
+            },
             formWidth: {
                 text: 'Form Width',
                 value: '690',
@@ -30,6 +34,14 @@ FormBuilder.FormType = FormBuilder.Type.extend({
             },
             isDefault: {
                 text: 'Is Default?',
+                value: 'No',
+                dropdown: [
+                    ['No', 'No'],
+                    ['Yes', 'Yes']
+                ]
+            },
+            isTable: {
+                text: 'Is Table?',
                 value: 'No',
                 dropdown: [
                     ['No', 'No'],
@@ -48,14 +60,6 @@ FormBuilder.FormType = FormBuilder.Type.extend({
                 text: 'Inject Custom CSS',
                 value: '',
                 textarea: true
-            },
-            isTable: {
-                text: 'Is Table?',
-                value: 'No',
-                dropdown: [
-                    ['No', 'No'],
-                    ['Yes', 'Yes']
-                ]
             },
 
             /* override */
