@@ -21,7 +21,8 @@ FormBuilder.FormType = FormBuilder.Type.extend({
             },
             pluralTitle: {
                 text: 'Plural Title',
-                value: ''
+                value: '',
+                hidden: true
             },
             formWidth: {
                 text: 'Form Width',
@@ -46,7 +47,8 @@ FormBuilder.FormType = FormBuilder.Type.extend({
                 dropdown: [
                     ['No', 'No'],
                     ['Yes', 'Yes']
-                ]
+                ],
+                hidden: true
             },
             status: {
                 text: 'Status',
@@ -76,6 +78,17 @@ FormBuilder.FormType = FormBuilder.Type.extend({
         this.removeProperty('fieldName');
 
         this.fieldName_ = 'form';
+    },
+
+    /**
+     * @inheritDoc
+     */
+    load: function (prop) {
+        if (prop['isTable'] == 'Yes') {
+            this.prop_['pluralTitle'].hidden = false;
+            this.prop_['isDefault'].hidden = true;
+        }
+        return this._super(prop);
     },
 
     /**
