@@ -150,7 +150,7 @@ class FormType extends AbstractType
 
                     $options = array();
                     foreach (explode('|', $field->getAttribute('options')) as $key => $option) {
-                        if (isset($calcValues[$key])) {
+                        if (isset($calcValues[$key]) && $calcValues[$key]) {
                             $options[$calcValues[$key]] = $option;
                         } else {
                             $options[$option] = $option;
