@@ -59,6 +59,10 @@ class FormType extends AbstractType
             'data' => $this->form->getId(),
         ));
 
+        if ($this->form->isTableFlag()) {
+            $builder->add('row_index', 'hidden');
+        }
+
         foreach ($this->form->getFields() as $field) {
             $multiple = false;
             $expanded = false;
