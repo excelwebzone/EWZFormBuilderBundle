@@ -6,6 +6,6 @@
 
     <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Entity\Asset">
         <field name="value" column="value" type="string" />
-        <field name="index" column="index" type="integer" />
+        <field name="rowIndex" column="row_index" type="integer" />
     </mapped-superclass>
 </doctrine-mapping>

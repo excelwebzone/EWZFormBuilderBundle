@@ -17,7 +17,7 @@ interface AssetInterface
 
     public function setValue($value);
 
-    public function getIndex();
+    public function getRowIndex();
 
-    public function setIndex($index);
+    public function setrowIndex($rowIndex);
 }

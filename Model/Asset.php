@@ -31,11 +31,11 @@ abstract class Asset implements AssetInterface
     protected $value;
 
     /**
-     * Asset index
+     * Asset row index
      *
      * @var integer
      */
-    protected $index;
+    protected $rowIndex;
 
     /**
      * @return string
@@ -88,16 +88,16 @@ abstract class Asset implements AssetInterface
     /**
      * @return string
      */
-    public function getIndex()
+    public function getRowIndex()
     {
-        return $this->index;
+        return $this->rowIndex;
     }
 
     /**
-     * @param string $index
+     * @param string $rowIndex
      */
-    public function setIndex($index)
+    public function setRowIndex($rowIndex)
     {
-        $this->index = $index;
+        $this->rowIndex = $rowIndex;
     }
 }
