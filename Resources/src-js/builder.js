@@ -99,8 +99,10 @@ FormBuilder.prototype.init = function (prop, isPreviewMode) {
             elem = eval('new FormBuilder.' + value.type.charAt(0).toUpperCase() + value.type.slice(1) + 'Type()');
             elem.load(value);
 
-            if ($this.getName()) key = $this.getName() + '[' + key + ']';
             elem.setFieldName(key);
+            if ($this.getName()) {
+                elem.setFieldName($this.getName() + '[' + elem.getFieldName() + ']', true);
+            }
 
             // set the builder, need when reRender()
             elem.setBuilder($this);

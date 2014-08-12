@@ -188,10 +188,11 @@ FormBuilder.Type.prototype.setPropertyValue = function (name, value, key) {
 /**
  * Sets the field name of the form type.
  *
- * @param {string} name The field name
+ * @param {string}  name  The field name
+ * @param {Boolean} force Force name
  */
-FormBuilder.Type.prototype.setFieldName = function (name) {
-    this.fieldName_ = name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9\-_]/g, '_');
+FormBuilder.Type.prototype.setFieldName = function (name, force) {
+    this.fieldName_ = force || false ? name : name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9\-_]/g, '_');
 };
 
 /**
