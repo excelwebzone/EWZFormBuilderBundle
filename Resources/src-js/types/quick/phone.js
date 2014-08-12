@@ -94,9 +94,9 @@ FormBuilder.PhoneType = FormBuilder.Type.extend({
 
         var defaultValue = this.getProperty('defaultValue').value;
 
-        var country = defaultValue && defaultValue['country'] ? defaultValue['country'] : null;
-        var area = defaultValue && defaultValue['area'] ? defaultValue['area'] : null;
-        var phone = defaultValue && defaultValue['phone'] ? defaultValue['phone'] : null;
+        var country = defaultValue && defaultValue['country'] ? defaultValue['country'] : '';
+        var area = defaultValue && defaultValue['area'] ? defaultValue['area'] : '';
+        var phone = defaultValue && defaultValue['phone'] ? defaultValue['phone'] : '';
 
         return this._super({
             id    : this.getFieldName(),

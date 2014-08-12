@@ -320,7 +320,7 @@ FormBuilder.prototype.makeProperties = function (type) {
 
         rows = rows + Utils.tmpl('<tr><td class="form-prop-table-label" valign="top" nowrap="nowrap"><@=label@> <@ if (tip) { @><span class="form-prop-table-detail"><@=tip@></span><@ } @></td><td class="form-prop-table-value" valign="top"><@=field@></td></tr>', {
             label : properties[key].text,
-            tip   : Consts.tips[key] ? Consts.tips[key].tip : null,
+            tip   : Consts.tips[key] ? Consts.tips[key].tip : '',
             field : this.drawField(key, tmp)
         });
     };
@@ -331,7 +331,7 @@ FormBuilder.prototype.makeProperties = function (type) {
 
         fieldDetails = Utils.tmpl('<div class="field-details"><legend>Field Details</legend><table class="form-prop-table"><tbody><tr><td class="form-prop-table-label" valign="top" nowrap="nowrap"><@=label@> <@ if (tip) { @><span class="form-prop-table-detail"><@=tip@></span><@ } @></td><td class="form-prop-table-value" valign="top"><@=field@></td></tr></tbody></table></div>', {
             label : properties['fieldName'].text,
-            tip   : Consts.tips['fieldName'] ? Consts.tips['fieldName'].tip : null,
+            tip   : Consts.tips['fieldName'] ? Consts.tips['fieldName'].tip : '',
             field : this.drawField('fieldName', tmp)
         });
     }
@@ -368,7 +368,7 @@ FormBuilder.prototype.drawField = function (id, options) {
         options.dropdown = options.dropdown || [];
 
         $.each(options.dropdown, function (k, v) {
-            options.dropdown[k] = '<option value="' + v[0] + '" ' + (options.value == v[0] ? 'selected="selected"' : null) + '>' + v[1] + '</option>';
+            options.dropdown[k] = '<option value="' + v[0] + '" ' + (options.value == v[0] ? 'selected="selected"' : '') + '>' + v[1] + '</option>';
         });
 
         return Utils.tmpl('<select name="<@=id@>" class="edit-dropdown"><@=options@></select>', {

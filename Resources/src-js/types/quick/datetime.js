@@ -187,34 +187,34 @@ FormBuilder.DatetimeType = FormBuilder.Type.extend({
         var yearTo = this.getProperty('yearTo').value || date.getFullYear();
 
         for (var i=yearFrom; i<=yearTo; i++) {
-            years = years + '<option value="' + i + '" ' + (defaultValue && defaultValue['year'] == i ? 'selected="selected"' : null) + '>' + i + '</option>';
+            years = years + '<option value="' + i + '" ' + (defaultValue && defaultValue['year'] == i ? 'selected="selected"' : '') + '>' + i + '</option>';
         }
         for (var i=1; i<=12; i++) {
-            months = months + '<option value="' + i + '" ' + (defaultValue && defaultValue['month'] == i ? 'selected="selected"' : null) + '>' + monthString[i-1] + '</option>';
+            months = months + '<option value="' + i + '" ' + (defaultValue && defaultValue['month'] == i ? 'selected="selected"' : '') + '>' + monthString[i-1] + '</option>';
         }
         for (var i=1; i<=32; i++) {
-            days = days + '<option value="' + i + '" ' + (defaultValue && defaultValue['day'] == i ? 'selected="selected"' : null) + '>' + i + '</option>';
+            days = days + '<option value="' + i + '" ' + (defaultValue && defaultValue['day'] == i ? 'selected="selected"' : '') + '>' + i + '</option>';
         }
 
         if (this.getProperty('allowTime').value == 'Yes') {
             if (this.getProperty('defaultValue').value == 'AM/PM') {
                 for (var i=1; i<=12; i++) {
-                    hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
+                    hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : '') + '>' + (i>=10?i:'0'+i) + '</option>';
                 }
             } else {
                 for (var i=0; i<=23; i++) {
-                    hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
+                    hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : '') + '>' + (i>=10?i:'0'+i) + '</option>';
                 }
             }
             for (var i=0; i<60; i+=parseInt(this.getProperty('step').value)) {
-                minutes = minutes + '<option value="' + i + '" ' + (defaultValue && defaultValue['minute'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
+                minutes = minutes + '<option value="' + i + '" ' + (defaultValue && defaultValue['minute'] == i ? 'selected="selected"' : '') + '>' + (i>=10?i:'0'+i) + '</option>';
             }
             if (this.getProperty('timeFormat').value == 'AM/PM') {
                 if (this.getProperty('showDayPeriods').value == 'both' || this.getProperty('showDayPeriods').value == 'amOnly') {
-                    ampm = ampm + '<option value="am" ' + (defaultValue && defaultValue['ampm'] == 'am' ? 'selected="selected"' : null) + '>AM</option>';
+                    ampm = ampm + '<option value="am" ' + (defaultValue && defaultValue['ampm'] == 'am' ? 'selected="selected"' : '') + '>AM</option>';
                 }
                 if (this.getProperty('showDayPeriods').value == 'both' || this.getProperty('showDayPeriods').value == 'pmOnly') {
-                    ampm = ampm + '<option value="pm" ' + (defaultValue && defaultValue['ampm'] == 'pm' ? 'selected="selected"' : null) + '>PM</option>';
+                    ampm = ampm + '<option value="pm" ' + (defaultValue && defaultValue['ampm'] == 'pm' ? 'selected="selected"' : '') + '>PM</option>';
                 }
             }
         }

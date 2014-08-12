@@ -130,16 +130,16 @@ FormBuilder.FullnameType = FormBuilder.Type.extend({
 
         var defaultValue = this.getProperty('defaultValue').value;
 
-        var prefix = defaultValue && defaultValue['prefix'] ? defaultValue['prefix'] : null;
-        var first = defaultValue && defaultValue['first'] ? defaultValue['first'] : null;
-        var middle = defaultValue && defaultValue['middle'] ? defaultValue['middle'] : null;
-        var last = defaultValue && defaultValue['last'] ? defaultValue['last'] : null;
-        var suffix = defaultValue && defaultValue['suffix'] ? defaultValue['suffix'] : null;
+        var prefix = defaultValue && defaultValue['prefix'] ? defaultValue['prefix'] : '';
+        var first = defaultValue && defaultValue['first'] ? defaultValue['first'] : '';
+        var middle = defaultValue && defaultValue['middle'] ? defaultValue['middle'] : '';
+        var last = defaultValue && defaultValue['last'] ? defaultValue['last'] : '';
+        var suffix = defaultValue && defaultValue['suffix'] ? defaultValue['suffix'] : '';
 
         prefixChoices = '';
         if (this.getProperty('prefix').value == 'Yes') {
             $.each(this.getProperty('prefixChoices').value.split(this.getProperty('prefixChoices').splitter), function (key, value) {
-                prefixChoices += '<option value="' + value + '" ' + (defaultValue && defaultValue['prefix'] == value ? 'selected="selected"' : null) + '>' + value + '</option>';
+                prefixChoices += '<option value="' + value + '" ' + (defaultValue && defaultValue['prefix'] == value ? 'selected="selected"' : '') + '>' + value + '</option>';
             });
         }
 

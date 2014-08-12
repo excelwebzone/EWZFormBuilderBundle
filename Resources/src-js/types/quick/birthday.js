@@ -91,13 +91,13 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
         var yearTo = this.getProperty('yearTo').value || date.getFullYear();
 
         for (var i=yearFrom; i<=yearTo; i++) {
-            years = years + '<option value="' + i + '" ' + (defaultValue && defaultValue['year'] == i ? 'selected="selected"' : null) + '>' + i + '</option>';
+            years = years + '<option value="' + i + '" ' + (defaultValue && defaultValue['year'] == i ? 'selected="selected"' : '') + '>' + i + '</option>';
         }
         for (var i=1; i<=12; i++) {
-            months = months + '<option value="' + i + '" ' + (defaultValue && defaultValue['month'] == i ? 'selected="selected"' : null) + '>' + monthString[i-1] + '</option>';
+            months = months + '<option value="' + i + '" ' + (defaultValue && defaultValue['month'] == i ? 'selected="selected"' : '') + '>' + monthString[i-1] + '</option>';
         }
         for (var i=1; i<=32; i++) {
-            days = days + '<option value="' + i + '" ' + (defaultValue && defaultValue['day'] == i ? 'selected="selected"' : null) + '>' + i + '</option>';
+            days = days + '<option value="' + i + '" ' + (defaultValue && defaultValue['day'] == i ? 'selected="selected"' : '') + '>' + i + '</option>';
         }
 
         return this._super({

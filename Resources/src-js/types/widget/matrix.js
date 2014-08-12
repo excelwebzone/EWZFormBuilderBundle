@@ -107,7 +107,7 @@ FormBuilder.MatrixType = FormBuilder.Type.extend({
 
         var tablewidth = this.getProperty('matrixwidth').value
             ? ' style="width: ' + this.getProperty('matrixwidth').value + 'px;"'
-            : null
+            : ''
         ;
 
         html = '<table cellpadding="0" cellspacing="0" class="form-matrix-table"' + tablewidth + '><tr>';
@@ -117,7 +117,7 @@ FormBuilder.MatrixType = FormBuilder.Type.extend({
 
         var tdwidth = this.getProperty('matrixcells').value
             ? ' style="width: ' + this.getProperty('matrixcells').value + 'px;"'
-            : null
+            : ''
         ;
 
         for (var coli = 0; coli < cols.length; coli++) {
@@ -143,25 +143,25 @@ FormBuilder.MatrixType = FormBuilder.Type.extend({
 
                 switch (this.getProperty('inputType').value) {
                     case 'Radio Button':
-                        input = '<input class="form-radio" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : null) + ' type="radio" name="' + qname + '[' + ri + ']" value="' + mcol + '" ' + (defaultValue && defaultValue[ri] == mcol ? 'checked="checked"' : null) + ' />';
+                        input = '<input class="form-radio" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' type="radio" name="' + qname + '[' + ri + ']" value="' + mcol + '" ' + (defaultValue && defaultValue[ri] == mcol ? 'checked="checked"' : '') + ' />';
                         break;
 
                     case 'Check Box':
-                        input = '<input class="form-checkbox" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : null) + ' type="checkbox" name="' + qname + '[' + ri + '][]" value="' + mcol + '" ' + (defaultValue && defaultValue[ri] == mcol ? 'checked="checked"' : null) + ' />';
+                        input = '<input class="form-checkbox" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' type="checkbox" name="' + qname + '[' + ri + '][]" value="' + mcol + '" ' + (defaultValue && defaultValue[ri] == mcol ? 'checked="checked"' : '') + ' />';
                         break;
 
                     case 'Text Box':
-                        input = '<input class="form-textbox" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : null) + ' type="text" size="5" name="' + qname + '[' + ri + '][]" ' + (defaultValue && defaultValue[ri][j] ? 'value="' + defaultValue[ri][j] + '"' : null) + ' />';
+                        input = '<input class="form-textbox" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' type="text" size="5" name="' + qname + '[' + ri + '][]" ' + (defaultValue && defaultValue[ri][j] ? 'value="' + defaultValue[ri][j] + '"' : '') + ' />';
                         break;
 
                     case 'Drop Down':
                         var dp = this.getProperty('dropdown').value.split('|');
                         var options = '<option></option>';
                         for (var dpd = 0; dpd < dp.length; dpd++) {
-                            options += '<option value="' + Utils.escapeValue(dp[dpd]) + '" ' + (defaultValue && defaultValue[ri][j] == dp[dpd] ? 'selected="selected"' : null) + '>' + dp[dpd] + '</option>';
+                            options += '<option value="' + Utils.escapeValue(dp[dpd]) + '" ' + (defaultValue && defaultValue[ri][j] == dp[dpd] ? 'selected="selected"' : '') + '>' + dp[dpd] + '</option>';
                         }
 
-                        input = '<select class="form-dropdown" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : null) + ' name="' + qname + '[' + ri + '][]">' + options + '</select>';
+                        input = '<select class="form-dropdown" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' name="' + qname + '[' + ri + '][]">' + options + '</select>';
                         break;
                 }
 

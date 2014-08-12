@@ -143,22 +143,22 @@ FormBuilder.TimeType = FormBuilder.Type.extend({
 
         if (this.getProperty('defaultValue').value == 'AM/PM') {
             for (var i=1; i<=12; i++) {
-                hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
+                hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : '') + '>' + (i>=10?i:'0'+i) + '</option>';
             }
         } else {
             for (var i=0; i<=23; i++) {
-                hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
+                hours = hours + '<option value="' + i + '" ' + (defaultValue && defaultValue['hour'] == i ? 'selected="selected"' : '') + '>' + (i>=10?i:'0'+i) + '</option>';
             }
         }
         for (var i=0; i<60; i+=parseInt(this.getProperty('step').value)) {
-            minutes = minutes + '<option value="' + i + '" ' + (defaultValue && defaultValue['minute'] == i ? 'selected="selected"' : null) + '>' + (i>=10?i:'0'+i) + '</option>';
+            minutes = minutes + '<option value="' + i + '" ' + (defaultValue && defaultValue['minute'] == i ? 'selected="selected"' : '') + '>' + (i>=10?i:'0'+i) + '</option>';
         }
         if (this.getProperty('timeFormat').value == 'AM/PM') {
             if (this.getProperty('showDayPeriods').value == 'both' || this.getProperty('showDayPeriods').value == 'amOnly') {
-                ampm = ampm + '<option value="am" ' + (defaultValue && defaultValue['ampm'] == 'am' ? 'selected="selected"' : null) + '>AM</option>';
+                ampm = ampm + '<option value="am" ' + (defaultValue && defaultValue['ampm'] == 'am' ? 'selected="selected"' : '') + '>AM</option>';
             }
             if (this.getProperty('showDayPeriods').value == 'both' || this.getProperty('showDayPeriods').value == 'pmOnly') {
-                ampm = ampm + '<option value="pm" ' + (defaultValue && defaultValue['ampm'] == 'pm' ? 'selected="selected"' : null) + '>PM</option>';
+                ampm = ampm + '<option value="pm" ' + (defaultValue && defaultValue['ampm'] == 'pm' ? 'selected="selected"' : '') + '>PM</option>';
             }
         }
 
