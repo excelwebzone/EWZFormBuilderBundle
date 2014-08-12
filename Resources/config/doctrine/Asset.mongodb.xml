@@ -6,5 +6,6 @@
 
     <mapped-superclass name="EWZ\Bundle\FormBuilderBundle\Document\Asset">
         <field fieldName="value" type="string" />
+        <field fieldName="index" type="int" />
     </mapped-superclass>
 </doctrine-mongo-mapping>

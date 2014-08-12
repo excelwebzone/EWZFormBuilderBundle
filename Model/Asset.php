@@ -31,6 +31,13 @@ abstract class Asset implements AssetInterface
     protected $value;
 
     /**
+     * Asset index
+     *
+     * @var integer
+     */
+    protected $index;
+
+    /**
      * @return string
      */
     public function __toString()
@@ -78,4 +85,19 @@ abstract class Asset implements AssetInterface
         $this->value = $value;
     }
 
+    /**
+     * @return string
+     */
+    public function getIndex()
+    {
+        return $this->index;
+    }
+
+    /**
+     * @param string $index
+     */
+    public function setIndex($index)
+    {
+        $this->index = $index;
+    }
 }
