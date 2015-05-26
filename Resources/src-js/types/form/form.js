@@ -103,8 +103,8 @@ FormBuilder.FormType = FormBuilder.Type.extend({
      */
     render: function(data) {
         // update layout
-        $('.form-list').css('width', this.getProperty('formWidth').value);
-        $('[class*="form-label-"]').css('width', this.getProperty('labelWidth').value);
+        $('.form-list').css('width', this.getProperty('formWidth').value + 'px');
+        $('[class*="form-label-"]').css('width', this.getProperty('labelWidth').value + 'px');
 
         return this._super({
             id    : this.getFieldName(),
