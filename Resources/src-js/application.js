@@ -45,8 +45,8 @@ function handlePreview(builder) {
     });
 
     // calculate "calculation" field formula's.
-    for (var key in currentBuilder.getTypes()) {
-        var type = currentBuilder.getTypes()[key];
+    for (var key in builder.getTypes()) {
+        var type = builder.getTypes()[key];
         if (type.getType() == 'calculation') {
             type.calc();
         }
