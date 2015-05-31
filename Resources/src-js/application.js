@@ -1,14 +1,13 @@
-var preview = false;
 var saving = false;
 var currentBuilder = null;
 
 /**
  * Handle form preview.
+ *
+ * @param {FormBuilder} builder A form builder instance
  */
-function handlePreview() {
-    preview = true;
-
-    $('.form-description').each(function () {
+function handlePreview(builder) {
+    $('#' + builder.getId()).find('.form-description').each(function () {
         var right = $(this).hasClass('right'),
             cont = $(this).closest('.form-line'),
             arrow = $(this).children('.form-description-arrow'),
@@ -25,59 +24,44 @@ function handlePreview() {
         }
     });
 
-    calculationFields();
-    enabledFormCollapse();
-}
-
-/**
- * Calculate "calculation" field formula's.
- */
-function calculationFields() {
-    if (preview) {
-        for (var key in currentBuilder.getTypes()) {
-            var type = currentBuilder.getTypes()[key];
-            if (type.getType() == 'calculation') {
-                type.calc();
-            }
+    // calculate "calculation" field formula's.
+    for (var key in currentBuilder.getTypes()) {
+        var type = currentBuilder.getTypes()[key];
+        if (type.getType() == 'calculation') {
+            type.calc();
         }
     }
-}
 
-/**
- * Enabled form section collapse effect.
- */
-function enabledFormCollapse() {
-    if (preview) {
-        $('.form-line[data-type=formcollapse]').on('click', function() {
-            $('#form-preview > ul > ul.form-section')
-                .not($(this).parent('ul'))
-                .removeClass('form-section')
-                .addClass('form-section-closed')
-                    .find('.form-collapse-table .form-collapse-right')
-                        .removeClass('form-collapse-right-show')
-                        .addClass('form-collapse-right-hide');
+    // enabled form section collapse effect.
+    $('#' + builder.getId()).find('.form-line[data-type=formcollapse]').on('click', function() {
+        $('#form-preview > ul > ul.form-section')
+            .not($(this).parent('ul'))
+            .removeClass('form-section')
+            .addClass('form-section-closed')
+                .find('.form-collapse-table .form-collapse-right')
+                    .removeClass('form-collapse-right-show')
+                    .addClass('form-collapse-right-hide');
 
+        $(this).parent('ul')
+            .toggleClass('form-section')
+            .toggleClass('form-section-closed');
+
+
+
+        if ($(this).parent('ul').hasClass('form-section')) {
             $(this).parent('ul')
-                .toggleClass('form-section')
-                .toggleClass('form-section-closed');
+                .find('.form-collapse-table .form-collapse-right')
+                    .removeClass('form-collapse-right-hide')
+                    .addClass('form-collapse-right-show');
+        } else {
+            $(this).parent('ul')
+                .find('.form-collapse-table .form-collapse-right')
+                    .removeClass('form-collapse-right-show')
+                    .addClass('form-collapse-right-hide');
+        }
 
-
-
-            if ($(this).parent('ul').hasClass('form-section')) {
-                $(this).parent('ul')
-                    .find('.form-collapse-table .form-collapse-right')
-                        .removeClass('form-collapse-right-hide')
-                        .addClass('form-collapse-right-show');
-            } else {
-                $(this).parent('ul')
-                    .find('.form-collapse-table .form-collapse-right')
-                        .removeClass('form-collapse-right-show')
-                        .addClass('form-collapse-right-hide');
-            }
-
-            return false;
-        });
-    }
+        return false;
+    });
 }
 
 /**

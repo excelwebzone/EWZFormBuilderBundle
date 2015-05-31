@@ -58,7 +58,7 @@
         if (typeof _builderInit == 'function') _builderInit(currentBuilder);
 
         {% if preview is defined and preview %}
-            handlePreview();
+            handlePreview({{ builderId }});
         {% else %}
             handleEditor();
         {% endif %}
