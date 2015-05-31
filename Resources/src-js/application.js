@@ -53,36 +53,38 @@ function handlePreview(builder) {
     }
 
     // enabled form section collapse effect.
-    $('#' + builder.getId()).find('.form-line[data-type=formcollapse]').on('click', function() {
-        $('#form-preview > ul > ul.form-section')
-            .not($(this).parent('ul'))
-            .removeClass('form-section')
-            .addClass('form-section-closed')
-                .find('.form-collapse-table .form-collapse-right')
-                    .removeClass('form-collapse-right-show')
-                    .addClass('form-collapse-right-hide');
+    $('#' + builder.getId()).find('.form-line[data-type=formcollapse]').each(function () {
+        $(this).on('click', function() {
+            $('#form-preview > ul > ul.form-section')
+                .not($(this).parent('ul'))
+                .removeClass('form-section')
+                .addClass('form-section-closed')
+                    .find('.form-collapse-table .form-collapse-right')
+                        .removeClass('form-collapse-right-show')
+                        .addClass('form-collapse-right-hide');
 
-        $(this).parent('ul')
-            .toggleClass('form-section')
-            .toggleClass('form-section-closed');
-
-
-
-        if ($(this).parent('ul').hasClass('form-section')) {
             $(this).parent('ul')
-                .find('.form-collapse-table .form-collapse-right')
-                    .removeClass('form-collapse-right-hide')
-                    .addClass('form-collapse-right-show');
-        } else {
-            $(this).parent('ul')
-                .find('.form-collapse-table .form-collapse-right')
-                    .removeClass('form-collapse-right-show')
-                    .addClass('form-collapse-right-hide');
-        }
+                .toggleClass('form-section')
+                .toggleClass('form-section-closed');
 
-        return false;
+
+
+            if ($(this).parent('ul').hasClass('form-section')) {
+                $(this).parent('ul')
+                    .find('.form-collapse-table .form-collapse-right')
+                        .removeClass('form-collapse-right-hide')
+                        .addClass('form-collapse-right-show');
+            } else {
+                $(this).parent('ul')
+                    .find('.form-collapse-table .form-collapse-right')
+                        .removeClass('form-collapse-right-show')
+                        .addClass('form-collapse-right-hide');
+            }
+
+            return false;
+        });
     });
-}
+};
 
 /**
  * The following function are used when creating or editing a form
@@ -312,7 +314,7 @@ function handleEditor() {
             $('.form-prop-table tbody').html('');
         }
     });
-}
+};
 
 /**
  * Reset list rules and actions.
@@ -468,7 +470,7 @@ function reRenderItem(elem, fieldName) {
     resetListRules();
     // focus
     focusItem(elem);
-}
+};
 
 /**
  * Auto select elements.
@@ -477,4 +479,4 @@ function reRenderItem(elem, fieldName) {
  */
 function focusItem(elem) {
     $('#' + currentBuilder.getId() + ' #' + elem.getFieldName()).trigger('click');
-}
+};
