@@ -2,6 +2,26 @@ var saving = false;
 var currentBuilder = null;
 
 /**
+ * Update or add new types:
+ *
+ * The following example enabled the `isTable` property
+ * and added `sortOrder` property.
+ *
+ * FormBuilder.FormType = FormBuilder.FormType.extend({
+ *
+ *     init: function() {
+ *         this._super('init');
+ *
+ *         this.setPropertyValue('isTable', false, 'hidden');
+ *
+ *         this.setPropertyValue('sortOrder', false, 'hidden');
+ *         this.setPropertyValue('sortOrder', 'Sort Order', 'text');
+ *         this.setPropertyValue('sortOrder', '');
+ *     }
+ * });
+ */
+
+/**
  * Handle form preview.
  *
  * @param {FormBuilder} builder A form builder instance
