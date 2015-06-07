@@ -71,11 +71,11 @@ FormBuilder.PhoneType = FormBuilder.Type.extend({
      */
     val: function () {
         var data = {
-            area: $('#field_' + this.getFieldName() + '_area').val(),
-            phone: $('#field_' + this.getFieldName() + '_phone').val(),
+            area: this.getFieldElement(this.getFieldName() + '[area]').val(),
+            phone: this.getFieldElement(this.getFieldName() + '[phone]').val(),
         };
 
-        if (this.getProperty('countryCode').value == 'Yes') data.country = $('#field_' + this.getFieldName() + '_country').val();
+        if (this.getProperty('countryCode').value == 'Yes') data.country = this.getFieldElement(this.getFieldName() + '[country]').val();
 
         return Utils.stringify(data);
     },

@@ -98,7 +98,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName()).val();
+        return this.getFieldElement().val();
     },
 
     /**
@@ -117,7 +117,7 @@ FormBuilder.DropdownType = FormBuilder.Type.extend({
 
         // override to prevent recursive load
         if (!options && this.processAjaxCall_) {
-            options = $('#field_' + this.getFieldName()).html();
+            options = this.getFieldElement().html();
         }
 
         if (!options) {

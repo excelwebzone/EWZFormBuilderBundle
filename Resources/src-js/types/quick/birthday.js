@@ -63,9 +63,9 @@ FormBuilder.BirthdayType = FormBuilder.Type.extend({
      */
     val: function () {
         return Utils.stringify({
-            month: $('#field_' + this.getFieldName() + '_month').val(),
-            day: $('#field_' + this.getFieldName() + '_day').val(),
-            year: $('#field_' + this.getFieldName() + '_year').val(),
+            month: this.getFieldElement(this.getFieldName() + '[month]').val(),
+            day: this.getFieldElement(this.getFieldName() + '[day]').val(),
+            year: this.getFieldElement(this.getFieldName() + '[year]').val(),
         });
     },
 

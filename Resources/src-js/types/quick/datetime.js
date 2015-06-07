@@ -123,18 +123,18 @@ FormBuilder.DatetimeType = FormBuilder.Type.extend({
      */
     val: function () {
         var data = {
-            month: $('#field_' + this.getFieldName() + '_month').val(),
-            day: $('#field_' + this.getFieldName() + '_day').val(),
-            year: $('#field_' + this.getFieldName() + '_year').val(),
+            month: this.getFieldElement(this.getFieldName() + '[month]').val(),
+            day: this.getFieldElement(this.getFieldName() + '[day]').val(),
+            year: this.getFieldElement(this.getFieldName() + '[year]').val(),
         };
 
         if (this.getProperty('allowTime').value == 'Yes') {
             time = {
-                hour: $('#field_' + this.getFieldName() + '_hour').val(),
-                minute: $('#field_' + this.getFieldName() + '_minute').val(),
+                hour: this.getFieldElement(this.getFieldName() + '[hour]').val(),
+                minute: this.getFieldElement(this.getFieldName() + '[minute]').val(),
             };
 
-            if (this.getProperty('timeFormat').value == 'AM/PM') time.ampm = $('#field_' + this.getFieldName() + '_ampm').val();
+            if (this.getProperty('timeFormat').value == 'AM/PM') time.ampm = this.getFieldElement(this.getFieldName() + '[ampm]').val();
 
             data = {
                 date: data,

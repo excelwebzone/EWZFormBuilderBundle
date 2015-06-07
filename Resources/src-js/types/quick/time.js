@@ -98,11 +98,11 @@ FormBuilder.TimeType = FormBuilder.Type.extend({
      */
     val: function () {
         var data = {
-            hour: $('#field_' + this.getFieldName() + '_hour').val(),
-            minute: $('#field_' + this.getFieldName() + '_minute').val(),
+            hour: this.getFieldElement(this.getFieldName() + '[hour]').val(),
+            minute: this.getFieldElement(this.getFieldName() + '[minute]').val(),
         };
 
-        if (this.getProperty('timeFormat').value == 'AM/PM') data.ampm = $('#field_' + this.getFieldName() + '_ampm').val();
+        if (this.getProperty('timeFormat').value == 'AM/PM') data.ampm = this.getFieldElement(this.getFieldName() + '[ampm]').val();
 
         return Utils.stringify(data);
     },

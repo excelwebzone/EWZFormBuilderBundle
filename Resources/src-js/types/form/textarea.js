@@ -87,7 +87,7 @@ FormBuilder.TextareaType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName()).val();
+        return this.getFieldElement().val();
     },
 
     /**

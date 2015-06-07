@@ -60,7 +60,7 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     val: function () {
-        return $('#field_' + this.getFieldName()).val();
+        return this.getFieldElement().val();
     },
 
     /**
@@ -94,7 +94,7 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
         } catch (e) {
             value = 'NaN';
         }
-        $('#field_' + this.getFieldName()).val(value);
+        this.getFieldElement().val(value);
     },
 
     /**

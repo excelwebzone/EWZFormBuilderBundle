@@ -436,7 +436,7 @@ function resetListRules() {
         }
 
         var dialog = $('<div id="form-wizard" style="display:hidden"></div>').appendTo('body');
-        dialog.load($(this).data("url"), {
+        dialog.load($(this).data('url'), {
             field: field,
             type: type,
             data: data

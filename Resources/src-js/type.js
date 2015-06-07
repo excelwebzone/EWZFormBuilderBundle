@@ -206,6 +206,19 @@ FormBuilder.Type.prototype.getFieldName = function () {
 };
 
 /**
+ * Returns a field element of the form type.
+ *
+ * @param {string} fieldName The field name
+ *
+ * @return {Object}
+ */
+FormBuilder.Type.prototype.getFieldElement = function (fieldName) {
+    fieldName = fieldName || this.getFieldName();
+
+    return $('[name="' + fieldName + '"]');
+};
+
+/**
  * Returns the rendered form type.
  *
  * @param {Object} data The data to render

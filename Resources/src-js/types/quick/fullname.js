@@ -105,13 +105,13 @@ FormBuilder.FullnameType = FormBuilder.Type.extend({
      */
     val: function () {
         var data = {
-            first: $('#field_' + this.getFieldName() + '_first').val(),
-            last: $('#field_' + this.getFieldName() + '_last').val()
+            first: this.getFieldElement(this.getFieldName() + '[first]').val(),
+            last: this.getFieldElement(this.getFieldName() + '[last]').val()
         };
 
-        if (this.getProperty('prefix').value == 'Yes') data.prefix = $('#field_' + this.getFieldName() + '_prefix').val();
-        if (this.getProperty('middle').value == 'Yes') data.middle = $('#field_' + this.getFieldName() + '_middle').val();
-        if (this.getProperty('suffix').value == 'Yes') data.suffix = $('#field_' + this.getFieldName() + '_suffix').val();
+        if (this.getProperty('prefix').value == 'Yes') data.prefix = this.getFieldElement(this.getFieldName() + '[prefix]').val();
+        if (this.getProperty('middle').value == 'Yes') data.middle = this.getFieldElement(this.getFieldName() + '[middle]').val();
+        if (this.getProperty('suffix').value == 'Yes') data.suffix = this.getFieldElement(this.getFieldName() + '[suffix]').val();
 
         return Utils.stringify(data);
     },
