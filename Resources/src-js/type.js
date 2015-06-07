@@ -271,7 +271,7 @@ FormBuilder.Type.prototype.render = function(data) {
  * @param {string} fieldName The form type field name
  */
 FormBuilder.Type.prototype.reRender = function(html, fieldName) {
-    $('#' + this.getBuilder().getId() + ' #' + (fieldName || this.getFieldName())).replaceWith(html || this.render());
+    $('#' + this.getBuilder().getId() + ' [id="' + (fieldName || this.getFieldName()) + '"]').replaceWith(html || this.render());
 };
 
 /**
