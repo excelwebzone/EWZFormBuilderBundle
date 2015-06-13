@@ -178,9 +178,11 @@ class FormController extends Controller
      */
     public function wizardAction(Request $request)
     {
+        $data = json_decode($request->get('data', '{}'), true);
+
         return $this->render('EWZFormBuilderBundle:Wizard:'.$request->get('type').'.html.twig', array(
             'field' => $request->get('field'),
-            'data' => $request->get('data', array())
+            'data' => $data
         ));
     }
 }

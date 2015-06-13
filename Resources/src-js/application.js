@@ -439,7 +439,7 @@ function resetListRules() {
         dialog.load($(this).data('url'), {
             field: field,
             type: type,
-            data: data
+            data: Utils.stringify(data)
         }, function () {
             dialog.dialog({
                 title: 'Wizard: ' + type,
