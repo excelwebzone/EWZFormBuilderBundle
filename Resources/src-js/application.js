@@ -84,7 +84,21 @@ function handlePreview(builder) {
             return false;
         });
     });
+
+    calculationFields()
 };
+
+/**
+ * Calculate "calculation" field formula's.
+ */
+function calculationFields() {
+    for (var key in currentBuilder.getTypes()) {
+        var type = currentBuilder.getTypes()[key];
+        if (type.getType() == 'calculation') {
+            type.calc();
+        }
+    }
+}
 
 /**
  * The following function are used when creating or editing a form
