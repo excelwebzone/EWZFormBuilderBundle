@@ -444,7 +444,7 @@ function resetListRules() {
             dialog.dialog({
                 title: 'Wizard: ' + type,
                 width: 700,
-                height: 480,
+                height: 520,
                 modal: true,
                 resizable: false,
                 close: function () {
