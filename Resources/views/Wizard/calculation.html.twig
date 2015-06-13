@@ -107,6 +107,7 @@
         $('#form-wizard').dialog('close');
     });
 
+    container.find('.calcEditor').html('');
     var formulaItems = currentBuilder.getType('{{ field }}').getProperty('formula').value || [];
     for (var i=0; i<formulaItems.length; i++) {
         container.find('.calcEditor').append('<span class="calcElement calcText"></span><span class="calcElement color ' + formulaItems[i].color + '">' + formulaItems[i].text + '</span>');
