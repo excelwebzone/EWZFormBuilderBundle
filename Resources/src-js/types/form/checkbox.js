@@ -133,7 +133,7 @@ FormBuilder.CheckboxType = FormBuilder.Type.extend({
             var text = value;
             value = typeof calcValues[key] != 'undefined' && calcValues[key] != '' ? calcValues[key] : value;
 
-            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=id@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" onchange="calculationFields()" /><label for="field_<@=id@>_<@=key@>"><@=text@></label></span><span class="clearfix"></span>', {
+            options += Utils.tmpl('<span class="form-<@=inputType@>-item" <@ if (newline) { @>style="clear:left;"<@ } @>><input type="<@=inputType@>" name="<@=id@>[]" id="field_<@=id@>_<@=key@>" value="<@=value@>" <@ if (selected) { @>checked="checked"<@ } @> class="form-<@=inputType@>" onchange="calculationFields(this)" /><label for="field_<@=id@>_<@=key@>"><@=text@></label></span><span class="clearfix"></span>', {
                 id        : fieldId,
                 name      : fieldName,
                 key       : key,

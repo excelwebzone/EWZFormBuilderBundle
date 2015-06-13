@@ -1,4 +1,5 @@
-var saving = false;
+var isPreviewMode = false;
+var isSavingMode = false;
 var currentBuilder = null;
 
 /**
@@ -27,6 +28,8 @@ var currentBuilder = null;
  * @param {FormBuilder} builder A form builder instance
  */
 function handlePreview(builder) {
+    isPreviewMode =true;
+
     $('#' + builder.getId()).find('.form-description').each(function () {
         var right = $(this).hasClass('right'),
             cont = $(this).closest('.form-line'),
@@ -85,19 +88,32 @@ function handlePreview(builder) {
         });
     });
 
-    calculationFields()
+    if (!currentBuilder) currentBuilder = [];
+    currentBuilder.push(builder);
 };
 
 /**
  * Calculate "calculation" field formula's.
+ *
+ * @param {Object} field A form field instance
  */
-function calculationFields() {
-    for (var key in currentBuilder.getTypes()) {
-        var type = currentBuilder.getTypes()[key];
-        if (type.getType() == 'calculation') {
-            type.calc();
+function calculationFields(field) {
+    if (!isPreviewMode) return;
+
+    var builderId = $(field).closest('[id^="builder_"]').attr('id');
+
+    $.each(currentBuilder, function(index, builder) {
+        if (builder.getId() == builderId) {
+            for (var key in builder.getTypes()) {
+                var type = builder.getTypes()[key];
+                if (type.getType() == 'calculation') {
+                    type.calc();
+                }
+            }
+
+            return;
         }
-    }
+    });
 }
 
 /**
@@ -110,6 +126,7 @@ function calculationFields() {
  * Handle form editor.
  */
 function handleEditor() {
+    if (isPreviewMode) return;
 
     $('#accordion-actions').accordion({
         header: '.accordion-bar'
@@ -130,7 +147,7 @@ function handleEditor() {
 
     $('.form-action-info').on('click', function () {
         // ignore on saving
-        if (saving) return;
+        if (isSavingMode) return;
 
         // get form type
         var elem = currentBuilder.getType('form');
@@ -224,7 +241,7 @@ function handleEditor() {
 
     $('.form-action-type').on('click', function () {
         // ignore on saving
-        if (saving) return;
+        if (isSavingMode) return;
 
         var type = $(this).data('type');
         var elem = eval('new FormBuilder.' + type.charAt(0).toUpperCase() + type.slice(1) + 'Type()');
@@ -251,7 +268,7 @@ function handleEditor() {
 
     $('.form-saved-type').on('click', function () {
         // ignore on saving
-        if (saving) return;
+        if (isSavingMode) return;
 
         // ignore if already been added to form
         if (currentBuilder.getType($(this).data('name'))) return;
@@ -334,6 +351,8 @@ function handleEditor() {
  * Reset list rules and actions.
  */
 function resetListRules() {
+    if (isPreviewMode) return;
+
     // break on preview
     if ($('#form-preview').length) return false;
 
@@ -349,7 +368,7 @@ function resetListRules() {
         })
         .on('click', function (event) {
             // ignore on saving
-            if (saving) return;
+            if (isSavingMode) return;
 
             $('.form-line').removeClass('form-question-selected').removeClass('form-question-over');
             $(this).addClass('form-question-selected');
@@ -478,6 +497,8 @@ function resetListRules() {
  *                                     (Will be used when editing form type properties)
  */
 function reRenderItem(elem, fieldName) {
+    if (isPreviewMode) return;
+
     // re-render
     elem.reRender(null, fieldName);
     // reset rules
@@ -492,5 +513,7 @@ function reRenderItem(elem, fieldName) {
  * @param {FormBuilder.Type} elem A form type instance
  */
 function focusItem(elem) {
+    if (isPreviewMode) return;
+
     $('#' + currentBuilder.getId() + ' #' + elem.getFieldName()).trigger('click');
 };
