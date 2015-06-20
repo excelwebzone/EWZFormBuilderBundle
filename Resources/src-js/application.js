@@ -461,6 +461,7 @@ function resetListRules() {
 
                     case 'textbox':
                     case 'number':
+                    case 'calculation':
                         data.fields.push(t.getFieldName());
                         break;
 
