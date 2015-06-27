@@ -143,22 +143,22 @@ FormBuilder.MatrixType = FormBuilder.Type.extend({
 
                 switch (this.getProperty('inputType').value) {
                     case 'Radio Button':
-                        input = '<input class="form-radio" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' type="radio" name="' + qname + '[' + ri + ']" value="' + mcol + '" ' + (defaultValue && defaultValue[ri] == mcol ? 'checked="checked"' : '') + ' />';
+                        input = '<input class="form-radio" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' type="radio" name="' + qname + '[' + ri + ']" value="' + mcol + '" ' + (defaultValue && defaultValue[ri] && defaultValue[ri] == mcol ? 'checked="checked"' : '') + ' />';
                         break;
 
                     case 'Check Box':
-                        input = '<input class="form-checkbox" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' type="checkbox" name="' + qname + '[' + ri + '][]" value="' + mcol + '" ' + (defaultValue && defaultValue[ri] == mcol ? 'checked="checked"' : '') + ' />';
+                        input = '<input class="form-checkbox" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' type="checkbox" name="' + qname + '[' + ri + '][]" value="' + mcol + '" ' + (defaultValue && defaultValue[ri] && defaultValue[ri] == mcol ? 'checked="checked"' : '') + ' />';
                         break;
 
                     case 'Text Box':
-                        input = '<input class="form-textbox" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' type="text" size="5" name="' + qname + '[' + ri + '][]" ' + (defaultValue && defaultValue[ri][j] ? 'value="' + defaultValue[ri][j] + '"' : '') + ' />';
+                        input = '<input class="form-textbox" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' type="text" size="5" name="' + qname + '[' + ri + '][]" ' + (defaultValue && defaultValue[ri] && defaultValue[ri][j] && defaultValue[ri][j] ? 'value="' + defaultValue[ri][j] + '"' : '') + ' />';
                         break;
 
                     case 'Drop Down':
                         var dp = this.getProperty('dropdown').value.split('|');
                         var options = '<option></option>';
                         for (var dpd = 0; dpd < dp.length; dpd++) {
-                            options += '<option value="' + Utils.escapeValue(dp[dpd]) + '" ' + (defaultValue && defaultValue[ri][j] == dp[dpd] ? 'selected="selected"' : '') + '>' + dp[dpd] + '</option>';
+                            options += '<option value="' + Utils.escapeValue(dp[dpd]) + '" ' + (defaultValue && defaultValue[ri] && defaultValue[ri][j] && defaultValue[ri][j] == dp[dpd] ? 'selected="selected"' : '') + '>' + dp[dpd] + '</option>';
                         }
 
                         input = '<select class="form-dropdown" ' + (this.getProperty('required').value == 'Yes' ? 'required="required"' : '') + ' name="' + qname + '[' + ri + '][]">' + options + '</select>';
