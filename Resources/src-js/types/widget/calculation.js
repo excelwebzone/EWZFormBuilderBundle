@@ -48,6 +48,11 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
             formula: {
                 hidden: true,
                 value: ''
+            },
+            injectJS: {
+                text: 'Inject Custom JS',
+                value: '',
+                textarea: true
             }
         };
 
@@ -91,8 +96,13 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
 
         try {
             value = eval(formula.join(''));
+
+            var injectJS = this.getProperty('injectJS');
+            if (injectJS) {
+                eval('function(value) {' + injectJS.replace(/\n/g, '') + '}()(' + value + ')');
+            }
         } catch (e) {
-            value = 'NaN';
+            value = '0';
         }
         this.getFieldElement().val(value);
     },

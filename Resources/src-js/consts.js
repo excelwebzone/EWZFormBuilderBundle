@@ -67,6 +67,10 @@ Consts.tips = {
         title: 'Inject Custom CSS',
         tip: '<br>' + 'Add your own CSS code to your form. You can change every aspect of the form by using CSS codes. For example:' + '<br><pre><code>.form-line-active {\n  background:lightblue;\n  color:#000000;\n}\n</code></pre>' + 'will change the selected line\'s background color on the live form.' + '<br><br>' + 'Using Firebug or similar tools will help you identify class names and defined styles.'
     },
+    injectJS: {
+        title: 'Inject Custom JS',
+        tip: '<br>' + 'Add your own JS code to your calculation field. This code will run right after the value has calculated.'
+    },
     inputType: {
         title: 'Input Type',
         tip: 'Define input method for matrix'
