@@ -1,10 +1,6 @@
 {% set builderId = 'builder_' ~ random() %}
 
 <div id="{{ builderId }}">
-    {% if form.getAttribute('injectCSS') %}
-        <style type="text/css">{{ form.getAttribute('injectCSS') }}</style>
-    {% endif %}
-
     {% if preview is not defined or not preview %}
         <div id="props-dialog-form" title="{{ 'dialog.properties'|trans }}"></div>
     {% endif %}

@@ -102,9 +102,26 @@ FormBuilder.FormType = FormBuilder.Type.extend({
      * @inheritDoc
      */
     render: function(data) {
-        // update layout
-        $('.form-list').css('width', this.getProperty('formWidth').value + 'px !important');
-        $('[class*="form-label-"]').css('width', this.getProperty('labelWidth').value + 'px !important');
+        // update css rules
+        var containerId = this.getBuilder().getId();
+        var containerName = 'formInjectCSSContainer' + containerId;
+        var container = $('#' + containerName);
+        if (!container.length) {
+            container = $('<style></style>').appendTo('head').attr({
+                media: 'all',
+                id: containerName,
+                type: 'text/css'
+            });
+        }
+        container.text(
+            '#' + containerId + ' .form-list {' +
+               'width: ' +  this.getProperty('formWidth').value + 'px;' +
+            '}' +
+            '#' + containerId + ' [class*="form-label-"] {' +
+               'width: ' +  this.getProperty('labelWidth').value + 'px;' +
+            '}' +
+            this.getProperty('injectCSS').value
+        );
 
         return this._super({
             id    : this.getFieldName(),
