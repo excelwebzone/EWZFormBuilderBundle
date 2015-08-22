@@ -49,6 +49,7 @@ class FormController extends Controller
         $form->setAttributes(array(
             'formWidth'  => $formProperties->formWidth,
             'labelWidth' => $formProperties->labelWidth,
+            'injectCSS' => $formProperties->injectCSS,
         ));
 
         // is default?

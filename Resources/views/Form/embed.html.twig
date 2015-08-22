@@ -32,7 +32,8 @@
                     width: {{ form.getAttribute('width')|default(691) }},
                     labelWidth: {{ form.getAttribute('labelWidth')|default(150) }},
                     isDefault: '{{ form.isDefaultFlag() ? 'Yes' : 'No' }}',
-                    isTable: '{{ form.isTableFlag() ? 'Yes' : 'No' }}'
+                    isTable: '{{ form.isTableFlag() ? 'Yes' : 'No' }}',
+                    injectCSS: {{ form.getAttribute('injectCSS') }}
                 },
                 fields: {
                     {% for field in form.getFields() %}
