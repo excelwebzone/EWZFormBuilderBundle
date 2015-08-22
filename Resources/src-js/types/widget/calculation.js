@@ -97,13 +97,19 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
         try {
             value = eval(formula.join(''));
 
-            var injectJS = this.getProperty('injectJS');
-            if (injectJS) {
-                eval('function(obj){' + injectJS.replace(/\n/g, '') + '}(' + this.getFieldElement() + ')');
-            }
+            var evaliInjectJS = function (obj) {
+                var injectJS = obj.getProperty('injectJS').value;
+                if (injectJS) {
+                    var obj = obj.getFieldElement();
+                    eval(injectJS.replace(/\n/g, ''));
+                }
+            };
+            evaliInjectJS(this);
         } catch (e) {
+            console.log(e);
             value = '0';
         }
+
         this.getFieldElement().val(value);
     },
 
