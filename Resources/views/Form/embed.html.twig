@@ -33,7 +33,7 @@
                     labelWidth: {{ form.getAttribute('labelWidth')|default(150) }},
                     isDefault: '{{ form.isDefaultFlag() ? 'Yes' : 'No' }}',
                     isTable: '{{ form.isTableFlag() ? 'Yes' : 'No' }}',
-                    injectCSS: "{{ form.getAttribute('injectCSS') }}"
+                    injectCSS: "{{ form.getAttribute('injectCSS')|replace({"\n": '" + "\n" + "'}) }}"
                 },
                 fields: {
                     {% for field in form.getFields() %}
