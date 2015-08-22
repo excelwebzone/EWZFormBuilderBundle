@@ -99,7 +99,7 @@ FormBuilder.CalculationType = FormBuilder.Type.extend({
 
             var injectJS = this.getProperty('injectJS');
             if (injectJS) {
-                eval('function(value) {' + injectJS.replace(/\n/g, '') + '}()(' + value + ')');
+                eval('function(value){' + injectJS.replace(/\n/g, '') + '}()(' + value + ')');
             }
         } catch (e) {
             value = '0';
